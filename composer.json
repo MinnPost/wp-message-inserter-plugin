@@ -1,0 +1,25 @@
+{
+    "name": "minnpost/wp-message-inserter-plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "MinnPost",
+            "email": "tech@minnpost.com"
+        }
+    ],
+    "require": {
+        "webdevstudios/cmb2": "^2.4.2"
+    },
+    "autoload"    : {
+      "files": [
+        "vendor/webdevstudios/cmb2/init.php"
+      ]
+    },
+    "extra": {
+      "installer-paths": {
+        "vendor/webdevstudios/cmb2": ["webdevstudios/cmb2"]
+      }
+    },
+    "minimum-stability": "dev"
+}
