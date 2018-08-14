@@ -1,0 +1,53 @@
+{
+  "name": "wp-message-inserter-plugin",
+  "version": "0.0.1",
+  "description": "Inserts site messaging into WordPress layouts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinnPost/wp-message-inserter-plugin.git"
+  },
+  "author": "MinnPost",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/MinnPost/wp-message-inserter-plugin/issues"
+  },
+  "homepage": "https://github.com/MinnPost/wp-message-inserter-plugin#readme",
+  "dependencies": {
+    "autoprefixer": "^9.1.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "browser-sync": "^2.24.6",
+    "css-mqpacker": "^7.0.0",
+    "del": "^3.0.0",
+    "eslint-config-wordpress": "^2.0.0",
+    "glob": "~7",
+    "gulp": "~3",
+    "gulp-babel": "~7",
+    "gulp-cheerio": "~0",
+    "gulp-concat": "~2",
+    "gulp-css-globbing": "^0.2.2",
+    "gulp-csslint": "^1.0.1",
+    "gulp-cssnano": "~2",
+    "gulp-eslint": "^5.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-notify": "~3",
+    "gulp-plumber": "~1",
+    "gulp-postcss": "~8",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "~4",
+    "gulp-sass-lint": "^1.4.0",
+    "gulp-sort": "~2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-svgmin": "~1",
+    "gulp-svgstore": "~6",
+    "gulp-uglify": "^3.0.1",
+    "gulp-util": "~3",
+    "gulp-wp-pot": "^2.3.2",
+    "npm": "^6.3.0",
+    "npm-check-updates": "^2.14.2",
+    "webpack": "^4.16.5"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
