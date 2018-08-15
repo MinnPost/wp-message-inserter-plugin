@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbac0076310455887dd59309b2fad993",
+    "content-hash": "2ee528b05dd8404bbf17dac30e0b89d0",
     "packages": [
+        {
+            "name": "jcchavezs/cmb2-conditionals",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jcchavezs/cmb2-conditionals.git",
+                "reference": "c0ff95d0da03fae78bb44a842e575f38e15c4f82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jcchavezs/cmb2-conditionals/zipball/c0ff95d0da03fae78bb44a842e575f38e15c4f82",
+                "reference": "c0ff95d0da03fae78bb44a842e575f38e15c4f82",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">5.2.4",
+                "webdevstudios/cmb2": "~v2.0"
+            },
+            "suggest": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "José Carlos Chávez",
+                    "email": "jcchavezs@gmail.com",
+                    "homepage": "https://github.com/jcchavezs",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CMB2 Conditionals is a plugin for CMB2 which allows developers to relate fields so one of them could only appear when one other have an specific value or when is not empty.",
+            "homepage": "https://github.com/jcchavezs/cmb2-conditionals",
+            "keywords": [
+                "conditionals",
+                "metabox",
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2017-07-11T19:19:29+00:00"
+        },
         {
             "name": "webdevstudios/cmb2",
             "version": "v2.4.2",
@@ -67,7 +111,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jcchavezs/cmb2-conditionals": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

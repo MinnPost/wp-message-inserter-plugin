@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "webdevstudios/cmb2": "^2.4.2"
+        "webdevstudios/cmb2": "^2.4.2",
+        "jcchavezs/cmb2-conditionals": "dev-master"
     },
     "autoload"    : {
       "files": [
@@ -18,7 +19,8 @@
     },
     "extra": {
       "installer-paths": {
-        "vendor/webdevstudios/cmb2": ["webdevstudios/cmb2"]
+        "vendor/webdevstudios/cmb2": ["webdevstudios/cmb2"],
+        "vendor/jcchavezs/cmb2-conditionals": ["jcchavezs/cmb2-conditionals"]
       }
     },
     "minimum-stability": "dev"
