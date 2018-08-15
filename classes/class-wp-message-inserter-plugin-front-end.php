@@ -15,6 +15,7 @@ if ( ! class_exists( 'WP_Message_Inserter' ) ) {
 class WP_Message_Inserter_Plugin_Front_End {
 
 	protected $option_prefix;
+	protected $post_meta_prefix;
 	protected $version;
 	protected $slug;
 	protected $regions;
@@ -24,19 +25,21 @@ class WP_Message_Inserter_Plugin_Front_End {
 	* Constructor which sets up regions
 	*
 	* @param string $option_prefix
+	* @param string $post_meta_prefix
 	* @param string $version
 	* @param string $slug
 	* @param object $regions
 	* @param object $content_items
 	* @throws \Exception
 	*/
-	public function __construct( $option_prefix, $version, $slug, $regions, $content_items ) {
+	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug, $regions, $content_items ) {
 
-		$this->option_prefix = $option_prefix;
-		$this->version       = $version;
-		$this->slug          = $slug;
-		$this->regions       = $regions;
-		$this->content_items = $content_items;
+		$this->option_prefix    = $option_prefix;
+		$this->post_meta_prefix = $post_meta_prefix;
+		$this->version          = $version;
+		$this->slug             = $slug;
+		$this->regions          = $regions;
+		$this->content_items    = $content_items;
 
 		$this->add_actions();
 

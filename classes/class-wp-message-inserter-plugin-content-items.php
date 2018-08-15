@@ -15,6 +15,7 @@ if ( ! class_exists( 'WP_Message_Inserter' ) ) {
 class WP_Message_Inserter_Plugin_Content_Items {
 
 	protected $option_prefix;
+	protected $post_meta_prefix;
 	protected $version;
 	protected $slug;
 	protected $regions;
@@ -23,17 +24,19 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	* Constructor which sets up content items
 	*
 	* @param string $option_prefix
+	* @param string $post_meta_prefix
 	* @param string $version
 	* @param string $slug
 	* @param object $regions
 	* @throws \Exception
 	*/
-	public function __construct( $option_prefix, $version, $slug, $regions ) {
+	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug, $regions ) {
 
-		$this->option_prefix = $option_prefix;
-		$this->version       = $version;
-		$this->slug          = $slug;
-		$this->regions       = $regions;
+		$this->option_prefix    = $option_prefix;
+		$this->post_meta_prefix = $post_meta_prefix;
+		$this->version          = $version;
+		$this->slug             = $slug;
+		$this->regions          = $regions;
 
 		$this->add_actions();
 
@@ -45,8 +48,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	*/
 	public function add_actions() {
 		add_action( 'init', array( $this, 'create_message' ), 0 );
-		add_action( 'admin_menu', array( $this, 'create_sub_menus' ), 20 );
-		add_action( 'admin_menu', array( $this, 'remove_message_fields' ) );
 		add_action( 'cmb2_init', array( $this, 'create_message_fields' ) );
 	}
 
@@ -59,7 +60,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$labels = array(
 			'name'                  => _x( 'Messages', 'Post Type General Name', 'wp-message-inserter-plugin' ),
 			'singular_name'         => _x( 'Message', 'Post Type Singular Name', 'wp-message-inserter-plugin' ),
-			'menu_name'             => __( 'Messages', 'wp-message-inserter-plugin' ),
+			'menu_name'             => __( 'Site Messages', 'wp-message-inserter-plugin' ),
 			'name_admin_bar'        => __( 'Message', 'wp-message-inserter-plugin' ),
 			'archives'              => __( 'Message Archives', 'wp-message-inserter-plugin' ),
 			'attributes'            => __( 'Message Attributes', 'wp-message-inserter-plugin' ),
@@ -89,11 +90,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'label'               => 'Message',
 			'description'         => 'A site message.',
 			'labels'              => $labels,
-			'supports'            => array( 'title', 'revisions' ),
+			'supports'            => array( 'title', 'revisions', 'page-attributes' ),
 			'hierarchical'        => true,
 			'public'              => true,
 			'show_ui'             => true,
-			'show_in_menu'        => false,
+			'show_in_menu'        => true,
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
@@ -101,27 +102,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'exclude_from_search' => true,
 			'publicly_queryable'  => true,
 			'capability_type'     => 'page',
+			'menu_icon'           => 'dashicons-welcome-view-site',
 		);
 		register_post_type( 'message', $args );
-	}
-
-	/**
-	* Create submenus for content
-	*
-	*/
-	public function create_sub_menus() {
-		$message    = 'edit.php?post_type=message';
-		$capability = 'manage_options';
-		add_submenu_page( $this->slug, 'Messages', 'Messages', $capability, $message );
-	}
-
-	/**
-	* Remove unneeded default message fields
-	*
-	*/
-	public function remove_message_fields() {
-		$object_type = 'message';
-		remove_meta_box( 'pageparentdiv', $object_type, 'normal' );
 	}
 
 	/**
@@ -130,7 +113,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	*/
 	public function create_message_fields() {
 		$object_type = 'message';
-		$prefix      = '_wp_inserted_message_';
+		$prefix      = $this->post_meta_prefix;
 
 		$screen_size_box = new_cmb2_box( array(
 			'id'           => $prefix . 'all_screen_sizes',

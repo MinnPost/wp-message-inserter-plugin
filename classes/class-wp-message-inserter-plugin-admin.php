@@ -15,6 +15,7 @@ if ( ! class_exists( 'WP_Message_Inserter' ) ) {
 class WP_Message_Inserter_Plugin_Admin {
 
 	protected $option_prefix;
+	protected $post_meta_prefix;
 	protected $version;
 	protected $slug;
 	protected $content_items;
@@ -23,17 +24,19 @@ class WP_Message_Inserter_Plugin_Admin {
 	* Constructor which sets up admin pages
 	*
 	* @param string $option_prefix
+	* @param string $post_meta_prefix
 	* @param string $version
 	* @param string $slug
 	* @param object $content_items
 	* @throws \Exception
 	*/
-	public function __construct( $option_prefix, $version, $slug, $content_items ) {
+	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug, $content_items ) {
 
-		$this->option_prefix = $option_prefix;
-		$this->version       = $version;
-		$this->slug          = $slug;
-		$this->content_items = $content_items;
+		$this->option_prefix    = $option_prefix;
+		$this->post_meta_prefix = $post_meta_prefix;
+		$this->version          = $version;
+		$this->slug             = $slug;
+		$this->content_items    = $content_items;
 
 		$this->pages = $this->get_admin_pages();
 
@@ -70,10 +73,9 @@ class WP_Message_Inserter_Plugin_Admin {
 	public function create_admin_menu() {
 		//$capability = 'manage_wp_message_inserter_options';
 		$capability = 'manage_options';
-		add_menu_page( __( 'Site Messaging', 'wp-message-inserter-plugin' ), __( 'Site Messaging', 'wp-message-inserter-plugin' ), $capability, $this->slug, array( $this, 'show_admin_page' ) );
-		$pages = $this->get_admin_pages();
+		$pages      = $this->get_admin_pages();
 		foreach ( $pages as $key => $value ) {
-			add_submenu_page( $this->slug, $value['title'], $value['title'], $capability, $key, array( $this, 'show_admin_page' ) );
+			add_submenu_page( 'edit.php?post_type=message', $value['title'], $value['title'], $capability, $key, array( $this, 'show_admin_page' ) );
 		}
 		// Remove the default page because that's annoying
 		remove_submenu_page( $this->slug, $this->slug );
