@@ -32,21 +32,27 @@ class WP_Message_Inserter {
 
 	/**
 	* @var object
-	* Load and initialize the WP_Message_Inserter_Content_Items class
+	* Load and initialize the WP_Message_Inserter_Plugin_Regions class
 	*/
-	//public $content_items;
+	public $regions;
 
 	/**
 	* @var object
-	* Load and initialize the WP_Message_Inserter_Admin class
+	* Load and initialize the WP_Message_Inserter_Plugin_Content_Items class
+	*/
+	public $content_items;
+
+	/**
+	* @var object
+	* Load and initialize the WP_Message_Inserter_Plugin_Admin class
 	*/
 	public $admin;
 
 	/**
 	* @var object
-	* Load and initialize the WP_Message_Inserter_Front_End class
+	* Load and initialize the WP_Message_Inserter_Plugin_Front_End class
 	*/
-	//public $front_end;
+	public $front_end;
 
 	/**
 	 * @var object
@@ -111,7 +117,7 @@ class WP_Message_Inserter {
 	 */
 	public function content_items() {
 		require_once( plugin_dir_path( __FILE__ ) . 'classes/class-' . $this->slug . '-content-items.php' );
-		$content_items = new WP_Message_Inserter_Content_Items( $this->option_prefix, $this->version, $this->slug );
+		$content_items = new WP_Message_Inserter_Plugin_Content_Items( $this->option_prefix, $this->version, $this->slug, $this->regions );
 		return $content_items;
 	}
 
@@ -122,7 +128,7 @@ class WP_Message_Inserter {
 	 */
 	public function admin() {
 		require_once( plugin_dir_path( __FILE__ ) . 'classes/class-' . $this->slug . '-admin.php' );
-		$admin = new WP_Message_Inserter_Admin( $this->option_prefix, $this->version, $this->slug, $this->content_items );
+		$admin = new WP_Message_Inserter_Plugin_Admin( $this->option_prefix, $this->version, $this->slug, $this->content_items );
 		add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 		return $admin;
 	}
@@ -134,7 +140,7 @@ class WP_Message_Inserter {
 	 */
 	public function front_end() {
 		require_once( plugin_dir_path( __FILE__ ) . 'classes/class-' . $this->slug . '-front-end.php' );
-		$front_end = new WP_Message_Inserter_Front_End( $this->option_prefix, $this->version, $this->slug, $this->content_items );
+		$front_end = new WP_Message_Inserter_Plugin_Front_End( $this->option_prefix, $this->version, $this->slug, $this->regions, $this->content_items );
 		return $front_end;
 	}
 

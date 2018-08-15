@@ -1,6 +1,6 @@
 <?php
 /**
- * Class file for the WP_Message_Inserter_Content_Items class.
+ * Class file for the WP_Message_Inserter_Plugin_Content_Items class.
  *
  * @file
  */
@@ -12,7 +12,7 @@ if ( ! class_exists( 'WP_Message_Inserter' ) ) {
 /**
  * Create default structure for content items
  */
-class WP_Message_Inserter_Content_Items {
+class WP_Message_Inserter_Plugin_Content_Items {
 
 	protected $option_prefix;
 	protected $version;
