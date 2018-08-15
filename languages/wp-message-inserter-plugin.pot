@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wp-message-inserter-plugin.php:160, classes/class-wp-message-inserter-plugin-admin.php:91
+#: wp-message-inserter-plugin.php:177, classes/class-wp-message-inserter-plugin-admin.php:91
 msgid "Settings"
 msgstr ""
 
@@ -21,132 +21,140 @@ msgstr ""
 msgid "Site Messaging"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:57
+#: classes/class-wp-message-inserter-plugin-content-items.php:60
 msgctxt "Post Type General Name"
 msgid "Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:58
+#: classes/class-wp-message-inserter-plugin-content-items.php:61
 msgctxt "Post Type Singular Name"
 msgid "Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:59
+#: classes/class-wp-message-inserter-plugin-content-items.php:62
 msgid "Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:60
+#: classes/class-wp-message-inserter-plugin-content-items.php:63
 msgid "Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:61
+#: classes/class-wp-message-inserter-plugin-content-items.php:64
 msgid "Message Archives"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:62
+#: classes/class-wp-message-inserter-plugin-content-items.php:65
 msgid "Message Attributes"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:63
+#: classes/class-wp-message-inserter-plugin-content-items.php:66
 msgid "Parent Message:"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:64
+#: classes/class-wp-message-inserter-plugin-content-items.php:67
 msgid "All Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:65
+#: classes/class-wp-message-inserter-plugin-content-items.php:68
 msgid "Add New Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:66
+#: classes/class-wp-message-inserter-plugin-content-items.php:69
 msgid "Add New"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:67
+#: classes/class-wp-message-inserter-plugin-content-items.php:70
 msgid "New Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:68
+#: classes/class-wp-message-inserter-plugin-content-items.php:71
 msgid "Edit Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:69
+#: classes/class-wp-message-inserter-plugin-content-items.php:72
 msgid "Update Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:70
+#: classes/class-wp-message-inserter-plugin-content-items.php:73
 msgid "View Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:71
+#: classes/class-wp-message-inserter-plugin-content-items.php:74
 msgid "View Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:72
+#: classes/class-wp-message-inserter-plugin-content-items.php:75
 msgid "Search Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:73
+#: classes/class-wp-message-inserter-plugin-content-items.php:76
 msgid "Not found"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:74
+#: classes/class-wp-message-inserter-plugin-content-items.php:77
 msgid "Not found in Trash"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:75
+#: classes/class-wp-message-inserter-plugin-content-items.php:78
 msgid "Featured Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:76
+#: classes/class-wp-message-inserter-plugin-content-items.php:79
 msgid "Set featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:77
+#: classes/class-wp-message-inserter-plugin-content-items.php:80
 msgid "Remove featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:78
+#: classes/class-wp-message-inserter-plugin-content-items.php:81
 msgid "Use as featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:79
+#: classes/class-wp-message-inserter-plugin-content-items.php:82
 msgid "Insert into message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:80
+#: classes/class-wp-message-inserter-plugin-content-items.php:83
 msgid "Uploaded to this message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:81
+#: classes/class-wp-message-inserter-plugin-content-items.php:84
 msgid "Messages list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:82
+#: classes/class-wp-message-inserter-plugin-content-items.php:85
 msgid "Messages list navigation"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:83
+#: classes/class-wp-message-inserter-plugin-content-items.php:86
 msgid "Filter message list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:146
+#: classes/class-wp-message-inserter-plugin-content-items.php:150
 msgid "Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:147
+#: classes/class-wp-message-inserter-plugin-content-items.php:151
 msgid "Editor"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:158
+#: classes/class-wp-message-inserter-plugin-content-items.php:195
+msgid "True"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:196
+msgid "False"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:210
 msgid "Screen size {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:159
+#: classes/class-wp-message-inserter-plugin-content-items.php:211
 msgid "Add Another Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:160
+#: classes/class-wp-message-inserter-plugin-content-items.php:212
 msgid "Remove Screen Size"
 msgstr ""
