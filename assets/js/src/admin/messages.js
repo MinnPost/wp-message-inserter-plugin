@@ -44,5 +44,8 @@
 		setupMessage();
 	});
 
+	if ( jQuery.fn.select2 ) {
+		$( '.cmb2-insertable-message select' ).select2();
+	}
 
 })(jQuery);

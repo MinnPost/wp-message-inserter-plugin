@@ -1,6 +1,6 @@
 <?php
 /**
- * Class file for the WP_Message_Inserter_Admin class.
+ * Class file for the WP_Message_Inserter_Plugin_Admin class.
  *
  * @file
  */
@@ -12,7 +12,7 @@ if ( ! class_exists( 'WP_Message_Inserter' ) ) {
 /**
  * Create default WordPress admin functionality to configure the plugin.
  */
-class WP_Message_Inserter_Admin {
+class WP_Message_Inserter_Plugin_Admin {
 
 	protected $option_prefix;
 	protected $version;
@@ -269,9 +269,35 @@ class WP_Message_Inserter_Admin {
 	* @return void
 	*/
 	public function admin_scripts_and_styles() {
-		//wp_enqueue_script( $this->slug . '-front-end', plugins_url( '../assets/js/' . $this->slug . '-front-end.min.js', __FILE__ ), array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->slug . '-admin', plugins_url( '../assets/js/' . $this->slug . '-admin.min.js', __FILE__ ), array( 'jquery' ), $this->version, true );
 		//wp_enqueue_style( $this->slug . '-admin', plugins_url( '../assets/css/' . $this->slug . '-admin.min.css', __FILE__ ), array(), $this->version, 'all' );
+
+		// I think some developers might not want to bother with select2 or selectwoo, so let's allow that to be changeable
+		$select_library = apply_filters( 'wp_message_inserter_plugin_select_library', 'selectwoo' );
+
+		/*
+		 * example to modify the select library
+		 * add_filter( 'wp_message_inserter_plugin_select_library', 'select_library', 10, 1 );
+		 * function select_library( $select_library ) {
+		 * 	$select_library = 'select2';
+		 *  // this could also be empty; in that case we would just use default browser select
+		 * 	return $select_library;
+		 * }
+		*/
+
+		$javascript_dependencies = array( 'jquery' );
+		$css_dependencies        = array();
+		if ( '' !== $select_library ) {
+			wp_enqueue_script( $select_library . 'js', plugins_url( '../assets/js/' . $select_library . '.min.js', __FILE__ ), array( 'jquery' ), $this->version, true );
+			$javascript_dependencies[] = $select_library . 'js';
+
+			wp_enqueue_style( $select_library . 'css', plugins_url( '../assets/css/' . $select_library . '.min.css', __FILE__ ), array(), $this->version, 'all' );
+			$css_dependencies[] = $select_library . 'css';
+		}
+
+		wp_enqueue_script( $this->slug . '-admin', plugins_url( '../assets/js/' . $this->slug . '-admin.min.js', __FILE__ ), $javascript_dependencies, $this->version, true );
+
+		wp_enqueue_style( $this->slug . '-admin', plugins_url( '../assets/css/' . $this->slug . '-admin.min.css', __FILE__ ), $css_dependencies, $this->version, 'all' );
+
 	}
 
 	/**
