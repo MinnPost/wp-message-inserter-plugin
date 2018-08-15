@@ -131,10 +131,23 @@ class WP_Message_Inserter_Content_Items {
 
 		$screen_size_box = new_cmb2_box( array(
 			'id'           => $prefix . 'all_screen_sizes',
-			'title'        => 'Screen size(s)',
+			'title'        => 'Message content',
 			'object_types' => $object_type,
 			'context'      => 'normal',
 			//'priority'     => 'high',
+		) );
+
+		$screen_size_box->add_field( array(
+			'name'    => 'Message type',
+			'id'      => $prefix . 'message_type',
+			'type'    => 'radio_inline',
+			'desc'    => '',
+			'options' => array(
+				'image'  => __( 'Image', 'wp-message-inserter-plugin' ),
+				'editor' => __( 'Editor', 'wp-message-inserter-plugin' ),
+			),
+			'default' => 'image',
+			'classes' => 'cmb2-message-type-selector',
 		) );
 
 		$screen_size_box->add_field( array(
@@ -154,27 +167,23 @@ class WP_Message_Inserter_Content_Items {
 			'name' => 'Minimum width',
 			'id'   => $prefix . 'minimum_width',
 			'type' => 'text_small',
-			'desc' => 'Enter 0 if applicable.',
+			'desc' => '',
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name' => 'Maximum width',
-			'id'   => $prefix . 'maximum_width',
-			'type' => 'text_small',
-			'desc' => 'Enter none if there is no maximum for this screen size.',
-		) );
-
-		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name'    => 'Message type',
-			'id'      => $prefix . 'message_type',
-			'type'    => 'radio_inline',
+			'name'    => 'Maximum width',
+			'id'      => $prefix . 'maximum_width',
+			'type'    => 'text_small',
 			'desc'    => '',
-			'options' => array(
-				'image'  => __( 'Image', 'wp-message-inserter-plugin' ),
-				'editor' => __( 'Editor', 'wp-message-inserter-plugin' ),
-			),
-			'default' => 'image',
-			'classes' => 'cmb2-message-type-selector',
+			'classes' => 'cmb2-maximum-width',
+		) );
+
+		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
+			'name'    => 'No maximum width',
+			'id'      => $prefix . 'no_maximum_width',
+			'type'    => 'checkbox',
+			'desc'    => '',
+			'classes' => 'cmb2-no-maximum-width',
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(

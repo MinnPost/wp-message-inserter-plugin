@@ -131,22 +131,22 @@ msgstr ""
 msgid "Filter message list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:145
-msgid "Screen size {#}"
-msgstr ""
-
 #: classes/class-wp-message-inserter-plugin-content-items.php:146
-msgid "Add Another Screen Size"
-msgstr ""
-
-#: classes/class-wp-message-inserter-plugin-content-items.php:147
-msgid "Remove Screen Size"
-msgstr ""
-
-#: classes/class-wp-message-inserter-plugin-content-items.php:173
 msgid "Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:174
+#: classes/class-wp-message-inserter-plugin-content-items.php:147
 msgid "Editor"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:158
+msgid "Screen size {#}"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:159
+msgid "Add Another Screen Size"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:160
+msgid "Remove Screen Size"
 msgstr ""
