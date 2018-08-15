@@ -131,10 +131,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		$screen_size_box = new_cmb2_box( array(
 			'id'           => $prefix . 'all_screen_sizes',
-			'title'        => 'Message content',
+			'title'        => 'Message',
 			'object_types' => $object_type,
 			'context'      => 'normal',
 			//'priority'     => 'high',
+			'classes'      => 'cmb2-insertable-message',
 		) );
 
 		$screen_size_box->add_field( array(
@@ -148,6 +149,54 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			),
 			'default' => 'image',
 			'classes' => 'cmb2-message-type-selector',
+		) );
+
+		$screen_size_box->add_field( array(
+			'name'             => 'Region',
+			'id'               => $prefix . 'region',
+			'type'             => 'select',
+			'desc'             => 'Where on the site this message will appear.',
+			'show_option_none' => true,
+			'options'          => $this->get_region_options(),
+			'default'          => 'none',
+		) );
+
+		$screen_size_box->add_field( array(
+			'name'             => 'Condition',
+			'id'               => $prefix . 'conditional',
+			'type'             => 'select',
+			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value is None, the region alone will determine display.',
+			'show_option_none' => true,
+			'options'          => $this->get_conditional_options(),
+			'default'          => 'none',
+		) );
+
+		$screen_size_box->add_field( array(
+			'name'       => 'Condition Value',
+			'id'         => $prefix . 'conditional_value',
+			'type'       => 'text',
+			'desc'       => '',
+			'attributes' => array(
+				'required'               => true,
+				'data-conditional-id'    => $prefix . 'conditional',
+				'data-conditional-value' => wp_json_encode( $this->get_conditional_options( true ) ),
+			),
+		) );
+
+		$screen_size_box->add_field( array(
+			'name'       => 'Condition Result',
+			'id'         => $prefix . 'conditional_result',
+			'type'       => 'radio_inline',
+			'desc'       => '',
+			'options'    => array(
+				'true'  => __( 'True', 'wp-message-inserter-plugin' ),
+				'false' => __( 'False', 'wp-message-inserter-plugin' ),
+			),
+			'default'    => 'true',
+			'attributes' => array(
+				'required'            => true,
+				'data-conditional-id' => $prefix . 'conditional',
+			),
 		) );
 
 		$screen_size_box->add_field( array(
@@ -167,14 +216,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'name' => 'Minimum width',
 			'id'   => $prefix . 'minimum_width',
 			'type' => 'text_small',
-			'desc' => '',
+			'desc' => 'px',
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
 			'name'    => 'Maximum width',
 			'id'      => $prefix . 'maximum_width',
 			'type'    => 'text_small',
-			'desc'    => '',
+			'desc'    => 'px',
 			'classes' => 'cmb2-maximum-width',
 		) );
 
@@ -206,6 +255,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
+			'name' => 'Link URL',
+			'id'   => $prefix . 'link_url',
+			'type' => 'text',
+			'desc' => '',
+		) );
+
+		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
 			'name'    => 'Editor',
 			'desc'    => 'Add content for this message',
 			'id'      => $prefix . 'message_editor',
@@ -218,6 +274,317 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'classes' => 'cmb2-message-type cmb2-message-type-editor',
 		) );
 
+	}
+
+	/**
+	* Display regions as <select> options
+	*
+	* @return array $regions
+	*
+	*/
+	private function get_region_options() {
+		$regions = $this->regions->get_regions();
+		return $regions;
+	}
+
+	/**
+	* Display conditionals as <select> options
+	*
+	* @return array $conditionals
+	*
+	*/
+	private function get_conditional_options( $must_have_params = false ) {
+		$conditionals = array(
+			array(
+				'name'       => 'is_front_page',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_home',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_admin_bar_showing',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_single',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_sticky',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_post_type_hierarchical',
+				'has_params' => true,
+				'params'     => array(
+					'post_type',
+				),
+			),
+			array(
+				'name'       => 'is_post_type_archive',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_comments_popup',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'comments_open',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'pings_open',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_page',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_page_template',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_category',
+				'has_params' => true,
+				'params'     => array(
+					'category',
+				),
+			),
+			array(
+				'name'       => 'is_tag',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_tax',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'has_term',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'term_exists',
+				'has_params' => true,
+				'params'     => array(
+					'term',
+					'taxonomy',
+					'parent',
+				),
+			),
+			array(
+				'name'       => 'is_taxonomy_hierarchical',
+				'has_params' => true,
+				'params'     => array(
+					'taxonomy',
+				),
+			),
+			array(
+				'name'       => 'taxonomy_exists',
+				'has_params' => true,
+				'params'     => array(
+					'taxonomy',
+				),
+			),
+			array(
+				'name'       => 'is_author',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_date',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_year',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_month',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_day',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_time',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_new_day',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_archive',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_search',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_404',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_paged',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_attachment',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'wp_attachment_is_image',
+				'has_params' => true,
+				'params'     => array(
+					'post_id',
+				),
+			),
+			array(
+				'name'       => 'is_local_attachment',
+				'has_params' => true,
+				'params'     => array(
+					'url',
+				),
+			),
+			array(
+				'name'       => 'is_singular',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'post_type_exists',
+				'has_params' => true,
+				'params'     => array(
+					'post_type',
+				),
+			),
+			array(
+				'name'       => 'is_main_query',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_new_day',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_feed',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_trackback',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_preview',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'in_the_loop',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_dynamic_sidebar',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_active_sidebar',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_active_widget',
+				'has_params' => true,
+				'params'     => array(
+					'widget_callback',
+					'widget_id',
+				),
+			),
+			array(
+				'name'       => 'is_rtl',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_multisite',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_main_site',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_super_admin',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_user_logged_in',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'email_exists',
+				'has_params' => true,
+				'params'     => array(
+					'email',
+				),
+			),
+			array(
+				'name'       => 'username_exists',
+				'has_params' => true,
+				'params'     => array(
+					'username',
+				),
+			),
+			array(
+				'name'       => 'is_plugin_active',
+				'has_params' => true,
+				'params'     => array(
+					'path',
+				),
+			),
+			array(
+				'name'       => 'is_plugin_inactive',
+				'has_params' => true,
+				'params'     => array(
+					'path',
+				),
+			),
+			array(
+				'name'       => 'is_plugin_active_for_network',
+				'has_params' => true,
+				'params'     => array(
+					'path',
+				),
+			),
+			array(
+				'name'       => 'is_plugin_page',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'is_child_theme',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'current_theme_supports',
+				'has_params' => false,
+			),
+			array(
+				'name'       => 'has_post_thumbnail',
+				'has_params' => true,
+				'params'     => array(
+					'post_id',
+				),
+			),
+		);
+		$options      = array();
+		foreach ( $conditionals as $conditional ) {
+			if ( false === $must_have_params ) {
+				$options[ $conditional['name'] ] = $conditional['name'];
+			} elseif ( true === $must_have_params && true === $conditional['has_params'] ) {
+				array_push( $options, $conditional['name'] );
+			}
+		}
+		return $options;
 	}
 
 	/**
