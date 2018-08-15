@@ -17,6 +17,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	protected $option_prefix;
 	protected $version;
 	protected $slug;
+	protected $regions;
 
 	/**
 	* Constructor which sets up content items
@@ -24,13 +25,15 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	* @param string $option_prefix
 	* @param string $version
 	* @param string $slug
+	* @param object $regions
 	* @throws \Exception
 	*/
-	public function __construct( $option_prefix, $version, $slug ) {
+	public function __construct( $option_prefix, $version, $slug, $regions ) {
 
 		$this->option_prefix = $option_prefix;
 		$this->version       = $version;
 		$this->slug          = $slug;
+		$this->regions       = $regions;
 
 		$this->add_actions();
 

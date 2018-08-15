@@ -88,8 +88,8 @@ class WP_Message_Inserter {
 
 		// wp cache settings
 		//$this->cache = $this->cache();
-		// staf data
-		//$this->data = $this->data();
+		// regions
+		$this->regions = $this->regions();
 		// content items
 		$this->content_items = $this->content_items();
 		// admin settings
@@ -108,6 +108,17 @@ class WP_Message_Inserter {
 	private function add_actions() {
 		add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
 		//register_activation_hook( __FILE__, array( $this, 'add_roles_capabilities' ) );
+	}
+
+	/**
+	 * Plugin regions
+	 *
+	 * @return object $regions
+	 */
+	public function regions() {
+		require_once( plugin_dir_path( __FILE__ ) . 'classes/class-' . $this->slug . '-regions.php' );
+		$regions = new WP_Message_Inserter_Plugin_Regions( $this->option_prefix, $this->version, $this->slug );
+		return $regions;
 	}
 
 	/**
