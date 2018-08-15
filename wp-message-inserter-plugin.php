@@ -95,7 +95,7 @@ class WP_Message_Inserter {
 		// admin settings
 		$this->admin = $this->admin();
 		// front end settings
-		//$this->front_end = $this->front_end();
+		$this->front_end = $this->front_end();
 
 		$this->add_actions();
 
