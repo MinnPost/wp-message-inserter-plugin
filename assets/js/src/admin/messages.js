@@ -36,6 +36,8 @@
 	}
 
 	$( document ).ready( function() {
+  		$( '#pageparentdiv label[for=parent_id]' ).parents( 'p' ).eq(0).remove();
+  		$( '#pageparentdiv select#parent_id' ).remove();
 		setupMessage();
 	});
 
