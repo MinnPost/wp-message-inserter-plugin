@@ -50,8 +50,9 @@ class WP_Message_Inserter_Plugin_Admin {
 	*/
 	public function add_actions() {
 		if ( is_admin() ) {
-			add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
-			add_action( 'admin_init', array( $this, 'admin_settings_form' ) );
+			// for now, we don't need any settings.
+			//add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
+			//add_action( 'admin_init', array( $this, 'admin_settings_form' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_and_styles' ) );
 		}
 
