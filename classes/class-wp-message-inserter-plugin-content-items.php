@@ -126,16 +126,19 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		) );
 
 		$screen_size_box->add_field( array(
-			'name'    => 'Message type',
-			'id'      => $prefix . 'message_type',
-			'type'    => 'radio_inline',
-			'desc'    => '',
-			'options' => array(
+			'name'       => 'Message type',
+			'id'         => $prefix . 'message_type',
+			'type'       => 'radio_inline',
+			'desc'       => '',
+			'options'    => array(
 				'image'  => __( 'Image', 'wp-message-inserter-plugin' ),
 				'editor' => __( 'Editor', 'wp-message-inserter-plugin' ),
 			),
-			'default' => 'image',
-			'classes' => 'cmb2-message-type-selector',
+			'default'    => 'image',
+			'classes'    => 'cmb2-message-type-selector',
+			'attributes' => array(
+				'required' => true,
+			),
 		) );
 
 		$screen_size_box->add_field( array(
@@ -155,9 +158,12 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'id'               => $prefix . 'region',
 			'type'             => 'select',
 			'desc'             => 'Where on the site this message will appear.',
-			'show_option_none' => true,
+			'show_option_none' => false,
 			'options'          => $this->get_region_options(),
 			'default'          => 'none',
+			'attributes'       => array(
+				'required' => true,
+			),
 		) );
 
 		$screen_size_box->add_field( array(
@@ -168,6 +174,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'show_option_none' => true,
 			'options'          => $this->get_conditional_options(),
 			'default'          => 'none',
+			'attributes'       => array(
+				'required' => false,
+			),
 		) );
 
 		$screen_size_box->add_field( array(
@@ -212,26 +221,35 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name' => 'Minimum width',
-			'id'   => $prefix . 'minimum_width',
-			'type' => 'text_small',
-			'desc' => 'px',
+			'name'       => 'Minimum width',
+			'id'         => $prefix . 'minimum_width',
+			'type'       => 'text_small',
+			'desc'       => 'px',
+			'attributes' => array(
+				'required' => true,
+			),
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name'    => 'Maximum width',
-			'id'      => $prefix . 'maximum_width',
-			'type'    => 'text_small',
-			'desc'    => 'px',
-			'classes' => 'cmb2-maximum-width',
+			'name'       => 'Maximum width',
+			'id'         => $prefix . 'maximum_width',
+			'type'       => 'text_small',
+			'desc'       => 'px',
+			'classes'    => 'cmb2-maximum-width',
+			'attributes' => array(
+				'required' => false,
+			),
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name'    => 'No maximum width',
-			'id'      => $prefix . 'no_maximum_width',
-			'type'    => 'checkbox',
-			'desc'    => '',
-			'classes' => 'cmb2-no-maximum-width',
+			'name'       => 'No maximum width',
+			'id'         => $prefix . 'no_maximum_width',
+			'type'       => 'checkbox',
+			'desc'       => '',
+			'classes'    => 'cmb2-no-maximum-width',
+			'attributes' => array(
+				'required' => false,
+			),
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
@@ -251,19 +269,25 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type' => 'image',
 			),
 			'classes'      => 'cmb2-message-type cmb2-message-type-image',
+			'attributes'   => array(
+				'required' => false,
+			),
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name'    => 'Editor',
-			'desc'    => 'Add content for this message',
-			'id'      => $prefix . 'message_editor',
-			'type'    => 'wysiwyg',
-			'options' => array(
+			'name'       => 'Editor',
+			'desc'       => 'Add content for this message',
+			'id'         => $prefix . 'message_editor',
+			'type'       => 'wysiwyg',
+			'options'    => array(
 				'media_buttons' => false, // show insert/upload button(s)
 				'textarea_rows' => 5,
 				'teeny'         => true, // output the minimal editor config used in Press This
 			),
-			'classes' => 'cmb2-message-type cmb2-message-type-editor',
+			'classes'    => 'cmb2-message-type cmb2-message-type-editor',
+			'attributes' => array(
+				'required' => false,
+			),
 		) );
 
 	}
