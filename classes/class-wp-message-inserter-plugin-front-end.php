@@ -59,7 +59,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*
 	*/
 	public function insert_message( $region ) {
-		$message = $this->get_message( $region );
+		$message = $this->get_eligible_message( $region );
 		if ( ! empty( $message ) ) {
 			$params['message'] = $message;
 			echo $this->get_template_html( 'message', $region, 'front-end', $params );
@@ -72,7 +72,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	* @return array $post
 	*
 	*/
-	private function get_message( $region ) {
+	private function get_eligible_message( $region ) {
 		$post               = array();
 		$conditionals       = $this->content_items->get_conditionals();
 		$true_conditionals  = array();
