@@ -61,7 +61,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 	public function insert_message( $region ) {
 		$message = $this->get_eligible_message( $region );
 		if ( ! empty( $message ) ) {
-			$params['message'] = $message;
+			$params['meta_prefix'] = $this->post_meta_prefix;
+			$params['message']     = array_merge( $message, $message['meta'] );
 			echo $this->get_template_html( 'message', $region, 'front-end', $params );
 		}
 	}
@@ -105,21 +106,25 @@ class WP_Message_Inserter_Plugin_Front_End {
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				$conditional        = get_post_meta( get_the_ID(), $this->post_meta_prefix . 'conditional', true );
-				$conditional_value  = get_post_meta( get_the_ID(), $this->post_meta_prefix . 'conditional_value', true );
-				$conditional_result = filter_var( get_post_meta( get_the_ID(), $this->post_meta_prefix . 'conditional_result', true ), FILTER_VALIDATE_BOOLEAN );
+				$message_meta       = get_post_meta( get_the_ID() );
+				$conditional        = isset( $message_meta[ $this->post_meta_prefix . 'conditional' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional' ][0] : '';
+				$conditional_value  = isset( $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] : '';
+				$conditional_result = isset( $message_meta[ $this->post_meta_prefix . 'conditional_result' ][0] ) ? filter_var( $message_meta[ $this->post_meta_prefix . 'conditional_result' ][0], FILTER_VALIDATE_BOOLEAN ) : false;
 				if ( '' === $conditional ) {
-					$post = get_post( get_the_ID(), ARRAY_A );
+					$post         = get_post( get_the_ID(), ARRAY_A );
+					$post['meta'] = $message_meta;
 					return $post;
 				} else {
 					if ( '' === $conditional_value ) {
 						if ( $conditional_result === $conditional() ) {
-							$post = get_post( get_the_ID(), ARRAY_A );
+							$post         = get_post( get_the_ID(), ARRAY_A );
+							$post['meta'] = $message_meta;
 							return $post;
 						}
 					} else {
 						if ( $conditional_result === $conditional( $conditional_value ) ) {
-							$post = get_post( get_the_ID(), ARRAY_A );
+							$post         = get_post( get_the_ID(), ARRAY_A );
+							$post['meta'] = $message_meta;
 							return $post;
 						}
 					}
