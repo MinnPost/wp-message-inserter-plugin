@@ -108,7 +108,8 @@ class WP_Message_Inserter {
 	*/
 	private function add_actions() {
 		add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
-		//register_activation_hook( __FILE__, array( $this, 'add_roles_capabilities' ) );
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 	}
 
 	/**
@@ -179,6 +180,27 @@ class WP_Message_Inserter {
 			array_unshift( $links, $settings );
 		}
 		return $links;
+	}
+
+	/**
+	 * Activate plugin
+	 *
+	 * @return void
+	 */
+	public function activate() {
+		// by default, only administrators can configure the plugin
+		$role = get_role( 'administrator' );
+		$role->add_cap( 'manage_wp_message_inserter_options' );
+		flush_rewrite_rules();
+	}
+
+	/**
+	 * Deactivate plugin
+	 *
+	 * @return void
+	 */
+	public function deactivate() {
+		flush_rewrite_rules();
 	}
 
 }

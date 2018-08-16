@@ -71,8 +71,7 @@ class WP_Message_Inserter_Plugin_Admin {
 	*
 	*/
 	public function create_admin_menu() {
-		//$capability = 'manage_wp_message_inserter_options';
-		$capability = 'manage_options';
+		$capability = 'manage_wp_message_inserter_options';
 		$pages      = $this->get_admin_pages();
 		foreach ( $pages as $key => $value ) {
 			add_submenu_page( 'edit.php?post_type=message', $value['title'], $value['title'], $capability, $key, array( $this, 'show_admin_page' ) );
