@@ -139,6 +139,18 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		) );
 
 		$screen_size_box->add_field( array(
+			'name'       => 'Link URL',
+			'id'         => $prefix . 'link_url',
+			'type'       => 'text_url',
+			'desc'       => '',
+			'attributes' => array(
+				'required'               => false,
+				'data-conditional-id'    => $prefix . 'message_type',
+				'data-conditional-value' => 'image',
+			),
+		) );
+
+		$screen_size_box->add_field( array(
 			'name'             => 'Region',
 			'id'               => $prefix . 'region',
 			'type'             => 'select',
@@ -239,13 +251,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type' => 'image',
 			),
 			'classes'      => 'cmb2-message-type cmb2-message-type-image',
-		) );
-
-		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
-			'name' => 'Link URL',
-			'id'   => $prefix . 'link_url',
-			'type' => 'text',
-			'desc' => '',
 		) );
 
 		$screen_size_box->add_group_field( $prefix . 'screen_size', array(
