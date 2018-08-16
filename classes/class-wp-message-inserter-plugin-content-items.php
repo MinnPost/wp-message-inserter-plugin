@@ -104,6 +104,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'capability_type'     => 'page',
 			'menu_icon'           => 'dashicons-welcome-view-site',
 		);
+		$args   = apply_filters( 'wp_message_inserter_message_type_args', $args );
 		register_post_type( 'message', $args );
 	}
 
@@ -274,12 +275,12 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	}
 
 	/**
-	* Display conditionals as <select> options
+	* Get supported conditionals
 	*
 	* @return array $conditionals
 	*
 	*/
-	private function get_conditional_options( $must_have_params = false ) {
+	public function get_conditionals() {
 		$conditionals = array(
 			array(
 				'name'       => 'is_front_page',
@@ -289,15 +290,15 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'is_home',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_admin_bar_showing',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_single',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_sticky',
 				'has_params' => false,
 			),
@@ -307,31 +308,31 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'params'     => array(
 					'post_type',
 				),
-			),
-			array(
+			),*/
+			/*array(
 				'name'       => 'is_post_type_archive',
 				'has_params' => false,
 			),
 			array(
 				'name'       => 'is_comments_popup',
 				'has_params' => false,
-			),
-			array(
+			),*/
+			/*array(
 				'name'       => 'comments_open',
 				'has_params' => false,
 			),
 			array(
 				'name'       => 'pings_open',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_page',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_page_template',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_category',
 				'has_params' => true,
@@ -351,7 +352,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'has_term',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'term_exists',
 				'has_params' => true,
 				'params'     => array(
@@ -366,7 +367,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'params'     => array(
 					'taxonomy',
 				),
-			),
+			),*/
 			array(
 				'name'       => 'taxonomy_exists',
 				'has_params' => true,
@@ -378,7 +379,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'is_author',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_date',
 				'has_params' => false,
 			),
@@ -405,7 +406,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => 'is_archive',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_search',
 				'has_params' => false,
@@ -414,7 +415,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'is_404',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_paged',
 				'has_params' => false,
 			),
@@ -435,12 +436,12 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'params'     => array(
 					'url',
 				),
-			),
+			),*/
 			array(
 				'name'       => 'is_singular',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'post_type_exists',
 				'has_params' => true,
 				'params'     => array(
@@ -449,10 +450,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			),
 			array(
 				'name'       => 'is_main_query',
-				'has_params' => false,
-			),
-			array(
-				'name'       => 'is_new_day',
 				'has_params' => false,
 			),
 			array(
@@ -560,8 +557,19 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'params'     => array(
 					'post_id',
 				),
-			),
+			),*/
 		);
+		return $conditionals;
+	}
+
+	/**
+	* Display conditionals as <select> options
+	*
+	* @return array $options
+	*
+	*/
+	private function get_conditional_options( $must_have_params = false ) {
+		$conditionals = $this->get_conditionals();
 		$options      = array();
 		foreach ( $conditionals as $conditional ) {
 			if ( false === $must_have_params ) {
