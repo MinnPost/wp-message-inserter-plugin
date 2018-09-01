@@ -146,22 +146,22 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:191
+#: classes/class-wp-message-inserter-plugin-content-items.php:200
 msgid "True"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:192
+#: classes/class-wp-message-inserter-plugin-content-items.php:201
 msgid "False"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:206
+#: classes/class-wp-message-inserter-plugin-content-items.php:215
 msgid "Screen size {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:207
+#: classes/class-wp-message-inserter-plugin-content-items.php:216
 msgid "Add Another Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:208
+#: classes/class-wp-message-inserter-plugin-content-items.php:217
 msgid "Remove Screen Size"
 msgstr ""
