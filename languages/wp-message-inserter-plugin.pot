@@ -20,11 +20,11 @@ msgstr ""
 #: classes/class-wp-message-inserter-plugin-admin.php:103
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:250
+#: classes/class-wp-message-inserter-plugin-admin.php:259
 msgid "Test field"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:336, classes/class-wp-message-inserter-plugin-admin.php:453, classes/class-wp-message-inserter-plugin-admin.php:503, classes/class-wp-message-inserter-plugin-admin.php:579
+#: classes/class-wp-message-inserter-plugin-admin.php:345, classes/class-wp-message-inserter-plugin-admin.php:462, classes/class-wp-message-inserter-plugin-admin.php:512, classes/class-wp-message-inserter-plugin-admin.php:588
 msgid "Defined in wp-config.php"
 msgstr ""
 
