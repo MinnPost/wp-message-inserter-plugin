@@ -4,20 +4,71 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ee528b05dd8404bbf17dac30e0b89d0",
+    "content-hash": "772b4a723129bf787f4c79370a5f77a3",
     "packages": [
+        {
+            "name": "cmb2/cmb2",
+            "version": "v2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CMB2/CMB2.git",
+                "reference": "1129acf4b7689010789d830f6fba0b7b68ad51ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/1129acf4b7689010789d830f6fba0b7b68ad51ff",
+                "reference": "1129acf4b7689010789d830f6fba0b7b68ad51ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "WebDevStudios",
+                    "email": "contact@webdevstudios.com",
+                    "homepage": "https://github.com/WebDevStudios",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Justin Sternberg",
+                    "email": "justin@dsgnwrks.pro",
+                    "homepage": "https://dsgnwrks.pro",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
+            "homepage": "https://github.com/CMB2/CMB2",
+            "keywords": [
+                "metabox",
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2018-12-10T15:11:54+00:00"
+        },
         {
             "name": "jcchavezs/cmb2-conditionals",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jcchavezs/cmb2-conditionals.git",
-                "reference": "c0ff95d0da03fae78bb44a842e575f38e15c4f82"
+                "reference": "a69b09483ad8f8db5cdd8f031d39ac6c6ce7e0d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jcchavezs/cmb2-conditionals/zipball/c0ff95d0da03fae78bb44a842e575f38e15c4f82",
-                "reference": "c0ff95d0da03fae78bb44a842e575f38e15c4f82",
+                "url": "https://api.github.com/repos/jcchavezs/cmb2-conditionals/zipball/a69b09483ad8f8db5cdd8f031d39ac6c6ce7e0d1",
+                "reference": "a69b09483ad8f8db5cdd8f031d39ac6c6ce7e0d1",
                 "shasum": ""
             },
             "require": {
@@ -48,20 +99,20 @@
                 "plugin",
                 "wordpress"
             ],
-            "time": "2017-07-11T19:19:29+00:00"
+            "time": "2018-10-28T08:44:07+00:00"
         },
         {
             "name": "webdevstudios/cmb2",
-            "version": "v2.4.2",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CMB2/CMB2.git",
-                "reference": "fdcb80985e4b4a4c7118b2ecce090af4a3309958"
+                "reference": "1129acf4b7689010789d830f6fba0b7b68ad51ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/fdcb80985e4b4a4c7118b2ecce090af4a3309958",
-                "reference": "fdcb80985e4b4a4c7118b2ecce090af4a3309958",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/1129acf4b7689010789d830f6fba0b7b68ad51ff",
+                "reference": "1129acf4b7689010789d830f6fba0b7b68ad51ff",
                 "shasum": ""
             },
             "require": {
@@ -90,12 +141,6 @@
                     "email": "justin@dsgnwrks.pro",
                     "homepage": "https://dsgnwrks.pro",
                     "role": "Developer"
-                },
-                {
-                    "name": "Zao",
-                    "email": "office@zao.com",
-                    "homepage": "http://zao.is",
-                    "role": "Developer"
                 }
             ],
             "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
@@ -105,7 +150,8 @@
                 "plugin",
                 "wordpress"
             ],
-            "time": "2018-05-29T14:23:29+00:00"
+            "abandoned": "cmb2/cmb2",
+            "time": "2018-12-10T15:11:54+00:00"
         }
     ],
     "packages-dev": [],
