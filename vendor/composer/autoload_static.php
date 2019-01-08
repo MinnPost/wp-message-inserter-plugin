@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3d0c3bfa414e429dfd47622243934f70
+class ComposerStaticInitd51841178a0673777c22583fb1f150a2
 {
     public static $files = array (
         'd5bb9c1f36335c71241bd0157cf60c3b' => __DIR__ . '/..' . '/cmb2/cmb2/init.php',
