@@ -1,4 +1,4 @@
-# Copyright (C) 2018 wp-message-inserter-plugin
+# Copyright (C) 2019 wp-message-inserter-plugin
 # This file is distributed under the same license as the wp-message-inserter-plugin package.
 msgid ""
 msgstr ""
@@ -15,9 +15,6 @@ msgstr ""
 
 #: wp-message-inserter-plugin.php:179, classes/class-wp-message-inserter-plugin-admin.php:84
 msgid "Settings"
-msgstr ""
-
-#: classes/class-wp-message-inserter-plugin-admin.php:103
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-admin.php:259
