@@ -105,6 +105,7 @@ function adminscripts() {
       suffix: '.min'
     }))*/
     .pipe(sourcemaps.write())
+    .pipe(eslint())
     .pipe(gulp.dest(config.scripts.dest))
     .pipe(browserSync.stream());
 }
@@ -121,6 +122,7 @@ function frontendscripts() {
       suffix: '.min'
     }))*/
     .pipe(sourcemaps.write())
+    .pipe(eslint())
     .pipe(gulp.dest(config.scripts.dest))
     .pipe(browserSync.stream());
 }
