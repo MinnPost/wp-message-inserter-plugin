@@ -646,23 +646,25 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			),*/
 		);
 
+		$conditionals = array(
+			'general'          => $general,
+			'post'             => $post,
+			'page'             => $page,
+			'archive'          => $archive,
+			'term'             => $term,
+			'taxonomy'         => $taxonomy,
+			'attachment'       => $attachment,
+			'sidebar'          => $sidebar,
+			'user'             => $user,
+			'query'            => $query,
+			'multisite'        => $multisite,
+			'plugin_and_theme' => $plugin_and_theme,
+		);
+
+		$conditionals = apply_filters( $this->option_prefix . 'conditionals', $conditionals, $select_type );
+
 		if ( 'select' === $select_type ) {
-			$conditionals = array_merge( $general, $post, $page, $archive, $term, $taxonomy, $attachment, $sidebar, $user, $query, $multisite, $plugin_and_theme );
-		} else {
-			$conditionals = array(
-				'general'          => $general,
-				'post'             => $post,
-				'page'             => $page,
-				'archive'          => $archive,
-				'term'             => $term,
-				'taxonomy'         => $taxonomy,
-				'attachment'       => $attachment,
-				'sidebar'          => $sidebar,
-				'user'             => $user,
-				'query'            => $query,
-				'multisite'        => $multisite,
-				'plugin_and_theme' => $plugin_and_theme,
-			);
+			$conditionals = array_merge( $conditionals['general'], $conditionals['post'], $conditionals['page'], $conditionals['archive'], $conditionals['term'], $conditionals['taxonomy'], $conditionals['attachment'], $conditionals['sidebar'], $conditionals['user'], $conditionals['query'], $conditionals['multisite'], $conditionals['plugin_and_theme'] );
 		}
 
 		return $conditionals;
@@ -689,6 +691,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			}
 		} else {
 			foreach ( $conditionals as $group => $conditionals ) {
+				if ( empty( $conditionals ) ) {
+					continue;
+				}
 				if ( false === $must_have_params ) {
 					$options[ ucfirst( $group ) ] = array();
 				}
