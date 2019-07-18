@@ -124,12 +124,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post['meta'] = $message_meta;
 				} else {
 					if ( '' === $conditional_value ) {
-						if ( $conditional_result === $conditional() ) {
+						if ( function_exists( $conditional ) && $conditional_result === $conditional() ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
 							$post['meta'] = $message_meta;
 						}
 					} else {
-						if ( $conditional_result === $conditional( $conditional_value ) ) {
+						if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
 							$post['meta'] = $message_meta;
 						}
