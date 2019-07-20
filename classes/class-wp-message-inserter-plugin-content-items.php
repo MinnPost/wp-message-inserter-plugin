@@ -175,7 +175,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'name'             => 'Condition',
 			'id'               => $prefix . 'conditional',
 			'type'             => $select_type,
-			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value is None, the region alone will determine display.',
+			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value of this field is None, the region alone will determine display.',
 			'show_option_none' => true,
 			'options'          => $this->get_conditional_options( $select_type ),
 			'default'          => 'none',
