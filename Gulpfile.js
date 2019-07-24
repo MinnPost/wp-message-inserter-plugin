@@ -59,6 +59,9 @@ function adminstyles() {
         'safe': true // Use safe optimizations.
       } ) // Minify
     ]))
+    .pipe(rename({ // Rename to .min.css
+      suffix: '.min'
+    }))
     .pipe(sourcemaps.write()) // Write the sourcemap files
     .pipe(gulp.dest(config.styles.dest)) // Drop the resulting CSS file in the specified dir
     .pipe(browserSync.stream());
