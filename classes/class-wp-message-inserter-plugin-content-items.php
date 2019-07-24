@@ -171,20 +171,106 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			),
 		) );
 
+		$conditional_group_id = $screen_size_box->add_field(
+			array(
+				'id'         => 'conditional_group_id',
+				'type'       => 'group',
+				'repeatable' => true,
+				'options'    => array(
+					'group_title'   => 'Conditional {#}',
+					'add_button'    => 'Add Another Conditional',
+					'remove_button' => 'Remove Conditional',
+					'closed'        => false,  // Repeater fields closed by default - neat & compact.
+					'sortable'      => false,  // Allow changing the order of repeated groups.
+				),
+			)
+		);
+		$screen_size_box->add_group_field(
+			$conditional_group_id,
+			array(
+				'name'             => 'Conditional',
+				'desc'             => 'Pick a conditional',
+				'id'               => $prefix . 'conditional',
+				'type'             => $select_type,
+				'show_option_none' => true,
+				'options'          => $this->get_conditional_options( $select_type ),
+				'default'          => 'none',
+				'attributes'       => array(
+					'required' => false,
+				),
+			)
+		);
+		$screen_size_box->add_group_field(
+			$conditional_group_id,
+			array(
+				'name'       => 'Conditional value',
+				'desc'       => 'Enter the value expected for this conditional',
+				'id'         => $prefix . 'conditional_value',
+				'type'       => 'text',
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => wp_json_encode( array( $conditional_group_id, $prefix . 'conditional' ) ),
+					'data-conditional-value' => wp_json_encode( $this->get_conditional_options( $select_type, true ) ),
+				),
+			)
+		);
+		$conditional_fields = apply_filters( $this->option_prefix . 'add_group_conditional_fields', $conditional_group_id, $prefix );
+		if ( ! empty( $conditional_fields ) ) {
+			foreach ( $conditional_fields as $field_args ) {
+				$screen_size_box->add_group_field(
+					$conditional_group_id,
+					$field_args
+				);
+			}
+		}
+		/*$screen_size_box->add_group_field(
+			$conditional_group_id,
+			array(
+				'name'       => 'Condition Result',
+				'id'         => $prefix . 'conditional_result',
+				'type'       => 'radio_inline',
+				'desc'       => '',
+				'options'    => array(
+					'true'  => __( 'True', 'wp-message-inserter-plugin' ),
+					'false' => __( 'False', 'wp-message-inserter-plugin' ),
+				),
+				'default'    => 'true',
+				'attributes' => array(
+					'required'            => true,
+					'data-conditional-id' => $prefix . 'conditional',
+				),
+			)
+		);*/
+
 		$screen_size_box->add_field( array(
+			'name'       => 'Conditional operator',
+			'id'         => $prefix . 'conditional_operator',
+			'type'       => 'radio_inline',
+			'desc'       => '',
+			'options'    => array(
+				'and' => __( 'AND', 'wp-message-inserter-plugin' ),
+				'or'  => __( 'OR', 'wp-message-inserter-plugin' ),
+			),
+			'default'    => 'and',
+			'attributes' => array(
+				'required' => false,
+			),
+		) );
+
+		/*$screen_size_box->add_field( array(
 			'name'             => 'Condition',
 			'id'               => $prefix . 'conditional',
 			'type'             => $select_type,
-			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value of this field is None, the region alone will determine display.',
+			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value of this field is None, the region alone will determine display. To use more conditions, click Add more.',
 			'show_option_none' => true,
 			'options'          => $this->get_conditional_options( $select_type ),
 			'default'          => 'none',
 			'attributes'       => array(
 				'required' => false,
 			),
-		) );
+		) );*/
 
-		$screen_size_box->add_field( array(
+		/*$screen_size_box->add_field( array(
 			'name'       => 'Condition Value',
 			'id'         => $prefix . 'conditional_value',
 			'type'       => 'text',
@@ -194,9 +280,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'data-conditional-id'    => $prefix . 'conditional',
 				'data-conditional-value' => wp_json_encode( $this->get_conditional_options( $select_type, true ) ),
 			),
-		) );
+		) );*/
 
-		$screen_size_box->add_field( array(
+		/*$screen_size_box->add_field( array(
 			'name'       => 'Condition Result',
 			'id'         => $prefix . 'conditional_result',
 			'type'       => 'radio_inline',
@@ -210,7 +296,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'required'            => true,
 				'data-conditional-id' => $prefix . 'conditional',
 			),
-		) );
+		) );*/
 
 		$screen_size_box->add_field( array(
 			'id'          => $prefix . 'screen_size',
@@ -701,6 +787,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					if ( false === $must_have_params ) {
 						$options[ ucfirst( $group ) ][ $conditional['name'] ] = $conditional['name'];
 					} elseif ( true === $must_have_params && true === $conditional['has_params'] ) {
+						error_log( 'params is true for condtional ' . $conditional['name'] );
 						array_push( $options, $conditional['name'] );
 					}
 				}
