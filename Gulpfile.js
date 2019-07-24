@@ -46,40 +46,38 @@ const config = {
 };
 
 function adminstyles() {
-  return gulp.src(config.styles.admin)
+  return gulp.src(config.styles.admin, { allowEmpty: true })
     .pipe(sourcemaps.init()) // Sourcemaps need to init before compilation
     .pipe(sassGlob()) // Allow for globbed @import statements in SCSS
     .pipe(sass()) // Compile
     .on('error', sass.logError) // Error reporting
     .pipe(postcss([
-      autoprefixer( {
-        'browsers': [ 'last 2 version' ]
+      mqpacker( {
+        'sort': true
       } ),
-      cssnano() // Minify
+      cssnano( {
+        'safe': true // Use safe optimizations.
+      } ) // Minify
     ]))
-    .pipe(rename({ // Rename to .min.css
-      suffix: '.min'
-    }))
     .pipe(sourcemaps.write()) // Write the sourcemap files
     .pipe(gulp.dest(config.styles.dest)) // Drop the resulting CSS file in the specified dir
     .pipe(browserSync.stream());
 }
 
 function frontendstyles() {
-  return gulp.src(config.styles.front_end)
+  return gulp.src(config.styles.front_end, { allowEmpty: true } )
     .pipe(sourcemaps.init()) // Sourcemaps need to init before compilation
     .pipe(sassGlob()) // Allow for globbed @import statements in SCSS
     .pipe(sass()) // Compile
     .on('error', sass.logError) // Error reporting
     .pipe(postcss([
-      autoprefixer( {
-        'browsers': [ 'last 2 version' ]
+      mqpacker( {
+        'sort': true
       } ),
-      cssnano() // Minify
+      cssnano( {
+        'safe': true // Use safe optimizations.
+      } ) // Minify
     ]))
-    .pipe(rename({ // Rename to .min.css
-      suffix: '.min'
-    }))
     .pipe(sourcemaps.write()) // Write the sourcemap files
     .pipe(gulp.dest(config.styles.dest)) // Drop the resulting CSS file in the specified dir
     .pipe(browserSync.stream());
@@ -99,11 +97,7 @@ function adminscripts() {
     .pipe(babel({
       presets: ['@babel/preset-env']
     }))
-    .pipe(concat('' + packagejson.name + '-admin.js')) // Concatenate
-    /*.pipe(uglify()) // Minify + compress
-    .pipe(rename({
-      suffix: '.min'
-    }))*/
+    .pipe(concat(packagejson.name + '-admin.js')) // Concatenate
     .pipe(sourcemaps.write())
     .pipe(eslint())
     .pipe(gulp.dest(config.scripts.dest))
@@ -175,19 +169,15 @@ function watch() {
   }
 }
 
-// export tasks
-exports.sasslint        = sasslint;
-exports.adminstyles     = adminstyles;
-exports.frontendstyles  = frontendstyles;
-exports.adminscripts    = adminscripts;
-exports.frontendscripts = frontendscripts;
-exports.uglifyscripts   = uglifyscripts;
-exports.translate       = translate;
-exports.watch           = watch;
+// define complex tasks
+const styles  = gulp.series(sasslint, adminstyles, frontendstyles);
+const scripts = gulp.series(adminscripts, frontendscripts, uglifyscripts);
+const build   = gulp.series(gulp.parallel(styles, scripts, translate));
 
-// What happens when we run gulp?
-gulp.task('default',
-  gulp.series(
-    gulp.parallel(adminstyles, adminscripts, translate) // run these tasks asynchronously
-  )
-);
+// export tasks
+exports.styles     = styles;
+exports.scripts    = scripts;
+exports.translate  = translate;
+exports.watch      = watch;
+exports.build      = build;
+exports.default    = build;
