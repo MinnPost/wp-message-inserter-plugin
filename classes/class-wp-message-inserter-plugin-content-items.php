@@ -787,7 +787,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					if ( false === $must_have_params ) {
 						$options[ ucfirst( $group ) ][ $conditional['name'] ] = $conditional['name'];
 					} elseif ( true === $must_have_params && true === $conditional['has_params'] ) {
-						error_log( 'params is true for condtional ' . $conditional['name'] );
 						array_push( $options, $conditional['name'] );
 					}
 				}
