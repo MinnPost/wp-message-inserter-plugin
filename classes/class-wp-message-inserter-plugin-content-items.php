@@ -223,7 +223,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				);
 			}
 		}
-		/*$screen_size_box->add_group_field(
+		$screen_size_box->add_group_field(
 			$conditional_group_id,
 			array(
 				'name'       => 'Condition Result',
@@ -240,7 +240,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'data-conditional-id' => $prefix . 'conditional',
 				),
 			)
-		);*/
+		);
 
 		$screen_size_box->add_field( array(
 			'name'       => 'Conditional operator',
