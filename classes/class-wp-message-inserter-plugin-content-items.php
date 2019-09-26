@@ -214,7 +214,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			)
 		);
-		$conditional_fields = apply_filters( $this->option_prefix . 'add_group_conditional_fields', $conditional_group_id, $prefix );
+		$conditional_fields = apply_filters( $this->option_prefix . 'add_group_conditional_fields', array(), $conditional_group_id, $prefix );
 		if ( ! empty( $conditional_fields ) ) {
 			foreach ( $conditional_fields as $field_args ) {
 				$screen_size_box->add_group_field(
