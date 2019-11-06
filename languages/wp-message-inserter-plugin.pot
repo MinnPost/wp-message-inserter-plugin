@@ -135,30 +135,38 @@ msgstr ""
 msgid "Filter message list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:134
+#: classes/class-wp-message-inserter-plugin-content-items.php:139
 msgid "Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:135
+#: classes/class-wp-message-inserter-plugin-content-items.php:140
 msgid "Editor"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:200
+#: classes/class-wp-message-inserter-plugin-content-items.php:234
 msgid "True"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:201
+#: classes/class-wp-message-inserter-plugin-content-items.php:235
 msgid "False"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:215
+#: classes/class-wp-message-inserter-plugin-content-items.php:251
+msgid "AND"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:252
+msgid "OR"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:306
 msgid "Screen size {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:216
+#: classes/class-wp-message-inserter-plugin-content-items.php:307
 msgid "Add Another Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:217
+#: classes/class-wp-message-inserter-plugin-content-items.php:308
 msgid "Remove Screen Size"
 msgstr ""
