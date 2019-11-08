@@ -55,7 +55,8 @@ class WP_Message_Inserter_Plugin_Regions {
 	*/
 	public function get_regions() {
 		$regions = array();
-		$regions = apply_filters( 'wp_message_inserter_regions', $regions );
+		$regions = apply_filters( $this->option_prefix . 'regions', $regions );
+		do_action( $this->option_prefix . 'regions', $regions, null );
 		return $regions;
 	}
 
