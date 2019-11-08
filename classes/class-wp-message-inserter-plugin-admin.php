@@ -140,7 +140,8 @@ class WP_Message_Inserter_Plugin_Admin {
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach ( $tabs as $tab_key => $tab_caption ) {
 			$active = $current_tab === $tab_key ? ' nav-tab-active' : '';
-			echo sprintf( '<a class="nav-tab%1$s" href="%2$s">%3$s</a>',
+			echo sprintf(
+				'<a class="nav-tab%1$s" href="%2$s">%3$s</a>',
 				esc_attr( $active ),
 				esc_url( '?page=' . $page . '&tab=' . $tab_key ),
 				esc_html( $tab_caption )
@@ -327,7 +328,8 @@ class WP_Message_Inserter_Plugin_Admin {
 				$value = $args['default'];
 			}
 
-			echo sprintf( '<input type="%1$s" value="%2$s" name="%3$s" id="%4$s" class="%5$s"%6$s>',
+			echo sprintf(
+				'<input type="%1$s" value="%2$s" name="%3$s" id="%4$s" class="%5$s"%6$s>',
 				esc_attr( $type ),
 				esc_attr( $value ),
 				esc_attr( $name ),
@@ -336,12 +338,14 @@ class WP_Message_Inserter_Plugin_Admin {
 				esc_html( $checked )
 			);
 			if ( '' !== $desc ) {
-				echo sprintf( '<p class="description">%1$s</p>',
+				echo sprintf(
+					'<p class="description">%1$s</p>',
 					esc_html( $desc )
 				);
 			}
 		} else {
-			echo sprintf( '<p><code>%1$s</code></p>',
+			echo sprintf(
+				'<p><code>%1$s</code></p>',
 				esc_html__( 'Defined in wp-config.php', 'wp-message-inserter-plugin' )
 			);
 		}
@@ -384,7 +388,8 @@ class WP_Message_Inserter_Plugin_Admin {
 			$input_name = $name;
 
 			if ( ! isset( $args['label'] ) || 'parallel' !== $args['label'] ) {
-				echo sprintf( '<div class="checkbox"><label><input type="%1$s" value="%2$s" name="%3$s[]" id="%4$s"%5$s>%6$s</label></div>',
+				echo sprintf(
+					'<div class="checkbox"><label><input type="%1$s" value="%2$s" name="%3$s[]" id="%4$s"%5$s>%6$s</label></div>',
 					esc_attr( $type ),
 					esc_attr( $item_value ),
 					esc_attr( $input_name ),
@@ -393,7 +398,8 @@ class WP_Message_Inserter_Plugin_Admin {
 					esc_html( $text )
 				);
 			} else {
-				echo sprintf( '<div class="checkbox"><input type="%1$s" value="%2$s" name="%3$s[]" id="%4$s"%5$s><label for="%4$s">%6$s</label></div>',
+				echo sprintf(
+					'<div class="checkbox"><input type="%1$s" value="%2$s" name="%3$s[]" id="%4$s"%5$s><label for="%4$s">%6$s</label></div>',
 					esc_attr( $type ),
 					esc_attr( $item_value ),
 					esc_attr( $input_name ),
@@ -403,14 +409,16 @@ class WP_Message_Inserter_Plugin_Admin {
 				);
 			}
 			if ( '' !== $desc ) {
-				echo sprintf( '<p class="description">%1$s</p>',
+				echo sprintf(
+					'<p class="description">%1$s</p>',
 					esc_html( $desc )
 				);
 			}
 		}
 
 		if ( '' !== $group_desc ) {
-			echo sprintf( '<p class="description">%1$s</p>',
+			echo sprintf(
+				'<p class="description">%1$s</p>',
 				esc_html( $group_desc )
 			);
 		}
@@ -430,7 +438,8 @@ class WP_Message_Inserter_Plugin_Admin {
 		if ( ! isset( $args['constant'] ) || ! defined( $args['constant'] ) ) {
 			$current_value = get_option( $name );
 
-			echo sprintf( '<div class="select"><select id="%1$s" name="%2$s"><option value="">- Select one -</option>',
+			echo sprintf(
+				'<div class="select"><select id="%1$s" name="%2$s"><option value="">- ' . esc_html__( 'Select one', 'wp-message-inserter-plugin' ) . ' -</option>',
 				esc_attr( $id ),
 				esc_attr( $name )
 			);
@@ -443,7 +452,8 @@ class WP_Message_Inserter_Plugin_Admin {
 					$selected = ' selected';
 				}
 
-				echo sprintf( '<option value="%1$s"%2$s>%3$s</option>',
+				echo sprintf(
+					'<option value="%1$s"%2$s>%3$s</option>',
 					esc_attr( $value ),
 					esc_attr( $selected ),
 					esc_html( $text )
@@ -452,13 +462,15 @@ class WP_Message_Inserter_Plugin_Admin {
 			}
 			echo '</select>';
 			if ( '' !== $desc ) {
-				echo sprintf( '<p class="description">%1$s</p>',
+				echo sprintf(
+					'<p class="description">%1$s</p>',
 					esc_html( $desc )
 				);
 			}
 			echo '</div>';
 		} else {
-			echo sprintf( '<p><code>%1$s</code></p>',
+			echo sprintf(
+				'<p><code>%1$s</code></p>',
 				esc_html__( 'Defined in wp-config.php', 'wp-message-inserter-plugin' )
 			);
 		}
@@ -494,7 +506,8 @@ class WP_Message_Inserter_Plugin_Admin {
 				$cols_attr = '';
 			}
 
-			echo sprintf( '<textarea name="%1$s" id="%2$s" class="%3$s"%4$s%5$s>%6$s</textarea>',
+			echo sprintf(
+				'<textarea name="%1$s" id="%2$s" class="%3$s"%4$s%5$s>%6$s</textarea>',
 				esc_attr( $name ),
 				esc_attr( $id ),
 				sanitize_html_class( $class . esc_html( ' code' ) ),
@@ -503,12 +516,14 @@ class WP_Message_Inserter_Plugin_Admin {
 				esc_attr( $value )
 			);
 			if ( '' !== $desc ) {
-				echo sprintf( '<p class="description">%1$s</p>',
+				echo sprintf(
+					'<p class="description">%1$s</p>',
 					esc_html( $desc )
 				);
 			}
 		} else {
-			echo sprintf( '<p><code>%1$s</code></p>',
+			echo sprintf(
+				'<p><code>%1$s</code></p>',
 				esc_html__( 'Defined in wp-config.php', 'wp-message-inserter-plugin' )
 			);
 		}
@@ -579,12 +594,14 @@ class WP_Message_Inserter_Plugin_Admin {
 
 			wp_editor( $value, $id, $settings );
 			if ( '' !== $desc ) {
-				echo sprintf( '<p class="description">%1$s</p>',
+				echo sprintf(
+					'<p class="description">%1$s</p>',
 					esc_html( $desc )
 				);
 			}
 		} else {
-			echo sprintf( '<p><code>%1$s</code></p>',
+			echo sprintf(
+				'<p><code>%1$s</code></p>',
 				esc_html__( 'Defined in wp-config.php', 'wp-message-inserter-plugin' )
 			);
 		}
@@ -600,20 +617,23 @@ class WP_Message_Inserter_Plugin_Admin {
 		$desc  = $args['desc'];
 		$url   = $args['url'];
 		if ( isset( $args['link_class'] ) ) {
-			echo sprintf( '<p><a class="%1$s" href="%2$s">%3$s</a></p>',
+			echo sprintf(
+				'<p><a class="%1$s" href="%2$s">%3$s</a></p>',
 				esc_attr( $args['link_class'] ),
 				esc_url( $url ),
 				esc_html( $label )
 			);
 		} else {
-			echo sprintf( '<p><a href="%1$s">%2$s</a></p>',
+			echo sprintf(
+				'<p><a href="%1$s">%2$s</a></p>',
 				esc_url( $url ),
 				esc_html( $label )
 			);
 		}
 
 		if ( '' !== $desc ) {
-			echo sprintf( '<p class="description">%1$s</p>',
+			echo sprintf(
+				'<p class="description">%1$s</p>',
 				esc_html( $desc )
 			);
 		}

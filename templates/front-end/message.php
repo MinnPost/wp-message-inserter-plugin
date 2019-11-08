@@ -5,9 +5,12 @@ $region       = $message['meta'][ $prefix . 'region' ][0];
 $id           = $message['ID'];
 $type         = $message['meta'][ $prefix . 'message_type' ][0];
 $screen_sizes = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
-usort( $screen_sizes, function ( array $a, array $b ) use ( $prefix ) {
-	return $a[ $prefix . 'minimum_width' ] <=> $b[ $prefix . 'minimum_width' ];
-});
+usort(
+	$screen_sizes,
+	function ( array $a, array $b ) use ( $prefix ) {
+		return $a[ $prefix . 'minimum_width' ] <=> $b[ $prefix . 'minimum_width' ];
+	}
+);
 ?>
 
 <?php if ( 'editor' === $type ) : ?>
