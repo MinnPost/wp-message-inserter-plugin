@@ -3,6 +3,7 @@ $message      = $attributes['message'];
 $prefix       = $attributes['meta_prefix'];
 $region       = $message['meta'][ $prefix . 'region' ][0];
 $id           = $message['ID'];
+$slug         = $message['post_name'];
 $type         = $message['meta'][ $prefix . 'message_type' ][0];
 $screen_sizes = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
 usort(
@@ -49,7 +50,7 @@ usort(
 	<?php endif; ?>
 <?php endif; ?>
 
-<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?>">
+<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?>">
 	<?php if ( 'image' === $type ) : ?>
 		<aside class="m-wp-insert-message-images">
 			<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
