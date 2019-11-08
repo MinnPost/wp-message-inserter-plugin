@@ -1,6 +1,6 @@
 {
   "name": "wp-message-inserter-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Inserts site messaging into WordPress layouts",
   "repository": {
     "type": "git",
