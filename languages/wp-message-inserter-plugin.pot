@@ -17,12 +17,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:259
+#: classes/class-wp-message-inserter-plugin-admin.php:260
 msgid "Test field"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:345, classes/class-wp-message-inserter-plugin-admin.php:462, classes/class-wp-message-inserter-plugin-admin.php:512, classes/class-wp-message-inserter-plugin-admin.php:588
+#: classes/class-wp-message-inserter-plugin-admin.php:349, classes/class-wp-message-inserter-plugin-admin.php:474, classes/class-wp-message-inserter-plugin-admin.php:527, classes/class-wp-message-inserter-plugin-admin.php:605
 msgid "Defined in wp-config.php"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-admin.php:442
+msgid "Select one"
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-content-items.php:61
@@ -39,7 +43,7 @@ msgstr ""
 msgid "Site Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:64
+#: classes/class-wp-message-inserter-plugin-content-items.php:64, classes/class-wp-message-inserter-plugin-content-items.php:127
 msgid "Message"
 msgstr ""
 
@@ -135,38 +139,106 @@ msgstr ""
 msgid "Filter message list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:139
+#: classes/class-wp-message-inserter-plugin-content-items.php:137
+msgid "Message Type"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:142, classes/class-wp-message-inserter-plugin-content-items.php:370
 msgid "Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:140
+#: classes/class-wp-message-inserter-plugin-content-items.php:143, classes/class-wp-message-inserter-plugin-content-items.php:395
 msgid "Editor"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:234
+#: classes/class-wp-message-inserter-plugin-content-items.php:155
+msgid "Link URL"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:169
+msgid "Region"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:173
+msgid "Where on the site this message will appear."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:188
+msgid "Conditional {#}"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:189
+msgid "Add Another Conditional"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:199
+msgid "Conditional"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:200
+msgid "Pick a conditional"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:214
+msgid "Conditional Value"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:215
+msgid "Enter the value expected for this conditional"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:237
+msgid "Condition Result"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:242
 msgid "True"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:235
+#: classes/class-wp-message-inserter-plugin-content-items.php:243
 msgid "False"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:251
+#: classes/class-wp-message-inserter-plugin-content-items.php:255
+msgid "Conditional Operator"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:260
 msgid "AND"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:252
+#: classes/class-wp-message-inserter-plugin-content-items.php:261
 msgid "OR"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:306
+#: classes/class-wp-message-inserter-plugin-content-items.php:317
 msgid "Screen size {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:307
+#: classes/class-wp-message-inserter-plugin-content-items.php:318
 msgid "Add Another Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:308
+#: classes/class-wp-message-inserter-plugin-content-items.php:319
 msgid "Remove Screen Size"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:329
+msgid "Minimum Width"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:342
+msgid "Maximum Width"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:356
+msgid "No Maximum Width"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:371
+msgid "Upload an image or enter an URL."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:396
+msgid "Add content for this message"
 msgstr ""
