@@ -78,10 +78,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$conditionals       = $this->content_items->get_conditionals();
 		$true_conditionals  = array();
 		$false_conditionals = array();
-
 		foreach ( $conditionals as $conditional ) {
 			$name = $conditional['name'];
-
 			if ( isset( $conditional['method'] ) && '' !== $conditional['method'] ) {
 				$name = $conditional['method'];
 			}
@@ -93,7 +91,6 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 		}
-
 		$args  = array(
 			'post_type'      => 'message',
 			'post_status'    => 'publish',
@@ -109,16 +106,15 @@ class WP_Message_Inserter_Plugin_Front_End {
 		);
 		$args  = apply_filters( 'wp_message_inserter_post_args', $args );
 		$query = new WP_Query( $args );
-
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
 				$conditional  = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
-				$conditional = unserialize($conditional);
+				$conditional  = maybe_unserialize( $conditional );
 
 				$conditional_result =  $conditional[0]['_wp_inserted_message_conditional_result'];
-				$conditional =  $conditional[0]['_wp_inserted_message_conditional'];
+				$conditional        =  $conditional[0]['_wp_inserted_message_conditional'];
 
 				// If our key is equal to a conditional with a method?
 				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
@@ -138,15 +134,13 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
-
 					// If there isn't a value...
 					if ( '' === $conditional_value ) {
 						if ( function_exists( $conditional ) && $conditional_result === $conditional() ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
 							$post['meta'] = $message_meta;
 						}
-					// If there is a value
-					} else {
+					} else { // If there is a value
 						if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
 							$post['meta'] = $message_meta;
