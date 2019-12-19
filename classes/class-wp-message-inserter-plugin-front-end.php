@@ -78,8 +78,10 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$conditionals       = $this->content_items->get_conditionals();
 		$true_conditionals  = array();
 		$false_conditionals = array();
+
 		foreach ( $conditionals as $conditional ) {
 			$name = $conditional['name'];
+
 			if ( isset( $conditional['method'] ) && '' !== $conditional['method'] ) {
 				$name = $conditional['method'];
 			}
@@ -91,6 +93,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 		}
+
 		$args  = array(
 			'post_type'      => 'message',
 			'post_status'    => 'publish',
@@ -106,28 +109,43 @@ class WP_Message_Inserter_Plugin_Front_End {
 		);
 		$args  = apply_filters( 'wp_message_inserter_post_args', $args );
 		$query = new WP_Query( $args );
+
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
-				$conditional  = isset( $message_meta[ $this->post_meta_prefix . 'conditional' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional' ][0] : '';
+				$conditional  = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
+				$conditional = unserialize($conditional);
 
+				$conditional_result =  $conditional[0]['_wp_inserted_message_conditional_result'];
+				$conditional =  $conditional[0]['_wp_inserted_message_conditional'];
+
+				// If our key is equal to a conditional with a method?
 				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
 				if ( false !== $key && isset( $conditionals[ $key ]['method'] ) ) {
 					$conditional = $conditionals[ $key ]['method'];
 				}
 
+				// Conditional Value only appears for certain types of conditions. It is a text box that says "Enter the value expected for this conditional"
+				// is_logged_in doesn't have one
+				// TODO Figure out where this comes into play
 				$conditional_value  = isset( $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] : '';
-				$conditional_result = isset( $message_meta[ $this->post_meta_prefix . 'conditional_result' ][0] ) ? filter_var( $message_meta[ $this->post_meta_prefix . 'conditional_result' ][0], FILTER_VALIDATE_BOOLEAN ) : false;
+				$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
+
+				// If no conditional is set
 				if ( '' === $conditional ) {
+					// Grab whatever we can?
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
+
+					// If there isn't a value...
 					if ( '' === $conditional_value ) {
 						if ( function_exists( $conditional ) && $conditional_result === $conditional() ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
 							$post['meta'] = $message_meta;
 						}
+					// If there is a value
 					} else {
 						if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
 							$post         = get_post( get_the_ID(), ARRAY_A );
