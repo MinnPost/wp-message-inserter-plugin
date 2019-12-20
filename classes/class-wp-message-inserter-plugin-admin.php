@@ -244,7 +244,7 @@ class WP_Message_Inserter_Plugin_Admin {
 	 * @return void
 	 */
 	public function frontend_scripts_and_styles() {
-		wp_enqueue_style( $this->slug . '-front-end', plugins_url( 'assets/css/' . $this->slug . '-front-end.min.css', dirname( __FILE__ ) ), $css_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/css/' . $this->slug . '-front-end.min.css' ), 'all' );
+		wp_enqueue_style( $this->slug . '-front-end', plugins_url( 'assets/css/' . $this->slug . '-front-end.min.css', dirname( __FILE__ ) ), array(), filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/css/' . $this->slug . '-front-end.min.css' ), 'all' );
 	}
 
 	/**
