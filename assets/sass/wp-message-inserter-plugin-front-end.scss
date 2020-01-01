@@ -85,6 +85,8 @@ $base-line-height-em: 1.5em;
 			justify-content: center;
 			align-items: center;
 			align-content: center;
+			max-width: $max-width-page;
+			margin: 0 auto;
 		}
 
 		&.flip {

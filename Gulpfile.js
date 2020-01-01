@@ -100,6 +100,12 @@ function frontendstyles() {
 				}) // Minify
 			])
 		)
+		.pipe(
+			rename({
+				// Rename to .min.css
+				suffix: ".min"
+			})
+		)
 		.pipe(sourcemaps.write()) // Write the sourcemap files
 		.pipe(gulp.dest(config.styles.dest)) // Drop the resulting CSS file in the specified dir
 		.pipe(browserSync.stream());
@@ -133,25 +139,25 @@ function adminscripts() {
 }
 
 function frontendscripts() {
-	return (
-		gulp
-			.src(config.scripts.front_end)
-			.pipe(sourcemaps.init())
-			.pipe(
-				babel({
-					presets: ["@babel/preset-env"]
-				})
-			)
-			.pipe(concat("" + packagejson.name + "-front-end.js")) // Concatenate
-			/*.pipe(uglify()) // Minify + compress
-    .pipe(rename({
-      suffix: '.min'
-    }))*/
-			.pipe(sourcemaps.write())
-			.pipe(eslint())
-			.pipe(gulp.dest(config.scripts.dest))
-			.pipe(browserSync.stream())
-	);
+	return gulp
+		.src(config.scripts.front_end)
+		.pipe(sourcemaps.init())
+		.pipe(
+			babel({
+				presets: ["@babel/preset-env"]
+			})
+		)
+		.pipe(concat("" + packagejson.name + "-front-end.js")) // Concatenate
+		.pipe(uglify()) // Minify + compress
+		.pipe(
+			rename({
+				suffix: ".min"
+			})
+		)
+		.pipe(sourcemaps.write())
+		.pipe(eslint())
+		.pipe(gulp.dest(config.scripts.dest))
+		.pipe(browserSync.stream());
 }
 
 function uglifyscripts() {
