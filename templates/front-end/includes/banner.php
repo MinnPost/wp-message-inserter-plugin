@@ -14,7 +14,6 @@
 				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 					<!-- Dual Col -->
 					<div class="dual-wrap <?php echo ( $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
-
 						<?php if ( $screen_size[ $prefix . 'banner_icon' ] ) : ?>
 							<div class="col banner-icon">
 								<img src="<?php echo $screen_size[ $prefix . 'banner_icon' ]; ?>" alt="">
