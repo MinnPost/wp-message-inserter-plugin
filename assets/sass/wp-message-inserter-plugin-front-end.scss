@@ -38,10 +38,6 @@ $base-line-height-em: 1.5em;
 	background-size: cover;
 	color: #fff;
 
-	&.d-none {
-		display: none;
-	}
-
 	h3 {
 		font-family: $font__headings;
 		font-feature-settings: "calt" off, "dlig" off, "ss01" off, "liga" off;
@@ -121,10 +117,15 @@ $base-line-height-em: 1.5em;
 
 	// Popup specifics
 	&.pop-banner {
+		display: none;
 		max-width: 100%;
 		position: fixed;
 		bottom: 0;
 		margin: 0 auto;
+
+		&.d-block {
+			display: block;
+		}
 
 		.sm-close-btn {
 			position: absolute;
