@@ -8,11 +8,9 @@
 				' . $screen_size[ $prefix . 'banner_bgcolor' ] . '
 			),' : '';
 			$bgimg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
-
-			$showpopup = ($region === 'popup' && $_COOKIE["sm-closed"] === 'true') ? 'd-none' : '';
 		?>
 
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> <?php echo $showpopup; ?>" style="<?php echo $bgimg; ?>">
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
 				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 
 					<!-- Dual Col -->
