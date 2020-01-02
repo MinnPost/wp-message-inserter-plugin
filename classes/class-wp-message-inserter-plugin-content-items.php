@@ -139,8 +139,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type'       => 'radio_inline',
 				'desc'       => '',
 				'options'    => array(
-					'image'  => __( 'Image', 'wp-message-inserter-plugin' ),
-					'editor' => __( 'Editor', 'wp-message-inserter-plugin' ),
+					'image'  => esc_html__( 'Image', 'wp-message-inserter-plugin' ),
+					'editor' => esc_html__( 'Editor', 'wp-message-inserter-plugin' ),
+					'banner' => esc_html__( 'Banner', 'wp-message-inserter-plugin' ),
 				),
 				'default'    => 'image',
 				'classes'    => 'cmb2-message-type-selector',
@@ -170,7 +171,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'id'               => $prefix . 'region',
 				'type'             => $select_type,
 				'show_option_none' => true,
-				'desc'             => esc_html__( 'Where on the site this message will appear.', 'wp-message-inserter-plugin' ),
+				'desc'             => esc_html__( 'Where on the site this message will appear. If popup is selected it will load the banner but need to be triggered with Google Optimize.', 'wp-message-inserter-plugin' ),
 				'options'          => $this->get_region_options( $select_type ),
 				'default'          => 'none',
 				'attributes'       => array(
@@ -405,6 +406,239 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'attributes' => array(
 					'required' => false,
 				),
+			)
+		);
+
+		// New Boxes for Custom Banners / Popups
+
+		// LAYOUT
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Banner Layout', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_layout',
+				'type'       => 'select',
+				'options'    => array(
+					'dualcol' => esc_html__( 'Dual Column', 'wp-message-inserter-plugin' ),
+					'stacked' => esc_html__( 'Stacked', 'wp-message-inserter-plugin' ),
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required' => true,
+				),
+			)
+		);
+
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'    => esc_html__( 'Flip Columns', 'wp-message-inserter-plugin' ),
+				'id'      => $prefix . 'banner_flip_columns',
+				'type'    => 'checkbox',
+				'desc'    => esc_html__( 'Flip order of dual column', 'wp-message-inserter-plugin' ),
+				'classes' => 'cmb2-message-type cmb2-message-type-banner',
+			)
+		);
+
+		// Banner BG Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'    => esc_html__( 'Banner BG Color', 'wp-message-inserter-plugin' ),
+				'id'      => $prefix . 'banner_bgcolor',
+				'type'    => 'colorpicker',
+				'default' => '#0080a3',
+				'classes' => 'cmb2-message-type cmb2-message-type-banner',
+				'options' => array(
+					'alpha' => true,
+				),
+			)
+		);
+
+		// Banner BG Image
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Banner BG Image', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_bgimage',
+				'desc'       => esc_html__( 'Image is optional. The BG Color will overlay this image', 'wp-message-inserter-plugin' ),
+				'type'       => 'file',
+				'text'       => array(
+					'add_upload_file_text' => esc_html__( 'Add Image', 'wp-message-inserter-plugin' ),
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'query_args' => array(
+					// Only allow gif, jpg, or png images
+					'type' => array(
+						'image/gif',
+						'image/jpeg',
+						'image/png',
+					),
+				),
+			)
+		);
+
+		// CONTENT
+		// Banner Icon
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Banner Icon', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_icon',
+				'desc'       => 'Image is optional.',
+				'type'       => 'file',
+				'text'       => array(
+					'add_upload_file_text' => __( 'Add Image', 'wp-message-inserter-plugin' ),
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'query_args' => array(
+					// Only allow gif, jpg, or png images
+					'type' => array(
+						'image/gif',
+						'image/jpeg',
+						'image/png',
+					),
+				),
+			)
+		);
+
+		// Banner Main Heading
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Banner Heading', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_heading',
+				'type'       => 'text',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required' => false,
+				),
+			)
+		);
+
+		// Banner Short Content
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'    => esc_html__( 'Banner Short Copy', 'wp-message-inserter-plugin' ),
+				'id'      => $prefix . 'banner_shortcopy',
+				'type'    => 'wysiwyg',
+				'options' => array(
+					'media_buttons' => false, // show insert/upload button(s)
+					'teeny'         => true, // output the minimal editor config used in Press This
+					'dfw'           => false, // replace the default fullscreen with DFW (needs specific css)
+				),
+				'classes' => 'cmb2-message-type cmb2-message-type-banner',
+			)
+		);
+
+		// BUTTONS OR FORM
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'CTA Type', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'cta_type',
+				'type'       => 'radio_inline',
+				'desc'       => '',
+				'options'    => array(
+					'button' => esc_html__( 'Button', 'wp-message-inserter-plugin' ),
+					'form'   => esc_html__( 'Form', 'wp-message-inserter-plugin' ),
+					'none'   => esc_html__( 'None', 'wp-message-inserter-plugin' ),
+				),
+				'default'    => 'button',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required' => true,
+				),
+			)
+		);
+
+		// BUTTONS
+		// Button Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Button BG Color', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_btn_bgcolor',
+				'type'       => 'colorpicker',
+				'default'    => '#801019',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'button',
+				),
+			)
+		);
+
+		// Button Info
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Button Details', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_buttondetails',
+				'type'       => 'link_picker',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'button',
+				),
+			)
+		);
+
+		// Button Icon
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Button Icon', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_buttonicon',
+				'type'       => 'faiconselect',
+				'options_cb' => 'returnRayFapsa',
+				'attributes' => array(
+					'faver'                  => 5,
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'button',
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+			)
+		);
+
+		// FORMS
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Form Shortcode', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_form_shortcode',
+				'desc'       => esc_html__( 'Place shortcode for Mailchimp Signup form', 'wp-message-inserter-plugin' ),
+				'type'       => 'textarea_small',
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'form',
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+			)
+		);
+
+		// Disclaimer text - might need better name
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Disclaimer ', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_disclaimer',
+				'desc'       => esc_html__( 'Appears below the form or button. Small text', 'wp-message-inserter-plugin' ),
+				'type'       => 'wysiwyg',
+				'options'    => array(
+					'media_buttons' => false, // show insert/upload button(s)
+					'teeny'         => true, // output the minimal editor config used in Press This
+					'dfw'           => false, // replace the default fullscreen with DFW (needs specific css)
+				),
+				'attributes' => array(
+					'required' => false,
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
 			)
 		);
 

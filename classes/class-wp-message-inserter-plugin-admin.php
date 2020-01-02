@@ -56,6 +56,9 @@ class WP_Message_Inserter_Plugin_Admin {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_and_styles' ) );
 		}
 
+		// TODO: move this to front-end.php
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_and_styles' ) );
+
 	}
 
 	/**
@@ -226,12 +229,22 @@ class WP_Message_Inserter_Plugin_Admin {
 				}
 
 				wp_enqueue_script( $this->slug . '-admin', plugins_url( 'assets/js/' . $this->slug . '-admin.min.js', dirname( __FILE__ ) ), $javascript_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/js/' . $this->slug . '-admin.min.js' ), true );
-
 				wp_enqueue_style( $this->slug . '-admin', plugins_url( 'assets/css/' . $this->slug . '-admin.min.css', dirname( __FILE__ ) ), $css_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/css/' . $this->slug . '-admin.min.css' ), 'all' );
 
 			}
 		}
 
+	}
+
+	/**
+	 * Frontend styles. Load the CSS and/or JavaScript.
+	 * TODO: move this to front-end.php
+	 *
+	 * @return void
+	 */
+	public function frontend_scripts_and_styles() {
+		wp_enqueue_script( $this->slug . '-front-end', plugins_url( 'assets/js/' . $this->slug . '-front-end.min.js', dirname( __FILE__ ) ), $javascript_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/js/' . $this->slug . '-front-end.min.js' ), true );
+		wp_enqueue_style( $this->slug . '-front-end', plugins_url( 'assets/css/' . $this->slug . '-front-end.min.css', dirname( __FILE__ ) ), $css_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/css/' . $this->slug . '-front-end.min.css' ), 'all' );
 	}
 
 	/**
