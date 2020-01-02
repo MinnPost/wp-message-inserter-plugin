@@ -114,7 +114,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 				$conditional  = maybe_unserialize( $conditional );
 
 				$conditional_result = $conditional[0]['_wp_inserted_message_conditional_result'];
-				$conditional        = $conditional[0]['_wp_inserted_message_conditional'];
+				$conditional        = isset( $conditional[0]['_wp_inserted_message_conditional'] ) ? $conditional[0]['_wp_inserted_message_conditional'] : '';
 
 				// If our key is equal to a conditional with a method?
 				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
