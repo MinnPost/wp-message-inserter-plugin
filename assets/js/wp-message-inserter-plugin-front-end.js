@@ -34,6 +34,7 @@
 			}
 		}
 
+		// Check if we should be showing the banner
 		if ($(".pop-banner").length && getCookie("sm-closed") !== "true") {
 			$(".pop-banner").addClass("d-block");
 		}
