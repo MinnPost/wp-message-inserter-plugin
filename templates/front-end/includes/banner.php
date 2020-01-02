@@ -8,10 +8,13 @@
 				' . $screen_size[ $prefix . 'banner_bgcolor' ] . '
 			),' : '';
 			$bgimg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
+
+			$showpopup = ($region === 'popup' && $_COOKIE["sm-closed"] === 'true') ? 'd-none' : '';
 		?>
 
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> <?php echo $showpopup; ?>" style="<?php echo $bgimg; ?>">
 				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
+
 					<!-- Dual Col -->
 					<div class="dual-wrap <?php echo ( $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
 						<?php if ( $screen_size[ $prefix . 'banner_icon' ] ) : ?>
@@ -74,7 +77,7 @@
 
 				<?php if ( 'popup' === $region ) : ?>
 					<!-- Close Btn -->
-					<a href="#" class="close-btn"><i class="fas fa-times"></i></a>
+					<a href="#" class="sm-close-btn"><i class="fas fa-times"></i></a>
 				<?php endif; ?>
 		</aside>
 	<?php endforeach; ?>
