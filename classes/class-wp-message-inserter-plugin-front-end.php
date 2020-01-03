@@ -111,11 +111,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
 
-				$operator = $message_meta['_wp_inserted_message_conditional_operator'][0];
-				$conditional  = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
+				$operator    = $message_meta['_wp_inserted_message_conditional_operator'][0];
+				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
 
 				// Array of Conditions set on a banner
-				$conditional  = maybe_unserialize( $conditional );
+				$conditional = maybe_unserialize( $conditional );
 
 				$conditional_result = $conditional[0]['_wp_inserted_message_conditional_result'];
 				// $conditional        = isset( $conditional[0]['_wp_inserted_message_conditional'] ) ? $conditional[0]['_wp_inserted_message_conditional'] : '';
@@ -138,7 +138,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post['meta'] = $message_meta;
 				} else {
 
-					$show_banner = false;
+					$show_banner       = false;
 					$conditional_count = count( $conditional );
 					foreach ( $conditional as $condkey => $condvalue ) {
 						if ( '' === $conditional_value ) {
@@ -163,7 +163,6 @@ class WP_Message_Inserter_Plugin_Front_End {
 									$show_banner = false;
 								}
 							}
-
 						} else { // If there is a value in the "conditional" value
 							if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
 								$post         = get_post( get_the_ID(), ARRAY_A );
@@ -172,7 +171,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 						}
 					}
 
-					if ( $show_banner === true ) {
+					if ( true === $show_banner ) {
 						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
