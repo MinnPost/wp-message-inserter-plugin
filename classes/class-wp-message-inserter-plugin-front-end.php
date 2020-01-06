@@ -112,24 +112,15 @@ class WP_Message_Inserter_Plugin_Front_End {
 				$message_meta = get_post_meta( get_the_ID() );
 
 				$operator    = $message_meta['_wp_inserted_message_conditional_operator'][0];
-				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
-
 				// Array of Conditions set on a banner
+				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
 				$conditional = maybe_unserialize( $conditional );
 
-				$conditional_result = $conditional[0]['_wp_inserted_message_conditional_result'];
-				// $conditional        = isset( $conditional[0]['_wp_inserted_message_conditional'] ) ? $conditional[0]['_wp_inserted_message_conditional'] : '';
-
-				// Set conditional if it has a method associated wiht it in the $conditionals array
+				// Set conditional if it has a method associated with it in the $conditionals array
 				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
 				if ( false !== $key && isset( $conditionals[ $key ]['method'] ) ) {
 					$conditional = $conditionals[ $key ]['method'];
 				}
-
-				// Conditional Value only appears for certain types of conditions. It is a text box that says "Enter the value expected for this conditional"
-				// is_logged_in doesn't have one
-				$conditional_value  = isset( $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] : '';
-				$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 				// If no conditional is set
 				if ( '' === $conditional ) {
@@ -137,36 +128,27 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
-
 					$show_banner       = false;
-					$conditional_count = count( $conditional );
 					foreach ( $conditional as $condkey => $condvalue ) {
-						if ( '' === $conditional_value ) {
+						$conditional_method   = $condvalue['_wp_inserted_message_conditional'];
+						$conditional_value    = $condvalue['_wp_inserted_message_conditional_value'];
+						$conditional_result   = $condvalue['_wp_inserted_message_conditional_result'];
+						$conditional_result   = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
-							$conditional_method = $condvalue['_wp_inserted_message_conditional'];
-							$conditional_test   = $condvalue['_wp_inserted_message_conditional_result'];
-							$conditional_test   = isset( $conditional_test ) ? filter_var( $conditional_test, FILTER_VALIDATE_BOOLEAN ) : false;
-
-							// Handle our OR operator
-							if ( 'or' === $operator ) {
-								if ( $conditional_test === $conditional_method() ) {
-									$show_banner = true;
-									break;
-								}
+						// Handle our OR operator
+						if ( 'or' === $operator ) {
+							if (  $conditional_method === NULL || $conditional_result === $conditional_method( $conditional_value ) ) {
+								$show_banner = true;
+								break;
 							}
+						}
 
-							// Handle our AND operator
-							if ( 'and' === $operator ) {
-								if ( $conditional_test === $conditional_method() ) {
-									$show_banner = true;
-								} else {
-									$show_banner = false;
-								}
-							}
-						} else { // If there is a value in the "conditional" value
-							if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
-								$post         = get_post( get_the_ID(), ARRAY_A );
-								$post['meta'] = $message_meta;
+						// Handle our AND operator
+						if ( 'and' === $operator ) {
+							if ( $conditional_method === NULL || $conditional_result === $conditional_method( $conditional_value ) ) {
+								$show_banner = true;
+							} else {
+								$show_banner = false;
 							}
 						}
 					}
@@ -175,6 +157,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
+
 				}
 			}
 			wp_reset_postdata();
