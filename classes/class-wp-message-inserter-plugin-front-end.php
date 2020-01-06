@@ -110,8 +110,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
-
 				$operator    = $message_meta['_wp_inserted_message_conditional_operator'][0];
+
 				// Array of Conditions set on a banner
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
 				$conditional = maybe_unserialize( $conditional );
@@ -137,7 +137,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						// Handle our OR operator
 						if ( 'or' === $operator ) {
-							if (  $conditional_method === NULL || $conditional_result === $conditional_method( $conditional_value ) ) {
+							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
 								$show_banner = true;
 								break;
 							}
@@ -145,7 +145,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						// Handle our AND operator
 						if ( 'and' === $operator ) {
-							if ( $conditional_method === NULL || $conditional_result === $conditional_method( $conditional_value ) ) {
+							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
 								$show_banner = true;
 							} else {
 								$show_banner = false;
@@ -157,7 +157,6 @@ class WP_Message_Inserter_Plugin_Front_End {
 						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
-
 				}
 			}
 			wp_reset_postdata();
