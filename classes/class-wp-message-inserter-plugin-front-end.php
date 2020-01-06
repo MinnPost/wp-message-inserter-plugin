@@ -123,23 +123,17 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
-				$conditional  = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
-				$conditional  = maybe_unserialize( $conditional );
+				$operator    = $message_meta['_wp_inserted_message_conditional_operator'][0];
 
-				$conditional_result = $conditional[0]['_wp_inserted_message_conditional_result'];
-				$conditional        = isset( $conditional[0]['_wp_inserted_message_conditional'] ) ? $conditional[0]['_wp_inserted_message_conditional'] : '';
+				// Array of Conditions set on a banner
+				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
+				$conditional = maybe_unserialize( $conditional );
 
-				// If our key is equal to a conditional with a method?
+				// Set conditional if it has a method associated with it in the $conditionals array
 				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
 				if ( false !== $key && isset( $conditionals[ $key ]['method'] ) ) {
 					$conditional = $conditionals[ $key ]['method'];
 				}
-
-				// Conditional Value only appears for certain types of conditions. It is a text box that says "Enter the value expected for this conditional"
-				// is_logged_in doesn't have one
-				// TODO Figure out where this comes into play
-				$conditional_value  = isset( $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] ) ? $message_meta[ $this->post_meta_prefix . 'conditional_value' ][0] : '';
-				$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 				// If no conditional is set
 				if ( '' === $conditional ) {
@@ -147,17 +141,34 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
-					// If there isn't a value...
-					if ( '' === $conditional_value ) {
-						if ( function_exists( $conditional ) && $conditional_result === $conditional() ) {
-							$post         = get_post( get_the_ID(), ARRAY_A );
-							$post['meta'] = $message_meta;
+					$show_banner       = false;
+					foreach ( $conditional as $condkey => $condvalue ) {
+						$conditional_method   = $condvalue['_wp_inserted_message_conditional'];
+						$conditional_value    = $condvalue['_wp_inserted_message_conditional_value'];
+						$conditional_result   = $condvalue['_wp_inserted_message_conditional_result'];
+						$conditional_result   = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
+
+						// Handle our OR operator
+						if ( 'or' === $operator ) {
+							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
+								$show_banner = true;
+								break;
+							}
 						}
-					} else { // If there is a value
-						if ( function_exists( $conditional ) && $conditional_result === $conditional( $conditional_value ) ) {
-							$post         = get_post( get_the_ID(), ARRAY_A );
-							$post['meta'] = $message_meta;
+
+						// Handle our AND operator
+						if ( 'and' === $operator ) {
+							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
+								$show_banner = true;
+							} else {
+								$show_banner = false;
+							}
 						}
+					}
+
+					if ( true === $show_banner ) {
+						$post         = get_post( get_the_ID(), ARRAY_A );
+						$post['meta'] = $message_meta;
 					}
 				}
 			}
