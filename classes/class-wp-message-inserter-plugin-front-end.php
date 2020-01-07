@@ -143,9 +143,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 				} else {
 					$show_banner       = false;
 					foreach ( $conditional as $condkey => $condvalue ) {
-						$conditional_method   = $condvalue['_wp_inserted_message_conditional'];
-						$conditional_value    = $condvalue['_wp_inserted_message_conditional_value'];
-						$conditional_result   = $condvalue['_wp_inserted_message_conditional_result'];
+						$conditional_method   = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
+						$conditional_value    = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
+						$conditional_result   = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
 						$conditional_result   = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 						// Handle our OR operator
