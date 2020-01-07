@@ -150,7 +150,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						// Handle our OR operator
 						if ( 'or' === $operator ) {
-							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
+							if ( ! function_exists( $conditional_method ) || $conditional_result === $conditional_method( $conditional_value ) ) {
 								$show_banner = true;
 								break;
 							}
@@ -158,7 +158,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						// Handle our AND operator
 						if ( 'and' === $operator ) {
-							if ( null === $conditional_method || $conditional_result === $conditional_method( $conditional_value ) ) {
+							if ( ! function_exists( $conditional_method ) || $conditional_result === $conditional_method( $conditional_value ) ) {
 								$show_banner = true;
 							} else {
 								$show_banner = false;
