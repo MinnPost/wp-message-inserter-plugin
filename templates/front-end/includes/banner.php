@@ -25,9 +25,9 @@
 							<h3><?php echo $screen_size[ $prefix . 'banner_heading' ]; ?></h3>
 							<?php echo wpautop( $screen_size[ $prefix . 'banner_shortcopy' ] ); ?>
 
-							<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset($screen_size[ $prefix . 'banner_form_shortcode' ]) ) : ?>
+							<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ) : ?>
 								<!-- FORM -->
-								<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ?>
+								<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ); ?>
 							<?php endif; ?>
 						</div>
 						<div class="col">
@@ -67,9 +67,9 @@
 
 						<div class="disclaimer"><?php echo wpautop( $screen_size[ $prefix . 'banner_disclaimer' ] ); ?></div>
 
-						<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset($screen_size[ $prefix . 'banner_form_shortcode' ]) ) : ?>
+						<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ) : ?>
 							<!-- FORM -->
-							<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ?>
+							<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ); ?>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>

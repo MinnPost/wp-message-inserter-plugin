@@ -197,9 +197,9 @@ class WP_Message_Inserter_Plugin_Admin {
 	public function admin_scripts_and_styles( $hook ) {
 
 		$cpt = 'message';
-		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) ) {
+		if ( in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
 			$screen = get_current_screen();
-			if ( is_object( $screen ) && $cpt == $screen->post_type ) {
+			if ( is_object( $screen ) && $cpt === $screen->post_type ) {
 
 				// I think some developers might not want to bother with select2 or selectwoo, so let's allow that to be changeable
 				$select_library = apply_filters( 'wp_message_inserter_plugin_select_library', 'selectwoo' );

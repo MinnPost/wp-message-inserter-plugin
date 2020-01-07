@@ -123,7 +123,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$message_meta = get_post_meta( get_the_ID() );
-				$operator    = $message_meta['_wp_inserted_message_conditional_operator'][0];
+				$operator     = $message_meta['_wp_inserted_message_conditional_operator'][0];
 
 				// Array of Conditions set on a banner
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
@@ -141,12 +141,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
-					$show_banner       = false;
+					$show_banner = false;
 					foreach ( $conditional as $condkey => $condvalue ) {
-						$conditional_method   = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
-						$conditional_value    = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
-						$conditional_result   = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
-						$conditional_result   = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
+						$conditional_method = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
+						$conditional_value  = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
+						$conditional_result = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
+						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 						// Handle our OR operator
 						if ( 'or' === $operator ) {
