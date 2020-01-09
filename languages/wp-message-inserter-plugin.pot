@@ -13,19 +13,19 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wp-message-inserter-plugin.php:179, classes/class-wp-message-inserter-plugin-admin.php:87
+#: wp-message-inserter-plugin.php:179, classes/class-wp-message-inserter-plugin-admin.php:83
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:273
+#: classes/class-wp-message-inserter-plugin-admin.php:258
 msgid "Test field"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:362, classes/class-wp-message-inserter-plugin-admin.php:487, classes/class-wp-message-inserter-plugin-admin.php:540, classes/class-wp-message-inserter-plugin-admin.php:618
+#: classes/class-wp-message-inserter-plugin-admin.php:347, classes/class-wp-message-inserter-plugin-admin.php:472, classes/class-wp-message-inserter-plugin-admin.php:525, classes/class-wp-message-inserter-plugin-admin.php:603
 msgid "Defined in wp-config.php"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-admin.php:455
+#: classes/class-wp-message-inserter-plugin-admin.php:440
 msgid "Select one"
 msgstr ""
 

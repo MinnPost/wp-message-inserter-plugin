@@ -153,15 +153,14 @@ function frontendscripts() {
 				presets: ["@babel/preset-env"]
 			})
 		)
-		.pipe(concat("" + packagejson.name + "-front-end.js")) // Concatenate
-		.pipe(uglify()) // Minify + compress
-		.pipe(
-			rename({
-				suffix: ".min"
-			})
-		)
+		.pipe(concat(packagejson.name + "-front-end.js")) // Concatenate
 		.pipe(sourcemaps.write())
 		.pipe(eslint())
+		.pipe(iife({
+	      useStrict: false,
+	      params: ['$'],
+	      args: ['jQuery']
+	    }))
 		.pipe(gulp.dest(config.scripts.dest))
 		.pipe(browserSync.stream());
 }
