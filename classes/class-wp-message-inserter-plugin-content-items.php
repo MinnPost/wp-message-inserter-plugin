@@ -180,6 +180,36 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		$screen_size_box->add_field(
+			array(
+				'name'             => esc_html__( 'Popup Close Time - Days', 'wp-message-inserter-plugin' ),
+				'id'               => $prefix . "close_time_days",
+				'type'             => 'text',
+				'desc'             => esc_html__( 'How many days should this be hidden on close?', 'wp-message-inserter-plugin' ),
+					'attributes' => array(
+					'type' => 'number',
+					'pattern' => '\d*',
+					'data-conditional-id' => $prefix . 'region',
+					'data-conditional-value' => 'popup',
+				),
+			)
+		);
+
+		$screen_size_box->add_field(
+			array(
+				'name'             => esc_html__( 'Popup Close Time - Hours', 'wp-message-inserter-plugin' ),
+				'id'               => $prefix . "close_time_hours",
+				'type'             => 'text',
+				'desc'             => esc_html__( 'How many hours should this be hidden on close?', 'wp-message-inserter-plugin' ),
+					'attributes' => array(
+					'type' => 'number',
+					'pattern' => '\d*',
+					'data-conditional-id' => $prefix . 'region',
+					'data-conditional-value' => 'popup',
+				),
+			)
+		);
+
 		$conditional_group_id = $screen_size_box->add_field(
 			array(
 				'id'         => 'conditional_group_id',

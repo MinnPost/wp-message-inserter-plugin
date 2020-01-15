@@ -35,12 +35,13 @@
 		}
 
 		// Check if we should be showing the banner
-		if ($(".pop-banner").length && getCookie("sm-closed") !== "true") {
+		if ($(".pop-banner").length && "true" !== getCookie("sm-closed")) {
 			$(".pop-banner").addClass("d-block");
 		}
 
 		// Popup Banner Close Button
-		$(".sm-close-btn").on("click", function() {
+		$(".sm-close-btn").on("click", function(e) {
+			e.preventDefault();
 			setCookie("sm-closed", true, 1);
 			$(".pop-banner").hide();
 		});
