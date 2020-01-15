@@ -1,47 +1,59 @@
-;(function($) {
 "use strict";
 
-function setCookie(name, value, days) {
-  var d = new Date();
-  d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
-  document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
-} // Reads Cookies
+(function($) {
+	// Sets Cookies
+	function setCookie(name, value, days) {
+		var d = new Date();
+		d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
+		document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+	}
 
+	// Reads Cookies
+	function getCookie(name) {
+		var v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+		return v ? v[2] : null;
+	}
 
-function getCookie(name) {
-  var v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
-  return v ? v[2] : null;
-}
+	// Faux "Session" checking/setting
+	// Timestamp
+	var currentcount = getCookie("count");
+	var timestamp = Math.floor(new Date().getTime() / 1000);
+	if (!getCookie("count")) {
+		// First Visit - set count to 1
+		setCookie("count", 1, 365);
 
-$(document).ready(function () {
-  // Faux "Session" checking/setting
-  // Timestamp
-  var timestamp = Math.floor(new Date().getTime() / 1000);
+		// Set a timecheck cookie for an hour from now
+		setCookie("timecheck", timestamp + 3600, 365);
+	} else {
+		if (timestamp > getCookie("timecheck")) {
+			// Update Timecheck to new value
+			setCookie("timecheck", timestamp + 3600, 365);
 
-  if (!getCookie("count")) {
-    // First Visit - set count to 1
-    setCookie("count", 1, 365); // Set a timecheck cookie for an hour from now
+			// Count exists already and it has been an hour. Update count
+			setCookie("count", ++currentcount, 365);
+		}
+	}
 
-    setCookie("timecheck", timestamp + 3600, 365);
-  } else {
-    if (timestamp > getCookie("timecheck")) {
-      // Update Timecheck to new value
-      setCookie("timecheck", timestamp + 3600, 365); // Count exists already and it has been an hour. Update count
+	$(document).ready(function() {
+		// Get our value for days to set cookie
+		var closetimedays = parseInt($(".closetimedays").val());
 
-      setCookie("count", getCookie("count") + 1, 365);
-    }
-  } // Check if we should be showing the banner
+		// Get our value for hours and divide by 24 to get proper percent of a day
+		var closetimehours = $(".closetimehours").val() / 24;
 
+		// Our Total for when the cookie should expire and show the banner again
+		var cookiedaytotal = closetimedays + closetimehours;
 
-  if ($(".pop-banner").length && getCookie("sm-closed") !== "true") {
-    $(".pop-banner").addClass("d-block");
-  } // Popup Banner Close Button
+		// Check if we should be showing the banner
+		if ($(".pop-banner").length && "true" !== getCookie("sm-closed")) {
+			$(".pop-banner").addClass("d-block");
+		}
 
-
-  $(".sm-close-btn").on("click", function () {
-    setCookie("sm-closed", true, 1);
-    $(".pop-banner").hide();
-  });
-});
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvb2tpZXMuanMiXSwibmFtZXMiOlsic2V0Q29va2llIiwibmFtZSIsInZhbHVlIiwiZGF5cyIsImQiLCJEYXRlIiwic2V0VGltZSIsImdldFRpbWUiLCJkb2N1bWVudCIsImNvb2tpZSIsInRvR01UU3RyaW5nIiwiZ2V0Q29va2llIiwidiIsIm1hdGNoIiwiJCIsInJlYWR5IiwidGltZXN0YW1wIiwiTWF0aCIsImZsb29yIiwibGVuZ3RoIiwiYWRkQ2xhc3MiLCJvbiIsImhpZGUiXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBU0EsU0FBVCxDQUFtQkMsSUFBbkIsRUFBeUJDLEtBQXpCLEVBQWdDQyxJQUFoQyxFQUFzQztBQUNyQyxNQUFJQyxDQUFDLEdBQUcsSUFBSUMsSUFBSixFQUFSO0FBQ0FELEVBQUFBLENBQUMsQ0FBQ0UsT0FBRixDQUFVRixDQUFDLENBQUNHLE9BQUYsS0FBYyxLQUFLLEVBQUwsR0FBVSxFQUFWLEdBQWUsSUFBZixHQUFzQkosSUFBOUM7QUFDQUssRUFBQUEsUUFBUSxDQUFDQyxNQUFULEdBQWtCUixJQUFJLEdBQUcsR0FBUCxHQUFhQyxLQUFiLEdBQXFCLGtCQUFyQixHQUEwQ0UsQ0FBQyxDQUFDTSxXQUFGLEVBQTVEO0FBQ0EsQyxDQUVEOzs7QUFDQSxTQUFTQyxTQUFULENBQW1CVixJQUFuQixFQUF5QjtBQUN4QixNQUFJVyxDQUFDLEdBQUdKLFFBQVEsQ0FBQ0MsTUFBVCxDQUFnQkksS0FBaEIsQ0FBc0IsWUFBWVosSUFBWixHQUFtQixlQUF6QyxDQUFSO0FBQ0EsU0FBT1csQ0FBQyxHQUFHQSxDQUFDLENBQUMsQ0FBRCxDQUFKLEdBQVUsSUFBbEI7QUFDQTs7QUFFREUsQ0FBQyxDQUFDTixRQUFELENBQUQsQ0FBWU8sS0FBWixDQUFrQixZQUFXO0FBQzVCO0FBQ0E7QUFDQSxNQUFJQyxTQUFTLEdBQUdDLElBQUksQ0FBQ0MsS0FBTCxDQUFXLElBQUliLElBQUosR0FBV0UsT0FBWCxLQUF1QixJQUFsQyxDQUFoQjs7QUFDQSxNQUFJLENBQUNJLFNBQVMsQ0FBQyxPQUFELENBQWQsRUFBeUI7QUFDeEI7QUFDQVgsSUFBQUEsU0FBUyxDQUFDLE9BQUQsRUFBVSxDQUFWLEVBQWEsR0FBYixDQUFULENBRndCLENBSXhCOztBQUNBQSxJQUFBQSxTQUFTLENBQUMsV0FBRCxFQUFjZ0IsU0FBUyxHQUFHLElBQTFCLEVBQWdDLEdBQWhDLENBQVQ7QUFDQSxHQU5ELE1BTU87QUFDTixRQUFJQSxTQUFTLEdBQUdMLFNBQVMsQ0FBQyxXQUFELENBQXpCLEVBQXdDO0FBQ3ZDO0FBQ0FYLE1BQUFBLFNBQVMsQ0FBQyxXQUFELEVBQWNnQixTQUFTLEdBQUcsSUFBMUIsRUFBZ0MsR0FBaEMsQ0FBVCxDQUZ1QyxDQUl2Qzs7QUFDQWhCLE1BQUFBLFNBQVMsQ0FBQyxPQUFELEVBQVVXLFNBQVMsQ0FBQyxPQUFELENBQVQsR0FBcUIsQ0FBL0IsRUFBa0MsR0FBbEMsQ0FBVDtBQUNBO0FBQ0QsR0FsQjJCLENBb0I1Qjs7O0FBQ0EsTUFBSUcsQ0FBQyxDQUFDLGFBQUQsQ0FBRCxDQUFpQkssTUFBakIsSUFBMkJSLFNBQVMsQ0FBQyxXQUFELENBQVQsS0FBMkIsTUFBMUQsRUFBa0U7QUFDakVHLElBQUFBLENBQUMsQ0FBQyxhQUFELENBQUQsQ0FBaUJNLFFBQWpCLENBQTBCLFNBQTFCO0FBQ0EsR0F2QjJCLENBeUI1Qjs7O0FBQ0FOLEVBQUFBLENBQUMsQ0FBQyxlQUFELENBQUQsQ0FBbUJPLEVBQW5CLENBQXNCLE9BQXRCLEVBQStCLFlBQVc7QUFDekNyQixJQUFBQSxTQUFTLENBQUMsV0FBRCxFQUFjLElBQWQsRUFBb0IsQ0FBcEIsQ0FBVDtBQUNBYyxJQUFBQSxDQUFDLENBQUMsYUFBRCxDQUFELENBQWlCUSxJQUFqQjtBQUNBLEdBSEQ7QUFJQSxDQTlCRCIsImZpbGUiOiJ3cC1tZXNzYWdlLWluc2VydGVyLXBsdWdpbi1mcm9udC1lbmQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJmdW5jdGlvbiBzZXRDb29raWUobmFtZSwgdmFsdWUsIGRheXMpIHtcblx0dmFyIGQgPSBuZXcgRGF0ZSgpO1xuXHRkLnNldFRpbWUoZC5nZXRUaW1lKCkgKyAyNCAqIDYwICogNjAgKiAxMDAwICogZGF5cyk7XG5cdGRvY3VtZW50LmNvb2tpZSA9IG5hbWUgKyBcIj1cIiArIHZhbHVlICsgXCI7cGF0aD0vO2V4cGlyZXM9XCIgKyBkLnRvR01UU3RyaW5nKCk7XG59XG5cbi8vIFJlYWRzIENvb2tpZXNcbmZ1bmN0aW9uIGdldENvb2tpZShuYW1lKSB7XG5cdHZhciB2ID0gZG9jdW1lbnQuY29va2llLm1hdGNoKFwiKF58OykgP1wiICsgbmFtZSArIFwiPShbXjtdKikoO3wkKVwiKTtcblx0cmV0dXJuIHYgPyB2WzJdIDogbnVsbDtcbn1cblxuJChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24oKSB7XG5cdC8vIEZhdXggXCJTZXNzaW9uXCIgY2hlY2tpbmcvc2V0dGluZ1xuXHQvLyBUaW1lc3RhbXBcblx0dmFyIHRpbWVzdGFtcCA9IE1hdGguZmxvb3IobmV3IERhdGUoKS5nZXRUaW1lKCkgLyAxMDAwKTtcblx0aWYgKCFnZXRDb29raWUoXCJjb3VudFwiKSkge1xuXHRcdC8vIEZpcnN0IFZpc2l0IC0gc2V0IGNvdW50IHRvIDFcblx0XHRzZXRDb29raWUoXCJjb3VudFwiLCAxLCAzNjUpO1xuXG5cdFx0Ly8gU2V0IGEgdGltZWNoZWNrIGNvb2tpZSBmb3IgYW4gaG91ciBmcm9tIG5vd1xuXHRcdHNldENvb2tpZShcInRpbWVjaGVja1wiLCB0aW1lc3RhbXAgKyAzNjAwLCAzNjUpO1xuXHR9IGVsc2Uge1xuXHRcdGlmICh0aW1lc3RhbXAgPiBnZXRDb29raWUoXCJ0aW1lY2hlY2tcIikpIHtcblx0XHRcdC8vIFVwZGF0ZSBUaW1lY2hlY2sgdG8gbmV3IHZhbHVlXG5cdFx0XHRzZXRDb29raWUoXCJ0aW1lY2hlY2tcIiwgdGltZXN0YW1wICsgMzYwMCwgMzY1KTtcblxuXHRcdFx0Ly8gQ291bnQgZXhpc3RzIGFscmVhZHkgYW5kIGl0IGhhcyBiZWVuIGFuIGhvdXIuIFVwZGF0ZSBjb3VudFxuXHRcdFx0c2V0Q29va2llKFwiY291bnRcIiwgZ2V0Q29va2llKFwiY291bnRcIikgKyAxLCAzNjUpO1xuXHRcdH1cblx0fVxuXG5cdC8vIENoZWNrIGlmIHdlIHNob3VsZCBiZSBzaG93aW5nIHRoZSBiYW5uZXJcblx0aWYgKCQoXCIucG9wLWJhbm5lclwiKS5sZW5ndGggJiYgZ2V0Q29va2llKFwic20tY2xvc2VkXCIpICE9PSBcInRydWVcIikge1xuXHRcdCQoXCIucG9wLWJhbm5lclwiKS5hZGRDbGFzcyhcImQtYmxvY2tcIik7XG5cdH1cblxuXHQvLyBQb3B1cCBCYW5uZXIgQ2xvc2UgQnV0dG9uXG5cdCQoXCIuc20tY2xvc2UtYnRuXCIpLm9uKFwiY2xpY2tcIiwgZnVuY3Rpb24oKSB7XG5cdFx0c2V0Q29va2llKFwic20tY2xvc2VkXCIsIHRydWUsIDEpO1xuXHRcdCQoXCIucG9wLWJhbm5lclwiKS5oaWRlKCk7XG5cdH0pO1xufSk7XG4iXX0=
-}(jQuery));
+		// Popup Banner Close Button
+		$(".sm-close-btn").on("click", function(e) {
+			e.preventDefault();
+			setCookie("sm-closed", true, cookiedaytotal);
+			$(".pop-banner").hide();
+		});
+	});
+})(jQuery);
