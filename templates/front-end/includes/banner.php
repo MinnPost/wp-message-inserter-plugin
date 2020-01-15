@@ -8,7 +8,16 @@
 				' . $screen_size[ $prefix . 'banner_bgcolor' ] . '
 			),' : '';
 			$bgimg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
+
+			$close_time_days  = $message['meta'][ $prefix . 'close_time_days' ][0];
+			$close_time_hours = $message['meta'][ $prefix . 'close_time_hours' ][0];
+
 		?>
+
+		<?php if ( isset( $close_time_days ) || isset( $close_time_hours ) ) : ?>
+			<input type="hidden" class="closetimedays" value="<?php echo ( isset( $close_time_days ) ) ? $close_time_days : '0'; ?>">
+			<input type="hidden" class="closetimehours" value="<?php echo ( isset( $close_time_hours ) ) ? $close_time_hours : '0'; ?>">
+		<?php endif; ?>
 
 		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
 				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
