@@ -35,8 +35,13 @@
 	}
 
 	$(document).ready(function() {
+		// Get our value for days to set cookie
 		var closetimedays = parseInt($(".closetimedays").val());
+
+		// Get our value for hours and divide by 24 to get proper percent of a day
 		var closetimehours = $(".closetimehours").val() / 24;
+
+		// Our Total for when the cookie should expire and show the banner again
 		var cookiedaytotal = closetimedays + closetimehours;
 
 		// Check if we should be showing the banner

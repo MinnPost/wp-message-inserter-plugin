@@ -185,7 +185,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Popup Close Time - Days', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'close_time_days',
 				'type'       => 'text',
-				'desc'       => esc_html__( 'How many days should this be hidden on close?', 'wp-message-inserter-plugin' ),
+				'default'    => 1,
+				'desc'       => esc_html__( 'How many days should this be hidden on close? The hours field will add on to this value.', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'type'                   => 'number',
 					'pattern'                => '\d*',
@@ -200,7 +201,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Popup Close Time - Hours', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'close_time_hours',
 				'type'       => 'text',
-				'desc'       => esc_html__( 'How many hours should this be hidden on close?', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'How many hours should this be hidden on close? This will add on to the days amount.', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'type'                   => 'number',
 					'pattern'                => '\d*',
