@@ -45,7 +45,11 @@
 		var cookiedaytotal = closetimedays + closetimehours;
 
 		// Check if we should be showing the banner
-		if ($(".pop-banner").length && "true" !== getCookie("sm-closed")) {
+		if (
+			$(".pop-banner").length &&
+			"true" !== getCookie("sm-closed") &&
+			!$(".pop-banner").hasClass("check-session-banner")
+		) {
 			$(".pop-banner").addClass("d-block");
 		}
 
@@ -81,7 +85,13 @@
 					parseInt(banner_session_count)
 				)
 			) {
-				$(this).addClass("validated");
+				if (
+					($(this).hasClass("pop-banner") &&
+						"true" !== getCookie("sm-closed")) ||
+					!$(this).hasClass("pop-banner")
+				) {
+					$(this).addClass("validated");
+				}
 			}
 		});
 	});
