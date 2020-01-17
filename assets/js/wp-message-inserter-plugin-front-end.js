@@ -85,12 +85,10 @@
 					parseInt(banner_session_count)
 				)
 			) {
-				if (
-					($(this).hasClass("pop-banner") &&
-						"true" !== getCookie("sm-closed")) ||
-					!$(this).hasClass("pop-banner")
-				) {
+				if (!$(this).hasClass("pop-banner")) {
 					$(this).addClass("validated");
+				} else {
+					!getCookie("sm-closed") ? $(this).addClass("validated") : "";
 				}
 			}
 		});
