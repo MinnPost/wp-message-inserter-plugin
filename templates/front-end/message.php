@@ -116,10 +116,10 @@ usort(
 
 <?php
 	// For Banners we Loop over them because with session checking we might need to load more than one
-	foreach ($attributes as $message) {
-		$type = $message['meta'][ $prefix . 'message_type' ][0];
-		if ( 'banner' === $type ) {
-			require( 'includes/banner.php' );
-		}
+foreach ( $attributes as $message ) {
+	$type = $message['meta'][ $prefix . 'message_type' ][0];
+	if ( 'banner' === $type ) {
+		require( 'includes/banner.php' );
 	}
+}
 ?>

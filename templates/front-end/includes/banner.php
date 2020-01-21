@@ -27,7 +27,7 @@
 
 		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> <?php echo ( 'on' === $check_session ) ? 'check-session-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
 
-				<?php if ( isset( $check_session ) && isset( $session_count_check ) &&  isset( $session_count_operator ) ) : ?>
+				<?php if ( isset( $check_session ) && isset( $session_count_check ) && isset( $session_count_operator ) ) : ?>
 					<input type="hidden" class="session_count_to_check" value="<?php echo ( isset( $session_count_check ) ) ? $session_count_check : ''; ?>">
 					<input type="hidden" class="session_count_operator" value="<?php echo ( isset( $session_count_operator ) ) ? $session_count_operator : ''; ?>">
 				<?php endif; ?>
