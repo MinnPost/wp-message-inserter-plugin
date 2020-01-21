@@ -70,6 +70,13 @@
 			}
 		};
 
+		var urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.get("count") !== null) {
+			currentcount = parseInt(urlParams.get("count"));
+		}
+
+		console.log(currentcount);
+
 		$(".check-session-banner").each(function() {
 			var banner_session_count = $(this)
 				.find(".session_count_to_check")
