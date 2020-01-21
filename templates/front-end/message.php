@@ -6,12 +6,14 @@ $id           = $message['ID'];
 $slug         = $message['post_name'];
 $type         = $message['meta'][ $prefix . 'message_type' ][0];
 $screen_sizes = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
+
 usort(
 	$screen_sizes,
 	function ( array $a, array $b ) use ( $prefix ) {
 		return $a[ $prefix . 'minimum_width' ] <=> $b[ $prefix . 'minimum_width' ];
 	}
 );
+
 ?>
 
 <?php if ( 'editor' === $type ) : ?>
@@ -110,9 +112,16 @@ usort(
 			</article>
 		</aside>
 	<?php endif; ?>
-
 <?php endif; ?>
 
-<?php if ( 'banner' === $type ) : ?>
-	<?php require_once( 'includes/banner.php' ); ?>
-<?php endif; ?>
+<?php
+// For Banners we Loop over them because with session checking we might need to load more than one
+foreach ( $attributes as $message ) {
+	if ( isset( $message['meta'] ) && is_array( $message['meta'] ) ) {
+		$type = $message['meta'][ $prefix . 'message_type' ][0];
+		if ( 'banner' === $type ) {
+			require( 'includes/banner.php' );
+		}
+	}
+}
+?>

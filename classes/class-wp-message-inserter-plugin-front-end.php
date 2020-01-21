@@ -72,8 +72,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*
 	*/
 	public function insert_message( $region ) {
-		$message = $this->get_eligible_message( $region );
-		if ( ! empty( $message ) ) {
+		$messages = array_reverse( $this->get_eligible_message( $region ) );
+
+		foreach ( $messages as $message ) {
 			$params['meta_prefix'] = $this->post_meta_prefix;
 			$params['message']     = array_merge( $message, $message['meta'] );
 			echo $this->get_template_html( 'message', $region, 'front-end', $params );
@@ -91,6 +92,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$conditionals       = $this->content_items->get_conditionals();
 		$true_conditionals  = array();
 		$false_conditionals = array();
+		$groupedposts = array();
 		foreach ( $conditionals as $conditional ) {
 			$name = $conditional['name'];
 			if ( isset( $conditional['method'] ) && '' !== $conditional['method'] ) {
@@ -119,9 +121,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 		);
 		$args  = apply_filters( 'wp_message_inserter_post_args', $args );
 		$query = new WP_Query( $args );
+
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
+
 				$message_meta = get_post_meta( get_the_ID() );
 				$operator     = $message_meta['_wp_inserted_message_conditional_operator'][0];
 
@@ -171,10 +175,15 @@ class WP_Message_Inserter_Plugin_Front_End {
 						$post['meta'] = $message_meta;
 					}
 				}
+
+				array_push( $groupedposts, $post );
+
 			}
 			wp_reset_postdata();
-			return $post;
+			return $groupedposts;
 		} else {
+
+			// Does this ever return anything? I don't think so?
 			return $post;
 		}
 	}
@@ -227,5 +236,4 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 		return $html;
 	}
-
 }
