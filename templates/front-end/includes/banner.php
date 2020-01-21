@@ -15,9 +15,9 @@
 			),' : '';
 			$bgimg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
 
+			// Close timer setup
 			$close_time_days  = $message['meta'][ $prefix . 'close_time_days' ][0];
 			$close_time_hours = $message['meta'][ $prefix . 'close_time_hours' ][0];
-
 		?>
 
 		<?php if ( isset( $close_time_days ) || isset( $close_time_hours ) ) : ?>
