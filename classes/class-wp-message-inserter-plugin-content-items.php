@@ -212,6 +212,49 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		$screen_size_box->add_field(
+			array(
+				'name'       => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'check_session',
+				'type'       => 'checkbox',
+				'desc'       => esc_html__( 'Check this if you would like to check session count', 'wp-message-inserter-plugin' ),
+			)
+		);
+
+		$screen_size_box->add_field(
+			array(
+				'name'       => esc_html__( 'Number of Sessions', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'number_of_sessions',
+				'type'       => 'text',
+				'desc'       => esc_html__( 'What value from the session cookie do you want to check against?', 'wp-message-inserter-plugin' ),
+				'attributes' => array(
+					'type'                   => 'number',
+					'pattern'                => '\d*',
+					'data-conditional-id'    => $prefix . 'check_session',
+					'data-conditional-value' => 'on',
+				),
+			)
+		);
+
+		$screen_size_box->add_field(
+			array(
+				'name'       => esc_html__( 'Session Check Operator', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'operator_session',
+				'type'       => 'radio',
+				'desc'       => esc_html__( 'Which operator would you like to use?', 'wp-message-inserter-plugin' ),
+				'options'          => array(
+					'gt' => __( 'Greater Than or Equal to', 'cmb2' ),
+					'lt'   => __( 'Less Than or Equal to', 'cmb2' ),
+				),
+				'attributes' => array(
+					'data-conditional-id'    => $prefix . 'check_session',
+					'data-conditional-value' => 'on',
+				),
+			)
+		);
+
+
+
 		$conditional_group_id = $screen_size_box->add_field(
 			array(
 				'id'         => 'conditional_group_id',

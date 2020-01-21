@@ -45,7 +45,11 @@
 		var cookiedaytotal = closetimedays + closetimehours;
 
 		// Check if we should be showing the banner
-		if ($(".pop-banner").length && "true" !== getCookie("sm-closed")) {
+		if (
+			$(".pop-banner").length &&
+			"true" !== getCookie("sm-closed") &&
+			!$(".pop-banner").hasClass("check-session-banner")
+		) {
 			$(".pop-banner").addClass("d-block");
 		}
 
@@ -54,6 +58,39 @@
 			e.preventDefault();
 			setCookie("sm-closed", true, cookiedaytotal);
 			$(".pop-banner").hide();
+		});
+
+		// Session Validating and showing proper banner
+		var operators = {
+			gt: function(a, b) {
+				return a >= b;
+			},
+			lt: function(a, b) {
+				return a <= b;
+			}
+		};
+
+		$(".check-session-banner").each(function() {
+			var banner_session_count = $(this)
+				.find(".session_count_to_check")
+				.val();
+
+			var banner_session_operator = $(this)
+				.find(".session_count_operator")
+				.val();
+
+			if (
+				operators[banner_session_operator](
+					currentcount,
+					parseInt(banner_session_count)
+				)
+			) {
+				if (!$(this).hasClass("pop-banner")) {
+					$(this).addClass("validated");
+				} else {
+					!getCookie("sm-closed") ? $(this).addClass("validated") : "";
+				}
+			}
 		});
 	});
 })(jQuery);

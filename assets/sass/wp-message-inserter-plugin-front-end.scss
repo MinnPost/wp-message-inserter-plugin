@@ -150,4 +150,12 @@ $base-line-height-em: 1.5em;
 			}
 		}
 	}
+
+	&.check-session-banner {
+		display: none;
+
+		&.validated {
+			display: block;
+		}
+	}
 }
