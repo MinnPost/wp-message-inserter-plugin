@@ -1,44 +1,35 @@
-// variables
+// variables. some of these match variables in minnpost-largo.
+// override for theme-specific design decisions in minnpost-largo.
+
+// media query sizes
 $max-width-medium: 680px;
-$medium-margins-too-small: 700px;
-$max-width-medium-plus-margins: 720px;
 $max-width-page: 975px;
-$max-width-story-2012: 452px;
 
 // type
-$font__sans: Helvetica, Arial, sans-serif;
-$font__headings: NimbusSanNovConD-Bol, Helvetica, Arial, Geneva, sans-serif;
-
-// Font sizes
 $base-font-size: 13px; // 13px
 $content-font-size: 1.23em; // 16px
+$large-title-font-size: 1.75em;
 
-// heading font sizes
-$large-title-font-size: 215.4%;
+// spacing
+$cta-spacing: 8px; // similar to membership plugin
 
 // Outer Wrap
 .m-wp-insert-message-item-banner {
 	position: relative;
 	width: 100%;
-	max-width: 875px;
+	max-width: $max-width-page - ( $max-width-page / 10 );
 	padding: 1.2em 1.5em;
 	margin: 1.5em auto;
-	background-size: cover;
-	color: #fff;
 
 	h3 {
-		font-family: $font__headings;
-		font-feature-settings: "calt" off, "dlig" off, "ss01" off, "liga" off;
-		font-weight: normal;
-		font-style: normal;
-		font-variant: normal;
+		font-family: sans-serif;
 		font-size: $large-title-font-size;
 		margin-bottom: 0.5em;
-		line-height: 1em;
+		line-height: 1;
 	}
 
 	p {
-		font-family: $font__sans;
+		font-family: sans-serif;
 		font-size: $content-font-size;
 		line-height: 1.4em;
 	}
@@ -52,8 +43,8 @@ $large-title-font-size: 215.4%;
 	}
 
 	a.a-button {
-		padding: 0.3em 1em;
-		border-radius: 0.3em;
+		padding: $cta-spacing 1em;
+		border-radius: $cta-spacing;
 		display: inline-block;
 		font-size: $large-title-font-size;
 
@@ -127,7 +118,7 @@ $large-title-font-size: 215.4%;
 			top: 10px;
 			right: 10px;
 			color: #fff;
-			font-size: 16px;
+			font-size: $content-font-size;
 		}
 	}
 
