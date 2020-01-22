@@ -73,11 +73,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*/
 	public function insert_message( $region ) {
 		$messages = array_reverse( $this->get_eligible_message( $region ) );
-
 		foreach ( $messages as $message ) {
-			$params['meta_prefix'] = $this->post_meta_prefix;
-			$params['message']     = array_merge( $message, $message['meta'] );
-			echo $this->get_template_html( 'message', $region, 'front-end', $params );
+			if ( 0 !== sizeof( $message ) ) {
+				$params['meta_prefix'] = $this->post_meta_prefix;
+				$params['message']     = array_merge( $message, $message['meta'] );
+				echo $this->get_template_html( 'message', $region, 'front-end', $params );
+			}
 		}
 	}
 
