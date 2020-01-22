@@ -61,7 +61,7 @@ usort(
 			<article class="o-content-message-body o-content-message-homepage-body">
 	<?php endif; ?>
 
-	<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?>">
+	<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?>">
 		<?php if ( 'image' === $type ) : ?>
 			<aside class="m-wp-insert-message-images">
 				<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
