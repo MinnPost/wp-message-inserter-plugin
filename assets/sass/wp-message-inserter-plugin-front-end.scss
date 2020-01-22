@@ -17,144 +17,141 @@ $content-font-size: 1.23em; // 16px
 $large-title-font-size: 215.4%;
 
 // Outer Wrap
-.wp-message-inserter-message-banner {
+.m-wp-insert-message-item-banner {
+	position: relative;
+	width: 100%;
+	max-width: 875px;
+	padding: 1.2em 1.5em;
+	margin: 1.5em auto;
+	background-size: cover;
+	color: #fff;
 
-	.m-wp-insert-message-item {
-		position: relative;
-		width: 100%;
-		max-width: 875px;
-		padding: 1.2em 1.5em;
-		margin: 1.5em auto;
-		background-size: cover;
-		color: #fff;
+	h3 {
+		font-family: $font__headings;
+		font-feature-settings: "calt" off, "dlig" off, "ss01" off, "liga" off;
+		font-weight: normal;
+		font-style: normal;
+		font-variant: normal;
+		font-size: $large-title-font-size;
+		margin-bottom: 0.5em;
+		line-height: 1em;
+	}
 
-		h3 {
-			font-family: $font__headings;
-			font-feature-settings: "calt" off, "dlig" off, "ss01" off, "liga" off;
-			font-weight: normal;
-			font-style: normal;
-			font-variant: normal;
-			font-size: $large-title-font-size;
-			margin-bottom: 0.5em;
-			line-height: 1em;
-		}
+	p {
+		font-family: $font__sans;
+		font-size: $content-font-size;
+		line-height: 1.4em;
+	}
+
+	.disclaimer {
+		margin-top: 0.5em;
 
 		p {
-			font-family: $font__sans;
-			font-size: $content-font-size;
-			line-height: 1.4em;
+			font-size: $base-font-size;
 		}
+	}
 
-		.disclaimer {
-			margin-top: 0.5em;
+	a.a-button {
+		padding: 0.3em 1em;
+		border-radius: 0.3em;
+		display: inline-block;
+		font-size: $large-title-font-size;
 
-			p {
-				font-size: $base-font-size;
-			}
+		@media screen and (min-width: $max-width-medium) {
+			white-space: nowrap;
 		}
+	}
 
-		a.a-button {
-			padding: 0.3em 1em;
-			border-radius: 0.3em;
-			display: inline-block;
-			font-size: $large-title-font-size;
+	// Stacked Layout
+	.stack-wrap {
+		margin: 0 auto;
+		text-align: center;
+		max-width: $max-width-medium;
+	}
 
-			@media screen and (min-width: $max-width-medium) {
-				white-space: nowrap;
-			}
-		}
+	// Dual Col Layout
+	.dual-wrap {
 
-		// Stacked Layout
-		.stack-wrap {
+		@media screen and (min-width: $max-width-medium) {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+			max-width: $max-width-page;
 			margin: 0 auto;
-			text-align: center;
-			max-width: $max-width-medium;
 		}
 
-		// Dual Col Layout
-		.dual-wrap {
+		&.flip {
+			flex-direction: row-reverse;
+		}
+
+		.col {
+			margin-bottom: 15px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
 
 			@media screen and (min-width: $max-width-medium) {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				align-content: center;
-				max-width: $max-width-page;
-				margin: 0 auto;
+				margin-bottom: 0;
+				padding: 1.2em;
 			}
 
-			&.flip {
-				flex-direction: row-reverse;
-			}
-
-			.col {
-				margin-bottom: 15px;
-
-				&:last-child {
-					margin-bottom: 0;
-				}
+			&.banner-icon {
+				// Hide for mobile sizing
+				display: none;
 
 				@media screen and (min-width: $max-width-medium) {
-					margin-bottom: 0;
-					padding: 1.2em;
-				}
-
-				&.banner-icon {
-					// Hide for mobile sizing
-					display: none;
-
-					@media screen and (min-width: $max-width-medium) {
-						display: block;
-						min-width: 75px;
-						padding: 0.2em 1em 0.2em 0.2em;
-					}
+					display: block;
+					min-width: 75px;
+					padding: 0.2em 1em 0.2em 0.2em;
 				}
 			}
 		}
+	}
 
-		// Popup specifics
-		&.pop-banner {
-			display: none;
-			max-width: 100%;
-			position: fixed;
-			bottom: 0;
-			margin: 0 auto;
+	// Popup specifics
+	&.pop-banner {
+		display: none;
+		max-width: 100%;
+		position: fixed;
+		bottom: 0;
+		margin: 0 auto;
 
-			&.d-block {
-				display: block;
-			}
-
-			.sm-close-btn {
-				position: absolute;
-				top: 10px;
-				right: 10px;
-				color: #fff;
-				font-size: 16px;
-			}
+		&.d-block {
+			display: block;
 		}
 
-		.m-form-container {
+		.sm-close-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: #fff;
+			font-size: 16px;
+		}
+	}
+
+	.m-form-container {
+		padding: 0;
+
+		fieldset {
 			padding: 0;
+			border: 0;
 
-			fieldset {
-				padding: 0;
-				border: 0;
+			.a-input-with-button {
 
-				.a-input-with-button {
-
-					input {
-						width: 75%;
-					}
+				input {
+					width: 75%;
 				}
 			}
 		}
+	}
 
-		&.check-session-banner {
-			display: none;
+	&.check-session-banner {
+		display: none;
 
-			&.validated {
-				display: block;
-			}
+		&.validated {
+			display: block;
 		}
 	}
 }
