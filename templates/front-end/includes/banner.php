@@ -25,7 +25,7 @@
 			<input type="hidden" class="closetimehours" value="<?php echo ( isset( $close_time_hours ) ) ? $close_time_hours : '0'; ?>">
 		<?php endif; ?>
 
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> <?php echo ( 'on' === $check_session ) ? 'check-session-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?> <?php echo ( 'popup' === $region ) ? 'pop-banner' : ''; ?> <?php echo ( 'on' === $check_session ) ? 'check-session-banner' : ''; ?> " style="<?php echo $bgimg; ?>">
 
 				<?php if ( isset( $check_session ) && isset( $session_count_check ) && isset( $session_count_operator ) ) : ?>
 					<input type="hidden" class="session_count_to_check" value="<?php echo ( isset( $session_count_check ) ) ? $session_count_check : ''; ?>">
