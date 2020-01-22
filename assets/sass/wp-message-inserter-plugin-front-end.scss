@@ -6,30 +6,18 @@ $max-width-page: 975px;
 $max-width-story-2012: 452px;
 
 // type
-$font__main: sans-serif;
-$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-$font__pre: "Courier 10 Pitch", Courier, monospace;
-$font__line-height-body: 1.5;
-$font__line-height-pre: 1.6;
-
 $font__sans: Helvetica, Arial, sans-serif;
-$font__serif: Georgia, Cambria, "Times New Roman", Times, serif;
 $font__headings: NimbusSanNovConD-Bol, Helvetica, Arial, Geneva, sans-serif;
 
 // Font sizes
 $base-font-size: 13px; // 13px
 $content-font-size: 1.23em; // 16px
-$meta-font-size: 92.3%; // 12px
 
 // heading font sizes
 $large-title-font-size: 215.4%;
 
-// Line height
-$base-line-height: 1.5;
-$base-line-height-em: 1.5em;
-
 // Outer Wrap
-.m-wp-insert-message-item {
+.m-wp-insert-message-item-banner {
 	position: relative;
 	width: 100%;
 	max-width: 875px;
@@ -48,6 +36,7 @@ $base-line-height-em: 1.5em;
 		margin-bottom: 0.5em;
 		line-height: 1em;
 	}
+
 	p {
 		font-family: $font__sans;
 		font-size: $content-font-size;
@@ -56,6 +45,7 @@ $base-line-height-em: 1.5em;
 
 	.disclaimer {
 		margin-top: 0.5em;
+
 		p {
 			font-size: $base-font-size;
 		}
@@ -66,6 +56,7 @@ $base-line-height-em: 1.5em;
 		border-radius: 0.3em;
 		display: inline-block;
 		font-size: $large-title-font-size;
+
 		@media screen and (min-width: $max-width-medium) {
 			white-space: nowrap;
 		}
@@ -80,6 +71,7 @@ $base-line-height-em: 1.5em;
 
 	// Dual Col Layout
 	.dual-wrap {
+
 		@media screen and (min-width: $max-width-medium) {
 			display: flex;
 			justify-content: center;
@@ -95,9 +87,11 @@ $base-line-height-em: 1.5em;
 
 		.col {
 			margin-bottom: 15px;
+
 			&:last-child {
 				margin-bottom: 0;
 			}
+
 			@media screen and (min-width: $max-width-medium) {
 				margin-bottom: 0;
 				padding: 1.2em;
@@ -106,6 +100,7 @@ $base-line-height-em: 1.5em;
 			&.banner-icon {
 				// Hide for mobile sizing
 				display: none;
+
 				@media screen and (min-width: $max-width-medium) {
 					display: block;
 					min-width: 75px;
@@ -144,6 +139,7 @@ $base-line-height-em: 1.5em;
 			border: 0;
 
 			.a-input-with-button {
+
 				input {
 					width: 75%;
 				}
