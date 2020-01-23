@@ -3,6 +3,7 @@
 
 // media query sizes
 $max-width-medium: 680px;
+$max-width-page: 975px;
 
 // type
 $base-font-size: 13px; // 13px
@@ -66,7 +67,7 @@ $cta-spacing: 8px; // similar to membership plugin
 			justify-content: center;
 			align-items: center;
 			align-content: center;
-			padding: 0 10%;
+			max-width: $max-width-page;
 			margin: 0 auto;
 		}
 
