@@ -508,21 +508,22 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'             => esc_html__( 'Maximum Banner Width', 'wp-message-inserter-plugin' ),
-				'id'               => $prefix . 'banner_max_width',
-				'type'             => 'select',
-				'desc'             => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window.', 'wp-message-inserter-plugin' ),
-				'options'          => array(
-					'100%'   => esc_html__( 'Full Width (100%)', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'Maximum Banner Width', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_max_width',
+				'type'       => 'select',
+				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window.', 'wp-message-inserter-plugin' ),
+				'options'    => array(
+					'100%'   => esc_html__( 'Full Container Width (100%)', 'wp-message-inserter-plugin' ),
+					'page'   => esc_html__( 'Full Page Width (depends on the site design)', 'wp-message-inserter-plugin' ),
 					'95%'    => esc_html__( '95%', 'wp-message-inserter-plugin' ),
 					'90%'    => esc_html__( '90%', 'wp-message-inserter-plugin' ),
 					'80%'    => esc_html__( '80%', 'wp-message-inserter-plugin' ),
 					'50%'    => esc_html__( '50%', 'wp-message-inserter-plugin' ),
 					'custom' => esc_html__( 'Custom Width', 'wp-message-inserter-plugin' ),
 				),
-				'show_option_none' => true,
-				'classes'          => 'cmb2-maximum-banner-width',
-				'attributes'       => array(
+				'default'    => 'page',
+				'classes'    => 'cmb2-maximum-banner-width',
+				'attributes' => array(
 					'required' => true,
 				),
 			)
