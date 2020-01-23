@@ -16,11 +16,14 @@
 		$banner_bg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
 		$banner_text = ( $screen_size[ $prefix . 'banner_textcolor' ] ) ? 'color: ' . $screen_size[ $prefix . 'banner_textcolor' ] . ';' : '';
 
-		$banner_size = '';
-		if ( '' !== $screen_size[ $prefix . 'banner_max_width' ] && 'custom' !== $screen_size[ $prefix . 'banner_max_width' ] ) {
-			$banner_size = 'max-width:' . $screen_size[ $prefix . 'banner_max_width' ];
-		} elseif ( '' !== $screen_size[ $prefix . 'banner_max_width_text' ] && '' !== $screen_size[ $prefix . 'banner_max_width_unit' ] ) {
-			$banner_size = 'max-width:' . $screen_size[ $prefix . 'banner_max_width_text' ] . $screen_size[ $prefix . 'banner_max_width_unit' ];
+		$banner_size           = '';
+		$banner_max_width      = isset( $screen_size[ $prefix . 'banner_max_width' ] ) ? $screen_size[ $prefix . 'banner_max_width' ] : 'page';
+		$banner_max_width_text = isset( $screen_size[ $prefix . 'banner_max_width_text' ] ) ? $screen_size[ $prefix . 'banner_max_width_text' ] : '';
+		$banner_max_width_unit = isset( $screen_size[ $prefix . 'banner_max_width_unit' ] ) ? $screen_size[ $prefix . 'banner_max_width_unit' ] : '';
+		if ( 'page' !== $banner_max_width && 'custom' !== $banner_max_width ) {
+			$banner_size = 'max-width:' . $banner_max_width;
+		} elseif ( '' !== $banner_max_width_text && '' !== $banner_max_width_unit ) {
+			$banner_size = 'max-width:' . $banner_max_width_text . $banner_max_width_unit;
 		}
 
 		$banner_style = $banner_bg . $banner_text . $banner_size . ';';
@@ -35,7 +38,7 @@
 			<input type="hidden" class="closetimehours" value="<?php echo ( isset( $close_time_hours ) ) ? $close_time_hours : '0'; ?>">
 		<?php endif; ?>
 
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' pop-banner' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-banner' : ''; ?><?php echo ( 'page' === $screen_size[ $prefix . 'banner_max_width' ] ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' pop-banner' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-banner' : ''; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
 
 				<?php if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) : ?>
 					<input type="hidden" class="session_count_to_check" value="<?php echo ( isset( $session_count_check ) ) ? $session_count_check : ''; ?>">
