@@ -7,30 +7,45 @@
 		$( '.cmb2-message-type-' + value ).show();
 	}
 
-	function showHideMaximum( selector, current ) {
+	function showHideMaximumScreen( selector, current ) {
 		if ( 'undefined' === typeof current ) {
 			var current = $( 'input[type="checkbox"]:checked', selector );
 		}
 		if ( $( 'input[type="checkbox"]', selector ).is( ':checked' ) ) {
-			$( 'input[type="checkbox"]:checked', selector ).closest( '.cmb-field-list' ).find( '.cmb2-maximum-width' ).hide();
+			$( 'input[type="checkbox"]:checked', selector ).closest( '.cmb-field-list' ).find( '.cmb2-maximum-screen-width' ).hide();
 		} else {
-			$( 'input[type="checkbox"]', selector ).closest( '.cmb-field-list' ).find( '.cmb2-maximum-width' ).show();
+			$( 'input[type="checkbox"]', selector ).closest( '.cmb-field-list' ).find( '.cmb2-maximum-screen-width' ).show();
+		}
+	}
+
+	function showHideMaximumBanner( value ) {
+		if ( 'custom' === value ) {
+			$( '.cmb2-custom-maximum-banner-width' ).show();
+		} else {
+			$( '.cmb2-custom-maximum-banner-width' ).hide();
 		}
 	}
 
 	function setupMessage() {
-		var type_selector   = $( '.cmb2-message-type-selector' );
-		var no_max_selector = $( '.cmb2-no-maximum-width' );
+		var type_selector             = $( '.cmb2-message-type-selector' );
+		var no_max_screen_selector    = $( '.cmb2-no-maximum-screen-width' );
+		var max_banner_width_selector = '.cmb2-maximum-banner-width select';
 		if ( type_selector.length > 0 ) {
 			showTypeField( type_selector );
 			$( 'input[type="radio"]', type_selector ).on( 'change', function( el ) {
 				showTypeField( type_selector );
 			});
 		}
-		if ( no_max_selector.length > 0 ) {
-			showHideMaximum( no_max_selector );
-			$( 'input[type="checkbox"]', no_max_selector ).on( 'change', function( el ) {
-				showHideMaximum( no_max_selector, el );
+		if ( no_max_screen_selector.length > 0 ) {
+			showHideMaximumScreen( no_max_screen_selector );
+			$( 'input[type="checkbox"]', no_max_screen_selector ).on( 'change', function( el ) {
+				showHideMaximumScreen( no_max_screen_selector, el );
+			});
+		}
+		if ( $( max_banner_width_selector ).length > 0 ) {
+			showHideMaximumBanner( $( max_banner_width_selector ).val() );
+			$( document ).on( 'change', max_banner_width_selector, function() {
+				showHideMaximumBanner( $( this ).val() );
 			});
 		}
 	}
