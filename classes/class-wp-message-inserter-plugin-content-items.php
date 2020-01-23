@@ -522,7 +522,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'custom' => esc_html__( 'Custom Width', 'wp-message-inserter-plugin' ),
 				),
 				'default'    => 'page',
-				'classes'    => 'cmb2-maximum-banner-width',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner cmb2-maximum-banner-width',
 				'attributes' => array(
 					'required' => true,
 				),
