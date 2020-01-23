@@ -56,7 +56,7 @@ $( document ).ready( function() {
 	// Check if we should be showing the banner
 	if (
 		$( '.pop-banner' ).length &&
-		'true' !== getCookie( 'sm-closed' ) &&
+		true !== getCookie( 'sm-closed' ) &&
 		! $( '.pop-banner' ).hasClass( 'check-session-banner' )
 	) {
 		$( '.pop-banner' ).addClass( 'd-block' );
