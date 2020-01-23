@@ -85,6 +85,22 @@ function adminstyles() {
 		.pipe(browserSync.stream());
 }
 
+function adminsasslint() {
+  return gulp.src(config.styles.admin)
+    .pipe(gulpStylelint({
+      fix: true
+    }))
+    .pipe(gulp.dest(config.styles.lint_dest));
+}
+
+function frontendsasslint() {
+  return gulp.src(config.styles.front_end)
+    .pipe(gulpStylelint({
+      fix: true
+    }))
+    .pipe(gulp.dest(config.styles.lint_dest));
+}
+
 function frontendstyles() {
 	return gulp
 		.src(config.styles.front_end, { allowEmpty: true })
@@ -112,17 +128,6 @@ function frontendstyles() {
 		.pipe(sourcemaps.write()) // Write the sourcemap files
 		.pipe(gulp.dest(config.styles.dest)) // Drop the resulting CSS file in the specified dir
 		.pipe(browserSync.stream());
-}
-
-function sasslint() {
-	return (
-		gulp
-			.src(config.styles.srcDir)
-			// .pipe(gulpStylelint({
-			//   fix: true
-			// }))
-			.pipe(gulp.dest(config.styles.lint_dest))
-	);
 }
 
 function adminscripts() {
@@ -243,11 +248,10 @@ function watch() {
 }
 
 // define complex tasks
-const styles = gulp.series(sasslint, adminstyles, frontendstyles);
+const lint = gulp.series(adminsasslint, frontendsasslint, adminscriptlint, frontendscriptlint);
+const styles = gulp.series(adminstyles, frontendstyles);
 const scripts = gulp.series(adminscripts, frontendscripts, uglifyscripts);
-const build = gulp.series(gulp.parallel(styles, scripts, translate));
-
-const lint = gulp.series(adminscriptlint, frontendscriptlint);
+const build = gulp.series(lint, gulp.parallel(styles, scripts, translate));
 
 // export tasks
 exports.styles = styles;
