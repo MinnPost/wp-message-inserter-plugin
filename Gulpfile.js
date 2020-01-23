@@ -32,7 +32,9 @@ const config = {
 	},
 	scripts: {
 		admin: "./assets/js/src/admin/**/*.js",
+		admin_lint: "./assets/js/src/admin/",
 		front_end: "./assets/js/src/front-end/**/*.js",
+		front_end_lint: "./assets/js/src/front-end/",
 		uglify: ["assets/js/*.js", "!assets/js/*.min.js"],
 		dest: "./assets/js"
 	},
@@ -165,6 +167,26 @@ function frontendscripts() {
 		.pipe(browserSync.stream());
 }
 
+function adminscriptlint() {
+	return gulp
+		.src(config.scripts.admin)
+		.pipe(eslint({fix:true}))
+		.pipe(eslint.format())
+		.pipe(gulp.dest(config.scripts.admin_lint))
+		// Brick on failure to be super strict
+		//.pipe(eslint.failOnError());
+};
+
+function frontendscriptlint() {
+	return gulp
+		.src(config.scripts.front_end)
+		.pipe(eslint({fix:true}))
+		.pipe(eslint.format())
+		.pipe(gulp.dest(config.scripts.front_end_lint))
+		// Brick on failure to be super strict
+		//.pipe(eslint.failOnError());
+};
+
 function uglifyscripts() {
 	return (
 		gulp
@@ -175,7 +197,7 @@ function uglifyscripts() {
 					suffix: ".min"
 				})
 			)
-			//.pipe(sourcemaps.write())
+			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(config.scripts.dest))
 			.pipe(browserSync.stream())
 	);
@@ -225,9 +247,12 @@ const styles = gulp.series(sasslint, adminstyles, frontendstyles);
 const scripts = gulp.series(adminscripts, frontendscripts, uglifyscripts);
 const build = gulp.series(gulp.parallel(styles, scripts, translate));
 
+const lint = gulp.series(adminscriptlint, frontendscriptlint);
+
 // export tasks
 exports.styles = styles;
 exports.scripts = scripts;
+exports.lint = lint;
 exports.translate = translate;
 exports.watch = watch;
 exports.build = build;

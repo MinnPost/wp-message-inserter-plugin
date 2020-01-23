@@ -15,6 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "@wordpress/eslint-plugin": "^3.3.0",
     "autoprefixer": "^9.7.3",
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^7.0.0",
