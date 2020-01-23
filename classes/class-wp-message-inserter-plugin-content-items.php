@@ -214,10 +214,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		$screen_size_box->add_field(
 			array(
-				'name'       => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
-				'id'         => $prefix . 'check_session',
-				'type'       => 'checkbox',
-				'desc'       => esc_html__( 'Check this if you would like to check session count', 'wp-message-inserter-plugin' ),
+				'name' => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
+				'id'   => $prefix . 'check_session',
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Check this if you would like to check session count', 'wp-message-inserter-plugin' ),
 			)
 		);
 
@@ -242,9 +242,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'id'         => $prefix . 'operator_session',
 				'type'       => 'radio',
 				'desc'       => esc_html__( 'Which operator would you like to use?', 'wp-message-inserter-plugin' ),
-				'options'          => array(
+				'options'    => array(
 					'gt' => __( 'Greater Than or Equal to', 'cmb2' ),
-					'lt'   => __( 'Less Than or Equal to', 'cmb2' ),
+					'lt' => __( 'Less Than or Equal to', 'cmb2' ),
 				),
 				'attributes' => array(
 					'data-conditional-id'    => $prefix . 'check_session',
@@ -252,8 +252,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			)
 		);
-
-
 
 		$conditional_group_id = $screen_size_box->add_field(
 			array(
@@ -277,6 +275,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'id'               => $prefix . 'conditional',
 				'type'             => $select_type,
 				'show_option_none' => true,
+				'classes'          => 'cmb2-message-conditional',
 				'options'          => $this->get_conditional_options( $select_type ),
 				'default'          => 'none',
 				'attributes'       => array(
@@ -291,6 +290,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'desc'       => esc_html__( 'Enter the value expected for this conditional', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'conditional_value',
 				'type'       => 'text',
+				'classes'    => 'cmb2-message-conditional-value',
 				'attributes' => array(
 					'required'               => false,
 					'data-conditional-id'    => wp_json_encode( array( $conditional_group_id, $prefix . 'conditional' ) ),
@@ -415,11 +415,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Maximum Width', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'Maximum Screen Width', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'maximum_width',
 				'type'       => 'text_small',
 				'desc'       => 'px',
-				'classes'    => 'cmb2-maximum-width',
+				'classes'    => 'cmb2-maximum-screen-width',
 				'attributes' => array(
 					'required' => false,
 				),
@@ -429,11 +429,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'No Maximum Width', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'No Maximum Screen Width', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'no_maximum_width',
 				'type'       => 'checkbox',
 				'desc'       => '',
-				'classes'    => 'cmb2-no-maximum-width',
+				'classes'    => 'cmb2-no-maximum-screen-width',
 				'attributes' => array(
 					'required' => false,
 				),
@@ -504,6 +504,70 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		// pick a preselected width
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Maximum Banner Width', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_max_width',
+				'type'       => 'select',
+				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window.', 'wp-message-inserter-plugin' ),
+				'options'    => array(
+					'100%'   => esc_html__( 'Full Container Width (100%)', 'wp-message-inserter-plugin' ),
+					'page'   => esc_html__( 'Full Page Width (depends on the site design)', 'wp-message-inserter-plugin' ),
+					'95%'    => esc_html__( '95%', 'wp-message-inserter-plugin' ),
+					'90%'    => esc_html__( '90%', 'wp-message-inserter-plugin' ),
+					'80%'    => esc_html__( '80%', 'wp-message-inserter-plugin' ),
+					'50%'    => esc_html__( '50%', 'wp-message-inserter-plugin' ),
+					'custom' => esc_html__( 'Custom Width', 'wp-message-inserter-plugin' ),
+				),
+				'default'    => 'page',
+				'classes'    => 'cmb2-maximum-banner-width',
+				'attributes' => array(
+					'required' => true,
+				),
+			)
+		);
+
+		// custom max banner width
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Custom Maximum Banner Width', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_max_width_text',
+				'type'       => 'text',
+				'classes'    => 'cmb2-custom-maximum-banner-width cmb2-custom-maximum-banner-width-value',
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'banner_max_width',
+					'data-conditional-value' => 'custom',
+				),
+			)
+		);
+
+		// custom max banner width unit
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Custom Maximum Banner Width Unit', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_max_width_unit',
+				'type'       => 'select',
+				'classes'    => 'cmb2-custom-maximum-banner-width cmb2-custom-maximum-banner-width-unit',
+				'options'    => array(
+					'%'   => esc_html__( 'percent', 'wp-message-inserter-plugin' ),
+					'px'  => esc_html__( 'pixels', 'wp-message-inserter-plugin' ),
+					'em'  => esc_html__( 'em', 'wp-message-inserter-plugin' ),
+					'rem' => esc_html__( 'rem', 'wp-message-inserter-plugin' ),
+				),
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'banner_max_width',
+					'data-conditional-value' => 'custom',
+				),
+			)
+		);
+
+		// flip the columns?
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
@@ -573,6 +637,21 @@ class WP_Message_Inserter_Plugin_Content_Items {
 						'image/jpeg',
 						'image/png',
 					),
+				),
+			)
+		);
+
+		// Banner Text Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'    => esc_html__( 'Banner Text Color', 'wp-message-inserter-plugin' ),
+				'id'      => $prefix . 'banner_textcolor',
+				'type'    => 'colorpicker',
+				'default' => '#ffffff',
+				'classes' => 'cmb2-message-type cmb2-message-type-banner',
+				'options' => array(
+					'alpha' => false,
 				),
 			)
 		);

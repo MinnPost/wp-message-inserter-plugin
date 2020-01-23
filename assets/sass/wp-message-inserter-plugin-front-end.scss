@@ -1,5 +1,5 @@
 // variables. some of these match variables in minnpost-largo.
-// override for theme-specific design decisions in minnpost-largo.
+// override for theme-specific design requirements in minnpost-largo styles.
 
 // media query sizes
 $max-width-medium: 680px;
@@ -17,11 +17,12 @@ $cta-spacing: 8px; // similar to membership plugin
 .m-wp-insert-message-item-banner {
 	position: relative;
 	width: 100%;
-	max-width: 875px;
 	padding: 1.2em 1.5em;
 	margin: 1.5em auto;
-	background-size: cover;
-	color: #fff;
+
+	&.banner-width-page {
+		max-width: $max-width-page;
+	}
 
 	h3 {
 		font-family: sans-serif;
