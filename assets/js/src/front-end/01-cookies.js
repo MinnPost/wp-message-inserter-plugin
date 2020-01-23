@@ -7,7 +7,7 @@
  */
 function setCookie( name, value, days ) {
 	const d = new Date();
-	d.setTime( d.getTime() + 24 * 60 * 60 * 1000 * days );
+	d.setTime( d.getTime() + ( 86400000 * days ) );
 	document.cookie = name + '=' + value + ';path=/;expires=' + d.toGMTString();
 }
 
@@ -96,8 +96,8 @@ $( document ).ready( function() {
 		) {
 			if ( ! $( this ).hasClass( 'pop-banner' ) ) {
 				$( this ).addClass( 'validated' );
-			} else {
-				! getCookie( 'sm-closed' ) ? $( this ).addClass( 'validated' ) : '';
+			} else if ( ! getCookie( 'sm-closed' ) ) {
+				$( this ).addClass( 'validated' );
 			}
 		}
 	} );
