@@ -107,6 +107,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 		}
+		// load all possible messges for the given region
 		$args  = array(
 			'post_type'      => 'message',
 			'post_status'    => 'publish',
@@ -120,9 +121,10 @@ class WP_Message_Inserter_Plugin_Front_End {
 				),
 			),
 		);
-		$args  = apply_filters( 'wp_message_inserter_post_args', $args );
+		$args  = apply_filters( $this->option_prefix . 'post_args', $args );
 		$query = new WP_Query( $args );
 
+		// if there are any published messages for this region, loop through them and check their conditionals
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -209,7 +211,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 		ob_start();
 
-		do_action( 'wp_message_inserter_plugin_before_' . $template_name );
+		do_action( $this->option_prefix . 'plugin_before_' . $template_name );
 
 		// allow users to put templates into their theme
 		$file = '';
@@ -230,7 +232,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 		require( $file );
 
-		do_action( 'wp_message_inserter_plugin_after_' . $template_name );
+		do_action( $this->option_prefix . 'plugin_after_' . $template_name );
 
 		$html = ob_get_contents();
 		ob_end_clean();
