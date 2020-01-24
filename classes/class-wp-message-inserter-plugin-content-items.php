@@ -134,7 +134,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		$screen_size_box->add_field(
 			array(
-				'name'       => esc_html__( 'Message Type', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'Message Type %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'message_type',
 				'type'       => 'radio_inline',
 				'desc'       => '',
@@ -167,7 +170,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		$screen_size_box->add_field(
 			array(
-				'name'             => esc_html__( 'Region', 'wp-message-inserter-plugin' ),
+				'name'             => sprintf(
+					esc_html( 'Region %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'               => $prefix . 'region',
 				'type'             => $select_type,
 				'show_option_none' => true,
@@ -310,7 +316,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$conditional_group_id,
 			array(
-				'name'       => esc_html__( 'Condition Result', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'Condition Result %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'conditional_result',
 				'type'       => 'radio_inline',
 				'desc'       => '',
@@ -402,10 +411,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Minimum Width', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'Minimum Screen Width %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'minimum_width',
 				'type'       => 'text_small',
-				'desc'       => 'px',
+				'desc'       => esc_html__( 'in pixels', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'required' => true,
 				),
@@ -418,7 +430,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Maximum Screen Width', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'maximum_width',
 				'type'       => 'text_small',
-				'desc'       => 'px',
+				'desc'       => esc_html__( 'in pixels', 'wp-message-inserter-plugin' ),
 				'classes'    => 'cmb2-maximum-screen-width',
 				'attributes' => array(
 					'required' => false,
@@ -490,7 +502,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Banner Layout', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'Banner Layout %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'banner_layout',
 				'type'       => 'select',
 				'options'    => array(
@@ -508,7 +523,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Maximum Banner Width', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'Maximum Banner Width %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'banner_max_width',
 				'type'       => 'select',
 				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window.', 'wp-message-inserter-plugin' ),
@@ -690,7 +708,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'CTA Type', 'wp-message-inserter-plugin' ),
+				'name'       => sprintf(
+					esc_html( 'CTA Type %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
 				'id'         => $prefix . 'cta_type',
 				'type'       => 'radio_inline',
 				'desc'       => '',
