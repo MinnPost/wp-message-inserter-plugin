@@ -1,4 +1,11 @@
 <?php
+/**
+ * Template and variables for site messages
+ * This template controls editor and image messages, as well as loading the banner message template.
+ *
+ * @package WP Message Inserter Plugin
+ */
+
 $message      = $attributes['message'];
 $prefix       = $attributes['meta_prefix'];
 $region       = $message['meta'][ $prefix . 'region' ][0];
