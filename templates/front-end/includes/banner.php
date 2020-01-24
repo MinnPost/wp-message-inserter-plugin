@@ -12,8 +12,8 @@
 		$bgcolor     = ( $screen_size[ $prefix . 'banner_bgcolor' ] ) ? 'linear-gradient(
 			' . $screen_size[ $prefix . 'banner_bgcolor' ] . ',
 			' . $screen_size[ $prefix . 'banner_bgcolor' ] . '
-		),' : '';
-		$banner_bg   = ( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ' url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
+		)' : '';
+		$banner_bg   = isset( $screen_size[ $prefix . 'banner_bgimage' ] ) ? 'background: ' . $bgcolor . ', url(' . $screen_size[ $prefix . 'banner_bgimage' ] . ') center center no-repeat; background-size: cover;' : 'background: ' . $bgcolor . ';';
 		$banner_text = ( $screen_size[ $prefix . 'banner_textcolor' ] ) ? 'color: ' . $screen_size[ $prefix . 'banner_textcolor' ] . ';' : '';
 
 		$banner_size           = '';
