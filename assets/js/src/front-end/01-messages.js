@@ -85,7 +85,7 @@ function hidePopup( popupSelector, popupVisibleClass, lastFocus ) {
 function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass, checkSessionClass ) {
 	const lastFocus = document.activeElement;
 	// put in a close button at the end
-	$( '.' + popupSelector ).append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times"></i></a>' );
+	$( '.' + popupSelector + ' aside').append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times"></i></a>' );
 	// Check if we should be showing the popup
 	if (
 		'true' !== getCookie( popupShownCookieName ) &&
@@ -128,8 +128,8 @@ $( document ).ready( function() {
 	const checkSessionClass = 'check-session-message';
 
 	// Get our value for days and hours to set cookie
-	const closeTimeDays = parseInt( $( '.' + popupSelector ).data( 'close-time-days' ) );
-	const closeTimeHours = parseInt( $( '.' + popupSelector ).data( 'close-time-hours' ) ) / 24;
+	const closeTimeDays = parseInt( $( '.' + popupSelector ).data( 'close-time-days' ) ) || 0;
+	const closeTimeHours = ( parseInt( $( '.' + popupSelector ).data( 'close-time-hours' ) ) || 0 ) / 24;
 	// Our Total for when the cookie should expire and show the banner again
 	const cookieDayTotal = closeTimeDays + closeTimeHours;
 
