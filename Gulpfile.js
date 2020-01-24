@@ -7,6 +7,7 @@ const cssnano = require("cssnano");
 const eslint = require("gulp-eslint");
 const fs = require("fs");
 const gulp = require("gulp");
+const iife = require('gulp-iife');
 const packagejson = JSON.parse(fs.readFileSync("./package.json"));
 const mqpacker = require("css-mqpacker");
 const plumber = require("gulp-plumber");
@@ -31,7 +32,9 @@ const config = {
 	},
 	scripts: {
 		admin: "./assets/js/src/admin/**/*.js",
+		admin_lint: "./assets/js/src/admin/",
 		front_end: "./assets/js/src/front-end/**/*.js",
+		front_end_lint: "./assets/js/src/front-end/",
 		uglify: ["assets/js/*.js", "!assets/js/*.min.js"],
 		dest: "./assets/js"
 	},
@@ -82,6 +85,22 @@ function adminstyles() {
 		.pipe(browserSync.stream());
 }
 
+function adminsasslint() {
+  return gulp.src(config.styles.admin)
+    .pipe(gulpStylelint({
+      fix: true
+    }))
+    .pipe(gulp.dest(config.styles.lint_dest));
+}
+
+function frontendsasslint() {
+  return gulp.src(config.styles.front_end)
+    .pipe(gulpStylelint({
+      fix: true
+    }))
+    .pipe(gulp.dest(config.styles.lint_dest));
+}
+
 function frontendstyles() {
 	return gulp
 		.src(config.styles.front_end, { allowEmpty: true })
@@ -111,17 +130,6 @@ function frontendstyles() {
 		.pipe(browserSync.stream());
 }
 
-function sasslint() {
-	return (
-		gulp
-			.src(config.styles.srcDir)
-			// .pipe(gulpStylelint({
-			//   fix: true
-			// }))
-			.pipe(gulp.dest(config.styles.lint_dest))
-	);
-}
-
 function adminscripts() {
 	return gulp
 		.src(config.scripts.admin)
@@ -134,6 +142,11 @@ function adminscripts() {
 		.pipe(concat(packagejson.name + "-admin.js")) // Concatenate
 		.pipe(sourcemaps.write())
 		.pipe(eslint())
+		.pipe(iife({
+	      useStrict: false,
+	      params: ['$'],
+	      args: ['jQuery']
+	    }))
 		.pipe(gulp.dest(config.scripts.dest))
 		.pipe(browserSync.stream());
 }
@@ -147,18 +160,37 @@ function frontendscripts() {
 				presets: ["@babel/preset-env"]
 			})
 		)
-		.pipe(concat("" + packagejson.name + "-front-end.js")) // Concatenate
-		.pipe(uglify()) // Minify + compress
-		.pipe(
-			rename({
-				suffix: ".min"
-			})
-		)
+		.pipe(concat(packagejson.name + "-front-end.js")) // Concatenate
 		.pipe(sourcemaps.write())
 		.pipe(eslint())
+		.pipe(iife({
+	      useStrict: false,
+	      params: ['$'],
+	      args: ['jQuery']
+	    }))
 		.pipe(gulp.dest(config.scripts.dest))
 		.pipe(browserSync.stream());
 }
+
+function adminscriptlint() {
+	return gulp
+		.src(config.scripts.admin)
+		.pipe(eslint({fix:true}))
+		.pipe(eslint.format())
+		.pipe(gulp.dest(config.scripts.admin_lint))
+		// Brick on failure to be super strict
+		//.pipe(eslint.failOnError());
+};
+
+function frontendscriptlint() {
+	return gulp
+		.src(config.scripts.front_end)
+		.pipe(eslint({fix:true}))
+		.pipe(eslint.format())
+		.pipe(gulp.dest(config.scripts.front_end_lint))
+		// Brick on failure to be super strict
+		//.pipe(eslint.failOnError());
+};
 
 function uglifyscripts() {
 	return (
@@ -170,7 +202,7 @@ function uglifyscripts() {
 					suffix: ".min"
 				})
 			)
-			//.pipe(sourcemaps.write())
+			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(config.scripts.dest))
 			.pipe(browserSync.stream())
 	);
@@ -216,13 +248,15 @@ function watch() {
 }
 
 // define complex tasks
-const styles = gulp.series(sasslint, adminstyles, frontendstyles);
+const lint = gulp.series(adminsasslint, frontendsasslint, adminscriptlint, frontendscriptlint);
+const styles = gulp.series(adminstyles, frontendstyles);
 const scripts = gulp.series(adminscripts, frontendscripts, uglifyscripts);
-const build = gulp.series(gulp.parallel(styles, scripts, translate));
+const build = gulp.series(lint, gulp.parallel(styles, scripts, translate));
 
 // export tasks
 exports.styles = styles;
 exports.scripts = scripts;
+exports.lint = lint;
 exports.translate = translate;
 exports.watch = watch;
 exports.build = build;

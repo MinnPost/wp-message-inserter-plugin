@@ -14,6 +14,24 @@ $slug         = $message['post_name'];
 $type         = $message['meta'][ $prefix . 'message_type' ][0];
 $screen_sizes = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
 
+// setup for checking sessions
+$check_session          = isset( $message['meta'][ $prefix . 'check_session' ] ) ? $message['meta'][ $prefix . 'check_session' ][0] : '';
+$session_count_check    = isset( $message['meta'][ $prefix . 'number_of_sessions' ] ) ? $message['meta'][ $prefix . 'number_of_sessions' ][0] : '';
+$session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' ] ) ? $message['meta'][ $prefix . 'operator_session' ][0] : '';
+
+// close timer setup
+if ( 'popup' === $region ) {
+	$close_time_days  = isset( $message['meta'][ $prefix . 'close_time_days' ] ) ? $message['meta'][ $prefix . 'close_time_days' ][0] : '';
+	$close_time_hours = isset( $message['meta'][ $prefix . 'close_time_hours' ] ) ? $message['meta'][ $prefix . 'close_time_hours' ][0] : '';
+}
+
+// session data attributes
+$session_data_attributes = '';
+if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) {
+	$session_data_attributes = ' data-session-count-to-check="' . $session_count_check . '" data-session-count-operator="' . $session_count_operator . '"';
+}
+
+// sort screen sizes
 usort(
 	$screen_sizes,
 	function ( array $a, array $b ) use ( $prefix ) {
@@ -68,7 +86,7 @@ usort(
 			<article class="o-content-message-body o-content-message-homepage-body">
 	<?php endif; ?>
 
-	<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?>">
+	<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 		<?php if ( 'image' === $type ) : ?>
 			<aside class="m-wp-insert-message-images">
 				<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>

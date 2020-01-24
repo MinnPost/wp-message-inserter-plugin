@@ -5,9 +5,11 @@
  *
  * @package WP Message Inserter Plugin
  */
-	$check_session          = isset( $message['meta'][ $prefix . 'check_session' ] ) ? $message['meta'][ $prefix . 'check_session' ][0] : '';
-	$session_count_check    = isset( $message['meta'][ $prefix . 'number_of_sessions' ] ) ? $message['meta'][ $prefix . 'number_of_sessions' ][0] : '';
-	$session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' ] ) ? $message['meta'][ $prefix . 'operator_session' ][0] : '';
+
+$check_session          = isset( $message['meta'][ $prefix . 'check_session' ] ) ? $message['meta'][ $prefix . 'check_session' ][0] : '';
+$session_count_check    = isset( $message['meta'][ $prefix . 'number_of_sessions' ] ) ? $message['meta'][ $prefix . 'number_of_sessions' ][0] : '';
+$session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' ] ) ? $message['meta'][ $prefix . 'operator_session' ][0] : '';
+
 ?>
 
 <?php if ( 0 < count( $screen_sizes ) ) : ?>
@@ -34,22 +36,15 @@
 
 		$banner_style = $banner_bg . $banner_text . $banner_size . ';';
 
-		// Close timer setup
-		$close_time_days  = isset( $message['meta'][ $prefix . 'close_time_days' ] ) ? $message['meta'][ $prefix . 'close_time_days' ][0] : '';
-		$close_time_hours = isset( $message['meta'][ $prefix . 'close_time_hours' ] ) ? $message['meta'][ $prefix . 'close_time_hours' ][0] : '';
+		// session data attributes
+		$session_data_attributes = '';
+		if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) {
+			$session_data_attributes = ' data-session-count-to-check="' . $session_count_check . '" data-session-count-operator="' . $session_count_operator . '"';
+		}
+
 		?>
 
-		<?php if ( '' !== $close_time_days || '' !== $close_time_hours ) : ?>
-			<input type="hidden" class="closetimedays" value="<?php echo ( isset( $close_time_days ) ) ? $close_time_days : '0'; ?>">
-			<input type="hidden" class="closetimehours" value="<?php echo ( isset( $close_time_hours ) ) ? $close_time_hours : '0'; ?>">
-		<?php endif; ?>
-
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' pop-banner' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-banner' : ''; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
-
-			<?php if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) : ?>
-				<input type="hidden" class="session_count_to_check" value="<?php echo ( isset( $session_count_check ) ) ? $session_count_check : ''; ?>">
-				<input type="hidden" class="session_count_operator" value="<?php echo ( isset( $session_count_operator ) ) ? $session_count_operator : ''; ?>">
-			<?php endif; ?>
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' wp-message-inserter-message-popup' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 
 			<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 				<!-- Dual Col -->
@@ -82,11 +77,6 @@
 						<?php require( 'banner/cta-form.php' ); ?>
 					<?php endif; ?>
 				</div>
-			<?php endif; ?>
-
-			<?php if ( 'popup' === $region ) : ?>
-				<!-- Close Btn -->
-				<a href="#" class="sm-close-btn"><i class="fas fa-times"></i></a>
 			<?php endif; ?>
 		</aside>
 	<?php endforeach; ?>

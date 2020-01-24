@@ -207,27 +207,27 @@ msgstr ""
 msgid "Which operator would you like to use?"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:264
+#: classes/class-wp-message-inserter-plugin-content-items.php:262
 msgid "Conditional {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:265
+#: classes/class-wp-message-inserter-plugin-content-items.php:263
 msgid "Add Another Conditional"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:275
+#: classes/class-wp-message-inserter-plugin-content-items.php:273
 msgid "Conditional"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:276
+#: classes/class-wp-message-inserter-plugin-content-items.php:274
 msgid "Pick a conditional"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:290
+#: classes/class-wp-message-inserter-plugin-content-items.php:289
 msgid "Conditional Value"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:291
+#: classes/class-wp-message-inserter-plugin-content-items.php:290
 msgid "Enter the value expected for this conditional"
 msgstr ""
 
@@ -272,11 +272,11 @@ msgid "Minimum Width"
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-content-items.php:418
-msgid "Maximum Width"
+msgid "Maximum Screen Width"
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-content-items.php:432
-msgid "No Maximum Width"
+msgid "No Maximum Screen Width"
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-content-items.php:447
@@ -299,82 +299,146 @@ msgstr ""
 msgid "Stacked"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:510
-msgid "Flip Columns"
+#: classes/class-wp-message-inserter-plugin-content-items.php:511
+msgid "Maximum Banner Width"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:513
-msgid "Flip order of dual column"
+#: classes/class-wp-message-inserter-plugin-content-items.php:514
+msgid "A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:516
+msgid "Full Container Width (100%)"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:517
+msgid "Full Page Width (depends on the site design)"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:518
+msgid "95%"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:519
+msgid "90%"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:520
+msgid "80%"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:521
+msgid "50%"
 msgstr ""
 
 #: classes/class-wp-message-inserter-plugin-content-items.php:522
+msgid "Custom Width"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:536
+msgid "Custom Maximum Banner Width"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:552
+msgid "Custom Maximum Banner Width Unit"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:557
+msgid "percent"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:558
+msgid "pixels"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:559
+msgid "em"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:560
+msgid "rem"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:574
+msgid "Flip Columns"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:577
+msgid "Flip order of dual column"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:586
 msgid "Banner BG Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:537
+#: classes/class-wp-message-inserter-plugin-content-items.php:601
 msgid "Banner BG Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:539
+#: classes/class-wp-message-inserter-plugin-content-items.php:603
 msgid "Image is optional. The BG Color will overlay this image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:542, classes/class-wp-message-inserter-plugin-content-items.php:566
+#: classes/class-wp-message-inserter-plugin-content-items.php:606, classes/class-wp-message-inserter-plugin-content-items.php:630
 msgid "Add Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:561
+#: classes/class-wp-message-inserter-plugin-content-items.php:625
 msgid "Banner Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:584
+#: classes/class-wp-message-inserter-plugin-content-items.php:648
+msgid "Banner Text Color"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:663
 msgid "Banner Heading"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:598
+#: classes/class-wp-message-inserter-plugin-content-items.php:677
 msgid "Banner Short Copy"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:614
+#: classes/class-wp-message-inserter-plugin-content-items.php:693
 msgid "CTA Type"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:619
+#: classes/class-wp-message-inserter-plugin-content-items.php:698
 msgid "Button"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:620
+#: classes/class-wp-message-inserter-plugin-content-items.php:699
 msgid "Form"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:621
+#: classes/class-wp-message-inserter-plugin-content-items.php:700
 msgid "None"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:636
+#: classes/class-wp-message-inserter-plugin-content-items.php:715
 msgid "Button BG Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:653
+#: classes/class-wp-message-inserter-plugin-content-items.php:732
 msgid "Button Details"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:669
+#: classes/class-wp-message-inserter-plugin-content-items.php:748
 msgid "Button Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:687
+#: classes/class-wp-message-inserter-plugin-content-items.php:766
 msgid "Form Shortcode"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:689
+#: classes/class-wp-message-inserter-plugin-content-items.php:768
 msgid "Place shortcode for Mailchimp Signup form"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:704
+#: classes/class-wp-message-inserter-plugin-content-items.php:783
 msgid "Disclaimer "
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:706
+#: classes/class-wp-message-inserter-plugin-content-items.php:785
 msgid "Appears below the form or button. Small text"
 msgstr ""
