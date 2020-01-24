@@ -138,6 +138,22 @@ $cta-spacing: 8px; // similar to membership plugin
 	bottom: 0;
 	margin: 0 auto;
 
+	// default styles for the editor type
+	&.wp-message-inserter-message-editor {
+		width: 100%;
+		background: #000;
+		color: #fff;
+
+		.m-wp-insert-message-item {
+			width: 100%;
+			padding: $cta-spacing 0;
+			font-size: 1em;
+			font-family: sans-serif;
+			max-width: $max-width-page;
+			margin: 0 auto;
+		}
+	}
+
 	&.wp-message-inserter-message-popup-visible {
 		display: block;
 	}
