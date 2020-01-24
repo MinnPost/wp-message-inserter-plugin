@@ -54,18 +54,18 @@
 			<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 				<!-- Dual Col -->
 				<div class="dual-wrap <?php echo ( isset( $screen_size[ $prefix . 'banner_flip_columns' ] ) && 'on' === $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
-					<?php require( 'includes/banner/icon.php' ); ?>
+					<?php require( 'banner/icon.php' ); ?>
 					<div class="col">
-						<?php require( 'includes/banner/text.php' ); ?>
+						<?php require( 'banner/text.php' ); ?>
 						<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-							<?php require( 'includes/banner/cta-form.php' ); ?>
+							<?php require( 'banner/cta-form.php' ); ?>
 						<?php endif; ?>
 					</div>
 					<div class="col">
 						<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-							<?php require( 'includes/banner/cta-button.php' ); ?>
+							<?php require( 'banner/cta-button.php' ); ?>
 						<?php endif; ?>
-						<?php require( 'includes/banner/disclaimer.php' ); ?>
+						<?php require( 'banner/disclaimer.php' ); ?>
 					</div>
 				</div>
 			<?php endif; ?>
@@ -73,13 +73,13 @@
 			<?php if ( 'stacked' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 				<!-- Stacked Banner -->
 				<div class="stack-wrap">
-					<?php require( 'includes/banner/text.php' ); ?>
+					<?php require( 'banner/text.php' ); ?>
 					<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-						<?php require( 'includes/banner/cta-button.php' ); ?>
+						<?php require( 'banner/cta-button.php' ); ?>
 					<?php endif; ?>
-					<?php require( 'includes/banner/disclaimer.php' ); ?>
+					<?php require( 'banner/disclaimer.php' ); ?>
 					<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-						<?php require( 'includes/banner/cta-form.php' ); ?>
+						<?php require( 'banner/cta-form.php' ); ?>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
