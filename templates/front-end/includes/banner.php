@@ -28,90 +28,77 @@
 
 		$banner_style = $banner_bg . $banner_text . $banner_size . ';';
 
-		// Close timer setup
-		$close_time_days  = isset( $message['meta'][ $prefix . 'close_time_days' ] ) ? $message['meta'][ $prefix . 'close_time_days' ][0] : '';
-		$close_time_hours = isset( $message['meta'][ $prefix . 'close_time_hours' ] ) ? $message['meta'][ $prefix . 'close_time_hours' ][0] : '';
+		// session data attributes
+		$session_data_attributes = '';
+		if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) {
+			$session_data_attributes = ' data-session-count-to-check="' . $session_count_check . '" data-session-count-operator="' . $session_count_operator . '"';
+		}
+
 		?>
 
-		<?php if ( '' !== $close_time_days || '' !== $close_time_hours ) : ?>
-			<input type="hidden" class="closetimedays" value="<?php echo ( isset( $close_time_days ) ) ? $close_time_days : '0'; ?>">
-			<input type="hidden" class="closetimehours" value="<?php echo ( isset( $close_time_hours ) ) ? $close_time_hours : '0'; ?>">
-		<?php endif; ?>
+		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' wp-message-inserter-message-popup' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 
-		<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'popup' === $region ) ? ' pop-banner' : ''; ?><?php echo ( 'on' === $check_session ) ? ' check-session-banner' : ''; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
-
-				<?php if ( '' !== $check_session && '' !== $session_count_check && '' !== $session_count_operator ) : ?>
-					<input type="hidden" class="session_count_to_check" value="<?php echo ( isset( $session_count_check ) ) ? $session_count_check : ''; ?>">
-					<input type="hidden" class="session_count_operator" value="<?php echo ( isset( $session_count_operator ) ) ? $session_count_operator : ''; ?>">
-				<?php endif; ?>
-
-				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
-					<!-- Dual Col -->
-					<div class="dual-wrap <?php echo ( isset( $screen_size[ $prefix . 'banner_flip_columns' ] ) && 'on' === $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
+			<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
+				<!-- Dual Col -->
+				<div class="dual-wrap <?php echo ( isset( $screen_size[ $prefix . 'banner_flip_columns' ] ) && 'on' === $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
 						<?php if ( $screen_size[ $prefix . 'banner_icon' ] ) : ?>
-							<div class="col banner-icon">
-								<img src="<?php echo $screen_size[ $prefix . 'banner_icon' ]; ?>" alt="">
-							</div>
-						<?php endif; ?>
+						<div class="col banner-icon">
+							<img src="<?php echo $screen_size[ $prefix . 'banner_icon' ]; ?>" alt="">
+						</div>
+					<?php endif; ?>
 
-						<div class="col">
+					<div class="col">
 							<h3><?php echo $screen_size[ $prefix . 'banner_heading' ]; ?></h3>
 							<?php echo wpautop( $screen_size[ $prefix . 'banner_shortcopy' ] ); ?>
-
-							<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ) : ?>
-								<!-- FORM -->
-								<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ); ?>
-							<?php endif; ?>
-						</div>
-						<div class="col">
-								<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-								<!-- BUTTON -->
-								<a class="a-button" style="background-color: <?php echo $screen_size[ $prefix . 'banner_btn_bgcolor' ]; ?>;" href="<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['url']; ?>" <?php ( 'true' === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
-									<?php if ( isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ) : ?>
-										<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>"></i>
-									<?php endif; ?>
-									<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
-								</a>
-							<?php endif; ?>
-
-							<?php if ( isset( $screen_size[ $prefix . 'banner_disclaimer' ] ) ) : ?>
-								<div class="disclaimer"><?php echo wpautop( $screen_size[ $prefix . 'banner_disclaimer' ] ); ?></div>
-							<?php endif; ?>
-
-						</div>
-					</div>
-				<?php endif; ?>
-
-				<?php if ( 'stacked' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
-					<!-- Stacked Banner -->
-					<div class="stack-wrap">
-						<h3><?php echo $screen_size[ $prefix . 'banner_heading' ]; ?></h3>
-						<p><?php echo $screen_size[ $prefix . 'banner_shortcopy' ]; ?></p>
-
-						<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
-							<!-- BUTTON -->
-							<a class="a-button" style="background-color: <?php echo $screen_size[ $prefix . 'banner_btn_bgcolor' ]; ?>;" href="<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['url']; ?>" <?php ( true === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
-								<?php if ( $screen_size[ $prefix . 'banner_buttonicon' ] ) : ?>
-									<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>"></i>
-								<?php endif; ?>
-								<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
-							</a>
-						<?php endif; ?>
-
-						<div class="disclaimer"><?php echo wpautop( $screen_size[ $prefix . 'banner_disclaimer' ] ); ?></div>
 
 						<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ) : ?>
 							<!-- FORM -->
 							<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ); ?>
 						<?php endif; ?>
 					</div>
-				<?php endif; ?>
+					<div class="col">
+							<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
+							<!-- BUTTON -->
+							<a class="a-button" style="background-color: <?php echo $screen_size[ $prefix . 'banner_btn_bgcolor' ]; ?>;" href="<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['url']; ?>" <?php ( 'true' === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
+								<?php if ( isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ) : ?>
+									<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>"></i>
+								<?php endif; ?>
+									<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
+							</a>
+						<?php endif; ?>
 
+						<?php if ( isset( $screen_size[ $prefix . 'banner_disclaimer' ] ) ) : ?>
+							<div class="disclaimer"><?php echo wpautop( $screen_size[ $prefix . 'banner_disclaimer' ] ); ?></div>
+						<?php endif; ?>
 
-				<?php if ( 'popup' === $region ) : ?>
-					<!-- Close Btn -->
-					<a href="#" class="sm-close-btn"><i class="fas fa-times"></i></a>
-				<?php endif; ?>
+					</div>
+				</div>
+			<?php endif; ?>
+
+			<?php if ( 'stacked' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
+				<!-- Stacked Banner -->
+				<div class="stack-wrap">
+						<h3><?php echo $screen_size[ $prefix . 'banner_heading' ]; ?></h3>
+						<p><?php echo $screen_size[ $prefix . 'banner_shortcopy' ]; ?></p>
+
+					<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
+						<!-- BUTTON -->
+						<a class="a-button" style="background-color: <?php echo $screen_size[ $prefix . 'banner_btn_bgcolor' ]; ?>;" href="<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['url']; ?>" <?php ( true === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
+								<?php if ( $screen_size[ $prefix . 'banner_buttonicon' ] ) : ?>
+								<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>"></i>
+							<?php endif; ?>
+								<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
+						</a>
+					<?php endif; ?>
+
+						<div class="disclaimer"><?php echo wpautop( $screen_size[ $prefix . 'banner_disclaimer' ] ); ?></div>
+
+					<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] && isset( $screen_size[ $prefix . 'banner_form_shortcode' ] ) ) : ?>
+						<!-- FORM -->
+						<?php echo do_shortcode( $screen_size[ $prefix . 'banner_form_shortcode' ] ); ?>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 		</aside>
 	<?php endforeach; ?>
 <?php endif; ?>
