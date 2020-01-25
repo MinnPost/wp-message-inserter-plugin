@@ -352,47 +352,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
-		/*$screen_size_box->add_field( array(
-			'name'             => 'Condition',
-			'id'               => $prefix . 'conditional',
-			'type'             => $select_type,
-			'desc'             => 'If present, this will combine with the region to determine whether a message should appear. If the value of this field is None, the region alone will determine display. To use more conditions, click Add more.',
-			'show_option_none' => true,
-			'options'          => $this->get_conditional_options( $select_type ),
-			'default'          => 'none',
-			'attributes'       => array(
-				'required' => false,
-			),
-		) );*/
-
-		/*$screen_size_box->add_field( array(
-			'name'       => 'Condition Value',
-			'id'         => $prefix . 'conditional_value',
-			'type'       => 'text',
-			'desc'       => '',
-			'attributes' => array(
-				'required'               => true,
-				'data-conditional-id'    => $prefix . 'conditional',
-				'data-conditional-value' => wp_json_encode( $this->get_conditional_options( $select_type, true ) ),
-			),
-		) );*/
-
-		/*$screen_size_box->add_field( array(
-			'name'       => 'Condition Result',
-			'id'         => $prefix . 'conditional_result',
-			'type'       => 'radio_inline',
-			'desc'       => '',
-			'options'    => array(
-				'true'  => __( 'True', 'wp-message-inserter-plugin' ),
-				'false' => __( 'False', 'wp-message-inserter-plugin' ),
-			),
-			'default'    => 'true',
-			'attributes' => array(
-				'required'            => true,
-				'data-conditional-id' => $prefix . 'conditional',
-			),
-		) );*/
-
 		$screen_size_box->add_field(
 			array(
 				'id'          => $prefix . 'screen_size',
@@ -872,7 +831,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$post = array(
 			array(
 				'name'       => 'is_single',
-				'has_params' => false,
+				'has_params' => true,
+				'params'     => array(
+					'post',
+				),
 			),
 			array(
 				'name'       => 'has_term',
@@ -883,7 +845,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			),
 			array(
 				'name'       => 'is_singular',
-				'has_params' => false,
+				'has_params' => true,
+				'params'     => array(
+					'post_types',
+				),
 			),
 			/*array(
 				'name'       => 'is_sticky',
@@ -920,7 +885,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$page = array(
 			array(
 				'name'       => 'is_page',
-				'has_params' => false,
+				'has_params' => true,
+				'params'     => array(
+					'page',
+				),
 			),
 			array(
 				'name'       => 'is_singular',
@@ -945,10 +913,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		);
 
 		$archive = array(
-			/*array(
+			array(
 				'name'       => 'is_post_type_archive',
-				'has_params' => false,
-			),*/
+				'has_params' => true,
+				'params'     => array(
+					'post_types',
+				),
+			),
 			array(
 				'name'       => 'is_category',
 				'has_params' => true,
@@ -957,8 +928,27 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
+				'name'       => 'has_category',
+				'has_params' => true,
+				'params'     => array(
+					'category',
+					'current_post',
+				),
+			),
+			array(
 				'name'       => 'is_tag',
-				'has_params' => false,
+				'has_params' => true,
+				'params'     => array(
+					'tag',
+				),
+			),
+			array(
+				'name'       => 'has_tag',
+				'has_params' => true,
+				'params'     => array(
+					'tag',
+					'current_post',
+				),
 			),
 			array(
 				'name'       => 'is_tax',
@@ -991,11 +981,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => 'is_new_day',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_archive',
 				'has_params' => false,
-			),*/
+			),
 		);
 
 		$term = array(
@@ -1186,7 +1176,16 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$conditionals = apply_filters( $this->option_prefix . 'conditionals', $conditionals, $select_type );
 
 		if ( 'select' === $select_type ) {
-			$conditionals = array_merge( $conditionals['general'], $conditionals['post'], $conditionals['page'], $conditionals['archive'], $conditionals['term'], $conditionals['taxonomy'], $conditionals['attachment'], $conditionals['sidebar'], $conditionals['user'], $conditionals['query'], $conditionals['multisite'], $conditionals['plugin_and_theme'] );
+
+			$conditionals_select = array();
+			foreach ( $conditionals as $conditional_set ) {
+				if ( is_array( $conditional_set ) ) {
+					foreach ( $conditional_set as $key => $value ) {
+						$conditionals_select[] = $value;
+					}
+				}
+			}
+			return $conditionals_select;
 		}
 
 		return $conditionals;
