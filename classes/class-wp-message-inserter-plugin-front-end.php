@@ -187,7 +187,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 						if ( isset( $conditional_to_check['method'] ) && function_exists( $conditional_to_check['method'] ) ) {
 							if ( ! is_array( $params ) ) {
 								$exploded = true;
-								$params = array_map( 'trim', explode( ',', $params ) );
+								$params   = array_map( 'trim', explode( ',', $params ) );
 								array_unshift( $params, $conditional_method );
 							}
 						}
@@ -237,7 +237,6 @@ class WP_Message_Inserter_Plugin_Front_End {
 				if ( ! in_array( $post, $groupedposts, true ) ) {
 					array_push( $groupedposts, $post );
 				}
-
 			}
 			wp_reset_postdata();
 			return $groupedposts;
