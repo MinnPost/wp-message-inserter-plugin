@@ -106,6 +106,12 @@ if ( jQuery.fn.select2 ) {
 			$( this ).select2();
 		} );
 
+		// if it's a custom multiselect cmb2 field, make sure to clear the value because that appears to work differently
+		$( newRow ).find( '.cmb2_multi_select' ).each( function() {
+			$( this ).val( [] ).change();
+			$( this ).select2( 'val', '' );
+		} );
+
 		// Reinitialise the field we previously destroyed
 		$( newRow ).prev().find( '.cmb2_select' ).each( function() {
 			$( this ).select2();
