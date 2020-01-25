@@ -89,24 +89,10 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*
 	*/
 	private function get_eligible_message( $region ) {
-		$post               = array();
-		$conditionals       = $this->content_items->get_conditionals();
-		$true_conditionals  = array();
-		$false_conditionals = array();
-		$groupedposts = array();
-		foreach ( $conditionals as $conditional ) {
-			$name = $conditional['name'];
-			if ( isset( $conditional['method'] ) && '' !== $conditional['method'] ) {
-				$name = $conditional['method'];
-			}
-			if ( false === $conditional['has_params'] ) {
-				if ( true === $name() ) {
-					$true_conditionals[] = $name;
-				} else {
-					$false_conditionals[] = $name;
-				}
-			}
-		}
+		$current_id       = get_the_ID();
+		$post             = array();
+		$all_conditionals = $this->content_items->get_conditionals();
+		$groupedposts     = array();
 		// load all possible messges for the given region
 		$args  = array(
 			'post_type'      => 'message',
@@ -136,50 +122,121 @@ class WP_Message_Inserter_Plugin_Front_End {
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
 				$conditional = maybe_unserialize( $conditional );
 
-				// Set conditional if it has a method associated with it in the $conditionals array
-				$key = array_search( $conditional, array_column( $conditionals, 'name' ), true );
-				if ( false !== $key && isset( $conditionals[ $key ]['method'] ) ) {
-					$conditional = $conditionals[ $key ]['method'];
-				}
-
 				// If no conditional is set
-				if ( '' === $conditional ) {
+				if ( '' === $conditional || empty( $conditional ) ) {
 					// Grab whatever we can?
 					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
-					$show_banner = false;
+					$show_message = false;
+
 					foreach ( $conditional as $condkey => $condvalue ) {
 						$conditional_method = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
 						$conditional_value  = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
 						$conditional_result = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
 						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
+						$conditional_value = apply_filters( $this->option_prefix . 'add_conditional_value', $conditional_value, $condvalue );
+
+						// this method exists in the supported condtionals for the plugin
+						$all_conditionals_key = array_search( $conditional_method, array_column( $all_conditionals, 'name' ), true );
+						if ( false === $all_conditionals_key ) {
+							continue;
+						}
+
+						$conditional_to_check = $all_conditionals[ $all_conditionals_key ];
+						$method_to_call       = '';
+						$params               = $conditional_value;
+
+						// this means this conditional has a callback
+						if ( isset( $conditional_to_check['method'] ) && function_exists( $conditional_to_check['method'] ) ) {
+							$method_to_call = $conditional_to_check['method'];
+							$params         = $conditional_value;
+						} else {
+							$method_to_call = $conditional_method;
+						}
+
+						// the conditional has parameters
+						$has_params = isset( $conditional_to_check['has_params'] ) ? filter_var( $conditional_to_check['has_params'], FILTER_VALIDATE_BOOLEAN ) : false;
+						if ( true === $has_params ) {
+							// if there's no value for the parameter, try it with empty params
+							if ( '' === $conditional_value ) {
+								$params = array();
+							}
+							if ( isset( $conditional_to_check['params'] ) && ! empty( $conditional_to_check['params'] ) ) {
+								if ( 1 === sizeof( $conditional_to_check['params'] ) ) {
+									$params = $conditional_value;
+								} else {
+									$params = array();
+									foreach ( $conditional_to_check['params'] as $key => $name ) {
+										if ( 'current_post' === $name ) {
+											$params['current_post'] = $current_id;
+										} else {
+											if ( is_array( $conditional_value ) && isset( $conditional_value[ $key ] ) ) {
+												$params[ $name ] = $conditional_value[ $key ];
+											} else {
+												$params[ $name ] = $conditional_value;
+											}
+										}
+									}
+								}
+							}
+						}
+
+						$exploded = false;
+						if ( isset( $conditional_to_check['method'] ) && function_exists( $conditional_to_check['method'] ) ) {
+							if ( ! is_array( $params ) ) {
+								$exploded = true;
+								$params = array_map( 'trim', explode( ',', $params ) );
+								array_unshift( $params, $conditional_method );
+							}
+						}
+
+						// the method does not exist
+						if ( '' === $method_to_call || ! function_exists( $method_to_call ) ) {
+							continue;
+						}
+
+						if ( is_array( $params ) ) {
+							if ( true === $exploded ) {
+								$called_method = call_user_func_array( $method_to_call, $params );
+							} else {
+								$called_method = $method_to_call( $params );
+							}
+						} else {
+							$called_method = $method_to_call( $params );
+						}
+
+						$called_method = filter_var( $called_method, FILTER_VALIDATE_BOOLEAN );
 						// Handle our OR operator
 						if ( 'or' === $operator ) {
-							if ( ! function_exists( $conditional_method ) || $conditional_result === $conditional_method( $conditional_value ) ) {
-								$show_banner = true;
-								break;
+							if ( $conditional_result === $called_method ) {
+								$show_message = true;
+								continue;
 							}
 						}
 
 						// Handle our AND operator
 						if ( 'and' === $operator ) {
-							if ( ! function_exists( $conditional_method ) || $conditional_result === $conditional_method( $conditional_value ) ) {
-								$show_banner = true;
+							if ( $conditional_result === $called_method ) {
+								$show_message = true;
 							} else {
-								$show_banner = false;
+								$show_message = false;
 							}
 						}
 					}
 
-					if ( true === $show_banner ) {
+					$show_message = apply_filters( $this->option_prefix . 'show_message', $show_message, $region );
+
+					if ( true === filter_var( $show_message, FILTER_VALIDATE_BOOLEAN ) ) {
 						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
 				}
 
-				array_push( $groupedposts, $post );
+				if ( ! in_array( $post, $groupedposts, true ) ) {
+					array_push( $groupedposts, $post );
+				}
 
 			}
 			wp_reset_postdata();
