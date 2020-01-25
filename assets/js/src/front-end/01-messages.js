@@ -58,7 +58,7 @@ function setCurrentCount() {
  */
 function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass ) {
 	setCookie( popupShownCookieName, 'true', cookieDayTotal );
-	$( '.' + popupSelector ).addClass( popupVisibleClass );
+	$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
 }
 
 /**
