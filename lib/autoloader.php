@@ -25,7 +25,7 @@ spl_autoload_register(
 		$file_name = 'class-' . str_replace( '_', '-', strtolower( $class_name ) );
 
 		// create file path
-		$file = dirname( WP_MESSAGE_INSERTER_PLUGIN_FILE ) . '/classes-new/' . $file_name . '.php';
+		$file = dirname( WP_MESSAGE_INSERTER_PLUGIN_FILE ) . '/classes/' . $file_name . '.php';
 
 		// If a file is found, load it
 		if ( file_exists( $file ) ) {
