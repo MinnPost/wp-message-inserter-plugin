@@ -4,10 +4,9 @@
  *
  */
 
-
 // Start with composer autoload
-if ( file_exists( dirname( WP_MESSAGE_INSERTER_FILE ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( WP_MESSAGE_INSERTER_FILE ) . '/vendor/autoload.php';
+if ( file_exists( dirname( WP_MESSAGE_INSERTER_PLUGIN_FILE ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( WP_MESSAGE_INSERTER_PLUGIN_FILE ) . '/vendor/autoload.php';
 }
 
 /**
@@ -18,7 +17,7 @@ spl_autoload_register(
 	function ( $class_name ) {
 
 		// Only autoload classes from this plugin
-		if ( 'WP_Message_Inserter' !== $class_name && 0 !== strpos( $class_name, 'WP_Message_Inserter_' ) ) {
+		if ( 'WP_Message_Inserter_Plugin' !== $class_name && 0 !== strpos( $class_name, 'WP_Message_Inserter_Plugin_' ) ) {
 			return;
 		}
 
@@ -26,7 +25,7 @@ spl_autoload_register(
 		$file_name = 'class-' . str_replace( '_', '-', strtolower( $class_name ) );
 
 		// create file path
-		$file = dirname( WP_MESSAGE_INSERTER_FILE ) . '/php/' . $file_name . '.php';
+		$file = dirname( WP_MESSAGE_INSERTER_PLUGIN_FILE ) . '/classes-new/' . $file_name . '.php';
 
 		// If a file is found, load it
 		if ( file_exists( $file ) ) {

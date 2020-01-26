@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 0.0.6
  * @var string
  */
-define( 'WP_MESSAGE_INSERTER_FILE', __FILE__ );
+define( 'WP_MESSAGE_INSERTER_PLUGIN_FILE', __FILE__ );
 
 /**
  * The plugin's current version
@@ -33,7 +33,7 @@ define( 'WP_MESSAGE_INSERTER_FILE', __FILE__ );
  * @since 0.0.6
  * @var string
  */
-define( 'WP_MESSAGE_INSERTER_VERSION', '0.1.0' );
+define( 'WP_MESSAGE_INSERTER_PLUGIN_VERSION', '0.1.0' );
 
 // Load the autoloader.
 require_once( 'lib/autoloader.php' );
@@ -42,16 +42,16 @@ require_once( 'lib/autoloader.php' );
  * Retrieve the instance of the main plugin class
  *
  * @since 0.0.6
- * @return WP_Message_Inserter
+ * @return WP_Message_Inserter_Plugin
  */
-function wp_message_inserter() {
+function wp_message_inserter_plugin() {
 	static $plugin;
 
 	if ( is_null( $plugin ) ) {
-		$plugin = new WP_Message_Inserter( WP_MESSAGE_INSERTER_VERSION, WP_MESSAGE_INSERTER_FILE );
+		$plugin = new WP_Message_Inserter_Plugin( WP_MESSAGE_INSERTER_PLUGIN_VERSION, WP_MESSAGE_INSERTER_PLUGIN_FILE );
 	}
 
 	return $plugin;
 }
 
-wp_message_inserter()->init();
+wp_message_inserter_plugin()->init();

@@ -3,9 +3,9 @@
 /**
  * The main plugin class
  *
- * @package WP_Message_Inserter
+ * @package WP_Message_Inserter_Plugin
  */
-class WP_Message_Inserter {
+class WP_Message_Inserter_Plugin {
 
 	/**
 	 * The version number for this release of the plugin.
@@ -86,16 +86,16 @@ class WP_Message_Inserter {
 	public function init() {
 
 		// Region features
-		$this->regions = new WP_Message_Inserter_Regions();
+		$this->regions = new WP_Message_Inserter_Plugin_Regions();
 
 		// Content items
-		$this->content_items = new WP_Message_Inserter_Content_Items();
+		$this->content_items = new WP_Message_Inserter_Plugin_Content_Items();
 
 		// Admin features
-		$this->admin = new WP_Message_Inserter_Admin();
+		$this->admin = new WP_Message_Inserter_Plugin_Admin();
 
 		// Front end features
-		$this->front_end = new WP_Message_Inserter_Front_End();
+		$this->front_end = new WP_Message_Inserter_Plugin_Front_End();
 
 	}
 
@@ -114,7 +114,7 @@ class WP_Message_Inserter {
 	 *
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-message-inserter', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'wp-message-inserter-plugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 }
