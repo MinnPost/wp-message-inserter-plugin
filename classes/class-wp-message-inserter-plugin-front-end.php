@@ -89,6 +89,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*
 	*/
 	private function get_eligible_message( $region ) {
+		// todo: figure out if any of this can be cached
 		$current_id       = get_the_ID();
 		$post             = array();
 		$all_conditionals = $this->content_items->get_conditionals();
