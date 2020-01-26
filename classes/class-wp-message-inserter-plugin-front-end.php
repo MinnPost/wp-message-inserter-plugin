@@ -116,7 +116,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 
-				$message_meta = get_post_meta( $current_id );
+				$message_meta = get_post_meta( get_the_ID() );
 				$operator     = $message_meta['_wp_inserted_message_conditional_operator'][0];
 
 				// Array of Conditions set on a banner
@@ -126,7 +126,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 				// If no conditional is set
 				if ( '' === $conditional || empty( $conditional ) ) {
 					// Grab whatever we can?
-					$post         = get_post( $current_id, ARRAY_A );
+					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
 					$show_message = false;
@@ -230,7 +230,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$show_message = apply_filters( $this->option_prefix . 'show_message', $show_message, $region );
 
 					if ( true === filter_var( $show_message, FILTER_VALIDATE_BOOLEAN ) ) {
-						$post         = get_post( $current_id, ARRAY_A );
+						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
 				}
@@ -240,11 +240,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 			wp_reset_postdata();
+			return $groupedposts;
 		} else {
 			// Does this ever return anything? I don't think so?
-			$groupedposts = $post;
+			return $post;
 		}
-		return $groupedposts;
 	}
 
 	/**
