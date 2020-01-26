@@ -1,39 +1,23 @@
 <?php
-/**
- * Class file for the WP_Message_Inserter_Plugin_Regions class.
- *
- * @file
- */
-
-if ( ! class_exists( 'WP_Message_Inserter' ) ) {
-	die();
-}
 
 /**
  * Create default structure for regions
+ *
+ * @package WP_Message_Inserter_Plugin
  */
 class WP_Message_Inserter_Plugin_Regions {
 
-	protected $option_prefix;
-	protected $post_meta_prefix;
-	protected $version;
-	protected $slug;
+	public $option_prefix;
+	public $post_meta_prefix;
+	public $version;
+	public $slug;
 
-	/**
-	* Constructor which sets up regions
-	*
-	* @param string $option_prefix
-	* @param string $post_meta_prefix
-	* @param string $version
-	* @param string $slug
-	* @throws \Exception
-	*/
-	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug ) {
+	public function __construct() {
 
-		$this->option_prefix    = $option_prefix;
-		$this->post_meta_prefix = $post_meta_prefix;
-		$this->version          = $version;
-		$this->slug             = $slug;
+		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
+		$this->post_meta_prefix = wp_message_inserter_plugin()->post_meta_prefix;
+		$this->version          = wp_message_inserter_plugin()->version;
+		$this->slug             = wp_message_inserter_plugin()->slug;
 
 		$this->add_actions();
 

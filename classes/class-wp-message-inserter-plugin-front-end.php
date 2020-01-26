@@ -1,45 +1,27 @@
 <?php
-/**
- * Class file for the WP_Message_Inserter_Plugin_Front_End class.
- *
- * @file
- */
-
-if ( ! class_exists( 'WP_Message_Inserter' ) ) {
-	die();
-}
 
 /**
  * Create default structure for regions
+ *
+ * @package WP_Message_Inserter_Plugin
  */
 class WP_Message_Inserter_Plugin_Front_End {
 
-	protected $option_prefix;
-	protected $post_meta_prefix;
-	protected $version;
-	protected $slug;
-	protected $regions;
-	protected $content_items;
+	public $option_prefix;
+	public $post_meta_prefix;
+	public $version;
+	public $slug;
+	public $regions;
+	public $content_items;
 
-	/**
-	* Constructor which sets up regions
-	*
-	* @param string $option_prefix
-	* @param string $post_meta_prefix
-	* @param string $version
-	* @param string $slug
-	* @param object $regions
-	* @param object $content_items
-	* @throws \Exception
-	*/
-	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug, $regions, $content_items ) {
+	public function __construct() {
 
-		$this->option_prefix    = $option_prefix;
-		$this->post_meta_prefix = $post_meta_prefix;
-		$this->version          = $version;
-		$this->slug             = $slug;
-		$this->regions          = $regions;
-		$this->content_items    = $content_items;
+		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
+		$this->post_meta_prefix = wp_message_inserter_plugin()->post_meta_prefix;
+		$this->version          = wp_message_inserter_plugin()->version;
+		$this->slug             = wp_message_inserter_plugin()->slug;
+		$this->regions          = wp_message_inserter_plugin()->regions;
+		$this->content_items    = wp_message_inserter_plugin()->content_items;
 
 		$this->add_actions();
 
@@ -116,8 +98,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 
-				$message_meta = get_post_meta( $current_id );
-				$operator     = $message_meta['_wp_inserted_message_conditional_operator'][0];
+				$message_meta = get_post_meta( get_the_ID() );
+				$operator     = $message_meta[ $this->post_meta_prefix . 'conditional_operator' ][0];
 
 				// Array of Conditions set on a banner
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
@@ -126,15 +108,15 @@ class WP_Message_Inserter_Plugin_Front_End {
 				// If no conditional is set
 				if ( '' === $conditional || empty( $conditional ) ) {
 					// Grab whatever we can?
-					$post         = get_post( $current_id, ARRAY_A );
+					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
 					$show_message = false;
 
 					foreach ( $conditional as $condkey => $condvalue ) {
-						$conditional_method = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
-						$conditional_value  = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
-						$conditional_result = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
+						$conditional_method = isset( $condvalue[ $this->post_meta_prefix . 'conditional'] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' ] : '';
+						$conditional_value  = isset( $condvalue[ $this->post_meta_prefix . 'conditional_value' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional_value'] : '';
+						$conditional_result = isset( $condvalue[ $this->post_meta_prefix . 'conditional_result' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional_result' ] : '';
 						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 						$conditional_value = apply_filters( $this->option_prefix . 'add_conditional_value', $conditional_value, $condvalue );
@@ -230,7 +212,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$show_message = apply_filters( $this->option_prefix . 'show_message', $show_message, $region );
 
 					if ( true === filter_var( $show_message, FILTER_VALIDATE_BOOLEAN ) ) {
-						$post         = get_post( $current_id, ARRAY_A );
+						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
 				}
@@ -240,11 +222,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 			wp_reset_postdata();
+			return $groupedposts;
 		} else {
 			// Does this ever return anything? I don't think so?
-			$groupedposts = $post;
+			return $post;
 		}
-		return $groupedposts;
 	}
 
 	/**
