@@ -98,10 +98,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 
-				$message_meta = get_post_meta( $current_id );
-
-				error_log( 'meta is ' . print_r( $message_meta, true ) );
-				$operator     = $message_meta[ $this->post_meta_prefix . 'conditional_operator' ][0];
+				$message_meta = get_post_meta( get_the_ID() );
+				$operator     = $message_meta['_wp_inserted_message_conditional_operator'][0];
 
 				// Array of Conditions set on a banner
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
@@ -110,15 +108,15 @@ class WP_Message_Inserter_Plugin_Front_End {
 				// If no conditional is set
 				if ( '' === $conditional || empty( $conditional ) ) {
 					// Grab whatever we can?
-					$post         = get_post( $current_id, ARRAY_A );
+					$post         = get_post( get_the_ID(), ARRAY_A );
 					$post['meta'] = $message_meta;
 				} else {
 					$show_message = false;
 
 					foreach ( $conditional as $condkey => $condvalue ) {
-						$conditional_method = isset( $condvalue[ $this->post_meta_prefix . 'conditional' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' ] : '';
-						$conditional_value  = isset( $condvalue[ $this->post_meta_prefix . 'conditional' . 'conditional_value' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' . 'conditional_value' ] : '';
-						$conditional_result = isset( $condvalue[ $this->post_meta_prefix . 'conditional' . 'conditional_result' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' . 'conditional_result' ] : '';
+						$conditional_method = isset( $condvalue['_wp_inserted_message_conditional'] ) ? $condvalue['_wp_inserted_message_conditional'] : '';
+						$conditional_value  = isset( $condvalue['_wp_inserted_message_conditional_value'] ) ? $condvalue['_wp_inserted_message_conditional_value'] : '';
+						$conditional_result = isset( $condvalue['_wp_inserted_message_conditional_result'] ) ? $condvalue['_wp_inserted_message_conditional_result'] : '';
 						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 						$conditional_value = apply_filters( $this->option_prefix . 'add_conditional_value', $conditional_value, $condvalue );
@@ -214,7 +212,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$show_message = apply_filters( $this->option_prefix . 'show_message', $show_message, $region );
 
 					if ( true === filter_var( $show_message, FILTER_VALIDATE_BOOLEAN ) ) {
-						$post         = get_post( $current_id, ARRAY_A );
+						$post         = get_post( get_the_ID(), ARRAY_A );
 						$post['meta'] = $message_meta;
 					}
 				}
@@ -224,11 +222,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 				}
 			}
 			wp_reset_postdata();
+			return $groupedposts;
 		} else {
 			// Does this ever return anything? I don't think so?
-			$groupedposts = $post;
+			return $post;
 		}
-		return $groupedposts;
 	}
 
 	/**
