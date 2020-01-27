@@ -165,19 +165,23 @@ $select-border-color: #7e8993;
 	}
 } // end .admin-color
 
-.cmb2-wrap.cmb2-insertable-message {
+.post-type-message {
 
-	.cmb-row.cmb-repeat .cmb2-metabox-description {
-		padding-top: 0.5em;
-	}
+	.cmb2-wrap.cmb2-insertable-message {
 
-	.select2-container--default .select2-selection--multiple {
-		.select2-selection__rendered {
-			height: 30px;
+		.cmb-row.cmb-repeat .cmb2-metabox-description {
+			padding-top: 0.5em;
 		}
 
-		.select2-selection__choice {
-			line-height: 22px;
+		.select2-container--default .select2-selection--multiple {
+
+			.select2-selection__rendered {
+				height: 30px;
+			}
+
+			.select2-selection__choice {
+				line-height: 22px;
+			}
 		}
 	}
 }
