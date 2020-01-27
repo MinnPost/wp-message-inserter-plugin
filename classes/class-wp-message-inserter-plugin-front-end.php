@@ -105,7 +105,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 				$conditional = isset( $message_meta['conditional_group_id'][0] ) ? $message_meta['conditional_group_id'][0] : '';
 				$conditional = maybe_unserialize( $conditional );
 
-				// If no conditional is set
+				// If no conditional is set at all
 				if ( '' === $conditional || empty( $conditional ) ) {
 					// Grab whatever we can?
 					$post         = get_post( get_the_ID(), ARRAY_A );
@@ -120,6 +120,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
 						$conditional_value = apply_filters( $this->option_prefix . 'add_conditional_value', $conditional_value, $condvalue );
+
+						// if the only conditional is a "conditional_result" of true, but there is no actual conditional, we should show this message
+						if ( true === $conditional_result && '' === $conditional_value ) {
+							$show_message = true;
+						}
 
 						// this method exists in the supported condtionals for the plugin
 						$all_conditionals_key = array_search( $conditional_method, array_column( $all_conditionals, 'name' ), true );
