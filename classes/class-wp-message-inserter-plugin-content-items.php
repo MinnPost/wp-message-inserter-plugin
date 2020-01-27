@@ -794,6 +794,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$select_multiple .= '>';
 
 		foreach ( $field->options() as $value => $name ) {
+			if ( ! is_array( $escaped_value ) ) {
+				$escaped_value = array( $escaped_value );
+			}
 			$selected         = ( $escaped_value && in_array( $value, $escaped_value, true ) ) ? 'selected="selected"' : '';
 			$select_multiple .= '<option class="cmb2-option" value="' . esc_attr( $value ) . '" ' . $selected . '>' . esc_html( $name ) . '</option>';
 		}
