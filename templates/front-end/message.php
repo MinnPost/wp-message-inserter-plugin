@@ -125,7 +125,7 @@ usort(
 		<?php if ( 'editor' === $type ) : ?>
 			<?php if ( 0 < count( $screen_sizes ) ) : ?>
 				<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
-					<aside class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?>">
+					<aside class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
 						<?php echo apply_filters( 'the_content', $screen_size[ $prefix . 'message_editor' ], 20 ); ?>
 					</aside>
 				<?php endforeach; ?>

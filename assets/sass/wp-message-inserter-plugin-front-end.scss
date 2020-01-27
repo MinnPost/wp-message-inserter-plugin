@@ -13,6 +13,13 @@ $large-title-font-size: 1.75em;
 // spacing
 $cta-spacing: 8px; // similar to membership plugin
 
+// add a default assumption of horizontally centering image and editor containers
+.m-wp-insert-message-images,
+.m-wp-insert-message-editor {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 // banner wrapper
 .m-wp-insert-message-item-banner {
 	position: relative;
