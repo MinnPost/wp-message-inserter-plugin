@@ -1,42 +1,27 @@
 <?php
+
 /**
- * Class file for the WP_Message_Inserter_Plugin_Admin class.
+ * Administrative interface features
  *
- * @file
- */
-
-if ( ! class_exists( 'WP_Message_Inserter' ) ) {
-	die();
-}
-
-/**
- * Create default WordPress admin functionality to configure the plugin.
+ * @package WP_Message_Inserter_Plugin
  */
 class WP_Message_Inserter_Plugin_Admin {
 
-	protected $option_prefix;
-	protected $post_meta_prefix;
-	protected $version;
-	protected $slug;
-	protected $content_items;
+	public $option_prefix;
+	public $post_meta_prefix;
+	public $version;
+	public $slug;
+	public $content_items;
 
-	/**
-	* Constructor which sets up admin pages
-	*
-	* @param string $option_prefix
-	* @param string $post_meta_prefix
-	* @param string $version
-	* @param string $slug
-	* @param object $content_items
-	* @throws \Exception
-	*/
-	public function __construct( $option_prefix, $post_meta_prefix, $version, $slug, $content_items ) {
+	private $pages;
 
-		$this->option_prefix    = $option_prefix;
-		$this->post_meta_prefix = $post_meta_prefix;
-		$this->version          = $version;
-		$this->slug             = $slug;
-		$this->content_items    = $content_items;
+	public function __construct() {
+
+		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
+		$this->post_meta_prefix = wp_message_inserter_plugin()->post_meta_prefix;
+		$this->version          = wp_message_inserter_plugin()->version;
+		$this->slug             = wp_message_inserter_plugin()->slug;
+		$this->content_items    = wp_message_inserter_plugin()->content_items;
 
 		$this->pages = $this->get_admin_pages();
 
@@ -48,12 +33,13 @@ class WP_Message_Inserter_Plugin_Admin {
 	* Create the action hooks to create the admin page(s)
 	*
 	*/
-	public function add_actions() {
+	private function add_actions() {
 		if ( is_admin() ) {
 			// for now, we don't need any settings.
 			//add_action( 'admin_menu', array( $this, 'create_admin_menu' ) );
 			//add_action( 'admin_init', array( $this, 'admin_settings_form' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_and_styles' ) );
+			add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 		}
 	}
 
@@ -230,6 +216,28 @@ class WP_Message_Inserter_Plugin_Admin {
 			}
 		}
 
+	}
+
+	/**
+	* Display a Settings link on the main Plugins page
+	*
+	* @param array $links
+	* @param string $file
+	* @return array $links
+	*   These are the links that go with this plugin's entry
+	*/
+	public function plugin_action_links( $links, $file ) {
+		if ( plugin_basename( WP_MESSAGE_INSERTER_PLUGIN_FILE ) === $file ) {
+			array_unshift(
+				$links,
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					wp_message_inserter_plugin()->get_menu_url(),
+					__( 'Settings', 'wp-message-inserter-plugin' )
+				)
+			);
+		} // End if()
+		return $links;
 	}
 
 	/**
@@ -628,14 +636,12 @@ class WP_Message_Inserter_Plugin_Admin {
 				esc_html( $label )
 			);
 		}
-
 		if ( '' !== $desc ) {
 			echo sprintf(
 				'<p class="description">%1$s</p>',
 				esc_html( $desc )
 			);
 		}
-
 	}
 
 }
