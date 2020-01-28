@@ -32,12 +32,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	public function add_actions() {
 		add_action( 'init', array( $this, 'create_message' ), 0 );
 		add_action( 'cmb2_init', array( $this, 'create_message_fields' ) );
-		add_filter( 'cmb2_sanitize_select_multiple', array( $this, 'cmb2_sanitize_select_multiple_callback' ), 10, 2 );
-		add_action( 'cmb2_render_select_multiple', array( $this, 'cmb2_render_select_multiple_field_type' ), 10, 5 );
 	}
 
 	/**
-	* Create the partner offer content type
+	* Create the message content type
 	*
 	*/
 	public function create_message() {
@@ -761,50 +759,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
-	}
-
-	/**
-	 * Sanitize the selected value.
-	 */
-	public function cmb2_sanitize_select_multiple_callback( $override_value, $value ) {
-		if ( is_array( $value ) ) {
-			foreach ( $value as $key => $saved_value ) {
-				$value[ $key ] = sanitize_text_field( $saved_value );
-			}
-			return $value;
-		}
-		return;
-	}
-
-	/**
-	 * Adds a custom field type for select multiples.
-	 * @param  object $field             The CMB2_Field type object.
-	 * @param  string $value             The saved (and escaped) value.
-	 * @param  int    $object_id         The current post ID.
-	 * @param  string $object_type       The current object type.
-	 * @param  object $field_type_object The CMB2_Types object.
-	 * @return void
-	 */
-	public function cmb2_render_select_multiple_field_type( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
-
-		$select_multiple = '<select class="cmb2_select cmb2_multi_select widefat" multiple name="' . $field->args['_name'] . '[]" id="' . $field->args['_id'] . '"';
-		foreach ( $field->args['attributes'] as $attribute => $value ) {
-			$select_multiple .= " $attribute=\"$value\"";
-		}
-		$select_multiple .= '>';
-
-		foreach ( $field->options() as $value => $name ) {
-			if ( ! is_array( $escaped_value ) ) {
-				$escaped_value = array( $escaped_value );
-			}
-			$selected         = ( $escaped_value && in_array( $value, $escaped_value, true ) ) ? 'selected="selected"' : '';
-			$select_multiple .= '<option class="cmb2-option" value="' . esc_attr( $value ) . '" ' . $selected . '>' . esc_html( $name ) . '</option>';
-		}
-
-		$select_multiple .= '</select>';
-		$select_multiple .= $field_type_object->_desc( true );
-
-		echo $select_multiple;
 	}
 
 	/**
