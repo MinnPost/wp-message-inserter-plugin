@@ -14,6 +14,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 	public $regions;
 	public $content_items;
 
+	private $cache_expiration;
+
 	public function __construct() {
 
 		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
@@ -22,6 +24,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$this->slug             = wp_message_inserter_plugin()->slug;
 		$this->regions          = wp_message_inserter_plugin()->regions;
 		$this->content_items    = wp_message_inserter_plugin()->content_items;
+
+		$this->cache_group      = 'wp_message_inserter_plugin';
+		$this->cache_expiration = MINUTE_IN_SECONDS * 30;
 
 		$this->add_actions();
 
@@ -76,22 +81,29 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$post             = array();
 		$all_conditionals = $this->content_items->get_conditionals();
 		$groupedposts     = array();
-		// load all possible messges for the given region
-		$args  = array(
-			'post_type'      => 'message',
-			'post_status'    => 'publish',
-			'orderby'        => 'menu_order',
-			'posts_per_page' => -1,
-			'meta_query'     => array(
-				array(
-					'key'     => $this->post_meta_prefix . 'region',
-					'value'   => $region,
-					'compare' => '=',
+
+		$cache_key = md5( $region );
+		$query     = wp_cache_get( $cache_key, $this->cache_group );
+
+		if ( false === $query ) {
+			// load all possible messges for the given region
+			$args  = array(
+				'post_type'      => 'message',
+				'post_status'    => 'publish',
+				'orderby'        => 'menu_order',
+				'posts_per_page' => -1,
+				'meta_query'     => array(
+					array(
+						'key'     => $this->post_meta_prefix . 'region',
+						'value'   => $region,
+						'compare' => '=',
+					),
 				),
-			),
-		);
-		$args  = apply_filters( $this->option_prefix . 'post_args', $args );
-		$query = new WP_Query( $args );
+			);
+			$args  = apply_filters( $this->option_prefix . 'post_args', $args );
+			$query = new WP_Query( $args );
+			wp_cache_set( $cache_key, $query, $this->cache_group, $this->cache_expiration );
+		}
 
 		// if there are any published messages for this region, loop through them and check their conditionals
 		if ( $query->have_posts() ) {
@@ -114,8 +126,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 					$show_message = false;
 
 					foreach ( $conditional as $condkey => $condvalue ) {
-						$conditional_method = isset( $condvalue[ $this->post_meta_prefix . 'conditional'] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' ] : '';
-						$conditional_value  = isset( $condvalue[ $this->post_meta_prefix . 'conditional_value' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional_value'] : '';
+						$conditional_method = isset( $condvalue[ $this->post_meta_prefix . 'conditional' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional' ] : '';
+						$conditional_value  = isset( $condvalue[ $this->post_meta_prefix . 'conditional_value' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional_value' ] : '';
 						$conditional_result = isset( $condvalue[ $this->post_meta_prefix . 'conditional_result' ] ) ? $condvalue[ $this->post_meta_prefix . 'conditional_result' ] : '';
 						$conditional_result = isset( $conditional_result ) ? filter_var( $conditional_result, FILTER_VALIDATE_BOOLEAN ) : false;
 
