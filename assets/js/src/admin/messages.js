@@ -70,7 +70,6 @@ function setupMessage() {
  * When "add another screen size" runs, it adds a CMB2 row to the form. Set up the message form.
  */
 $( document ).on( 'cmb2_add_row', function() {
-	$( this ).find( 'input[type="checkbox"]' ).prop( 'checked', false );
 	setupMessage();
 } );
 

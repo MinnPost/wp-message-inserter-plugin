@@ -85,7 +85,7 @@ function hidePopup( popupSelector, popupVisibleClass, lastFocus ) {
 function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass, checkSessionClass ) {
 	const lastFocus = document.activeElement;
 	// put in a close button at the end
-	$( '.' + popupSelector + ' aside').append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times"></i></a>' );
+	$( '.' + popupSelector + ' aside' ).append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times"></i></a>' );
 	// Check if we should be showing the popup
 	if (
 		'true' !== getCookie( popupShownCookieName ) &&
