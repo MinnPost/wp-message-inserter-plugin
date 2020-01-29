@@ -792,11 +792,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			/*array(
 				'name'       => 'is_admin_bar_showing',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'is_rtl',
 				'has_params' => false,
-			),*/
+			),
 			array(
 				'name'       => 'is_search',
 				'has_params' => false,
@@ -820,6 +820,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
+				'name'       => 'is_singular',
+				'has_params' => true,
+				'params'     => array(
+					'post_types',
+				),
+			),
+			array(
 				'name'       => 'has_term',
 				'has_params' => true,
 				'params'     => array(
@@ -827,10 +834,19 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
-				'name'       => 'is_singular',
+				'name'       => 'has_category',
 				'has_params' => true,
 				'params'     => array(
-					'post_types',
+					'category',
+					'current_post',
+				),
+			),
+			array(
+				'name'       => 'has_tag',
+				'has_params' => true,
+				'params'     => array(
+					'tag',
+					'current_post',
 				),
 			),
 			/*array(
@@ -911,26 +927,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
-				'name'       => 'has_category',
-				'has_params' => true,
-				'params'     => array(
-					'category',
-					'current_post',
-				),
-			),
-			array(
 				'name'       => 'is_tag',
 				'has_params' => true,
 				'params'     => array(
 					'tag',
-				),
-			),
-			array(
-				'name'       => 'has_tag',
-				'has_params' => true,
-				'params'     => array(
-					'tag',
-					'current_post',
 				),
 			),
 			array(
@@ -1048,7 +1048,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'is_user_logged_in',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'email_exists',
 				'has_params' => true,
 				'params'     => array(
@@ -1061,7 +1061,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'params'     => array(
 					'username',
 				),
-			),
+			),*/
 		);
 
 		$query = array(
@@ -1073,10 +1073,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => 'is_feed',
 				'has_params' => false,
 			),
-			array(
+			/*array(
 				'name'       => 'is_trackback',
 				'has_params' => false,
-			),
+			),*/
 			array(
 				'name'       => 'in_the_loop',
 				'has_params' => false,
