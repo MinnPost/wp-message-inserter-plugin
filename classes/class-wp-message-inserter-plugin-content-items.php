@@ -542,7 +542,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'    => esc_html__( 'Banner BG Color', 'wp-message-inserter-plugin' ),
+				'name'    => esc_html__( 'Banner Background Color', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'banner_bgcolor',
 				'type'    => 'colorpicker',
 				'default' => '#0080a3',
@@ -557,9 +557,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Banner BG Image', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'Banner Background Image', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_bgimage',
-				'desc'       => esc_html__( 'Image is optional. The BG Color will overlay this image', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Image is optional. The Background Color will overlay this image', 'wp-message-inserter-plugin' ),
 				'type'       => 'file',
 				'text'       => array(
 					'add_upload_file_text' => esc_html__( 'Add Image', 'wp-message-inserter-plugin' ),
@@ -674,7 +674,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => esc_html__( 'Button BG Color', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'Button Background Color', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_btn_bgcolor',
 				'type'       => 'colorpicker',
 				'default'    => '#801019',
