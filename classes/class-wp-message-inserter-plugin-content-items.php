@@ -125,9 +125,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type'       => 'radio_inline',
 				'desc'       => '',
 				'options'    => array(
-					'image'  => esc_html__( 'Image', 'wp-message-inserter-plugin' ),
-					'editor' => esc_html__( 'Editor', 'wp-message-inserter-plugin' ),
-					'banner' => esc_html__( 'Banner', 'wp-message-inserter-plugin' ),
+					'image'  => esc_html__( 'Image (a single image)', 'wp-message-inserter-plugin' ),
+					'editor' => esc_html__( 'Editor (add your own text or HTML)', 'wp-message-inserter-plugin' ),
+					'banner' => esc_html__( 'Banner (configure your settings)', 'wp-message-inserter-plugin' ),
 				),
 				'default'    => 'image',
 				'classes'    => 'cmb2-message-type-selector',
@@ -142,7 +142,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Link URL', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'link_url',
 				'type'       => 'text_url',
-				'desc'       => '',
+				'desc'       => esc_html__( 'If you enter a URL here, your entire image will link to the URL.', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'required'               => false,
 					'data-conditional-id'    => $prefix . 'message_type',
@@ -160,7 +160,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'id'               => $prefix . 'region',
 				'type'             => $select_type,
 				'show_option_none' => true,
-				'desc'             => esc_html__( 'Where on the site this message will appear. If popup is selected it will load the banner but need to be triggered with Google Optimize.', 'wp-message-inserter-plugin' ),
+				//'desc'             => esc_html__( 'Where on the site this message will appear. If popup is selected it will load the banner but need to be triggered with Google Optimize.', 'wp-message-inserter-plugin' ),
+				'desc'             => esc_html__( 'Where on the site this message will appear.', 'wp-message-inserter-plugin' ),
 				'options'          => $this->get_region_options( $select_type ),
 				'default'          => 'none',
 				'attributes'       => array(
@@ -206,7 +207,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name' => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
 				'id'   => $prefix . 'check_session',
 				'type' => 'checkbox',
-				'desc' => esc_html__( 'Check this if you would like to check session count', 'wp-message-inserter-plugin' ),
+				'desc' => esc_html__( 'Check this if you would like to check session count.', 'wp-message-inserter-plugin' ),
 			)
 		);
 
@@ -260,7 +261,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			$conditional_group_id,
 			array(
 				'name'             => esc_html__( 'Conditional', 'wp-message-inserter-plugin' ),
-				'desc'             => esc_html__( 'Pick a conditional', 'wp-message-inserter-plugin' ),
+				'desc'             => esc_html__( 'Pick a conditional.', 'wp-message-inserter-plugin' ),
 				'id'               => $prefix . 'conditional',
 				'type'             => $select_type,
 				'show_option_none' => true,
@@ -276,7 +277,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			$conditional_group_id,
 			array(
 				'name'       => esc_html__( 'Conditional Value', 'wp-message-inserter-plugin' ),
-				'desc'       => esc_html__( 'Enter the value expected for this conditional', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Enter the value expected for this conditional.', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'conditional_value',
 				'type'       => 'text',
 				'classes'    => 'cmb2-message-conditional-value',
@@ -341,7 +342,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type'        => 'group',
 				'description' => '',
 				'options'     => array(
-					'group_title'   => esc_html__( 'Screen size {#}', 'wp-message-inserter-plugin' ), // {#} gets replaced by row number
+					'group_title'   => esc_html__( 'Screen Size {#}', 'wp-message-inserter-plugin' ), // {#} gets replaced by row number
 					'add_button'    => esc_html__( 'Add Another Screen Size', 'wp-message-inserter-plugin' ),
 					'remove_button' => esc_html__( 'Remove Screen Size', 'wp-message-inserter-plugin' ),
 					'sortable'      => true,
@@ -353,15 +354,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
-				'name'       => sprintf(
-					esc_html( 'Minimum Screen Width %1$s', 'wp-message-inserter-plugin' ),
-					'<span class="required">*</span>'
-				),
+				'name'       => esc_html( 'Minimum Screen Width', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'minimum_width',
 				'type'       => 'text_small',
+				'default'    => 0,
 				'desc'       => esc_html__( 'in pixels', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
-					'required' => true,
+					'required' => false,
 				),
 			)
 		);

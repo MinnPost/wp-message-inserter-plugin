@@ -56,7 +56,7 @@ usort(
 					$max_width = '';
 				}
 
-				if ( 0 !== filter_var( $screen_size[ $prefix . 'minimum_width' ], FILTER_VALIDATE_INT ) ) {
+				if ( isset( $screen_size[ $prefix . 'minimum_width' ] ) && 0 !== filter_var( $screen_size[ $prefix . 'minimum_width' ], FILTER_VALIDATE_INT ) ) {
 					$min_width = '(min-width: ' . $screen_size[ $prefix . 'minimum_width' ] . 'px)';
 				} else {
 					$min_width = '';
@@ -101,7 +101,7 @@ usort(
 								$max_width = '';
 							}
 
-							if ( 0 !== filter_var( $screen_size[ $prefix . 'minimum_width' ], FILTER_VALIDATE_INT ) ) {
+							if ( isset( $screen_size[ $prefix . 'minimum_width' ] ) && 0 !== filter_var( $screen_size[ $prefix . 'minimum_width' ], FILTER_VALIDATE_INT ) ) {
 								$min_width = '(min-width: ' . $screen_size[ $prefix . 'minimum_width' ] . 'px)';
 							} else {
 								$min_width = '';
