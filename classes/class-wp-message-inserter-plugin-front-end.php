@@ -14,6 +14,8 @@ class WP_Message_Inserter_Plugin_Front_End {
 	public $regions;
 	public $content_items;
 
+	private $cache;
+	private $cache_group;
 	private $cache_expiration;
 
 	public function __construct() {
@@ -25,6 +27,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$this->regions          = wp_message_inserter_plugin()->regions;
 		$this->content_items    = wp_message_inserter_plugin()->content_items;
 
+		$this->cache            = true;
 		$this->cache_group      = 'wp_message_inserter_plugin';
 		$this->cache_expiration = MINUTE_IN_SECONDS * 30;
 
@@ -82,10 +85,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$all_conditionals = $this->content_items->get_conditionals();
 		$groupedposts     = array();
 
-		$cache_key = md5( $region );
-		$query     = wp_cache_get( $cache_key, $this->cache_group );
+		if ( true === $this->cache ) {
+			$cache_key = md5( $region );
+			$query     = wp_cache_get( $cache_key, $this->cache_group );
+		}
 
-		if ( false === $query ) {
+		if ( isset( $query ) && false === $query || ( false === $this->cache ) ) {
 			// load all possible messges for the given region
 			$args  = array(
 				'post_type'      => 'message',
@@ -102,7 +107,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 			);
 			$args  = apply_filters( $this->option_prefix . 'post_args', $args );
 			$query = new WP_Query( $args );
-			wp_cache_set( $cache_key, $query, $this->cache_group, $this->cache_expiration );
+			if ( true === $this->cache ) {
+				wp_cache_set( $cache_key, $query, $this->cache_group, $this->cache_expiration );
+			}
 		}
 
 		// if there are any published messages for this region, loop through them and check their conditionals
