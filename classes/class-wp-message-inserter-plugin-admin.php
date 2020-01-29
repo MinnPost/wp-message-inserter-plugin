@@ -40,6 +40,10 @@ class WP_Message_Inserter_Plugin_Admin {
 			//add_action( 'admin_init', array( $this, 'admin_settings_form' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_and_styles' ) );
 			add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
+			add_filter( 'manage_message_posts_columns', array( $this, 'filter_posts_columns' ) );
+			add_action( 'manage_message_posts_custom_column', array( $this, 'message_column' ), 10, 2 );
+			add_filter( 'manage_edit-message_sortable_columns', array( $this, 'message_sortable_columns' ) );
+			add_action( 'pre_get_posts', array( $this, 'posts_orderby' ) );
 		}
 	}
 
@@ -238,6 +242,101 @@ class WP_Message_Inserter_Plugin_Admin {
 			);
 		} // End if()
 		return $links;
+	}
+
+	/**
+	* Add and reorder columns on the post table for messages
+	*
+	* @param array $columns
+	* @return array $columns
+	*/
+	public function filter_posts_columns( $columns ) {
+		$columns['type']   = __( 'Type', 'wp-message-inserter-plugin' );
+		$columns['region'] = __( 'Region', 'wp-message-inserter-plugin' );
+
+		$column_order = array( 'cb', 'title', 'type', 'region', 'date' );
+		foreach ( $column_order as $column_name ) {
+			$new_columns[ $column_name ] = $columns[ $column_name ];
+		}
+		return $new_columns;
+	}
+
+	/**
+	* Populate columns on the post table for messages
+	*
+	* @param string $column
+	* @param int $post_id
+	*/
+	public function message_column( $column, $post_id ) {
+		// message type
+		if ( 'type' === $column ) {
+			echo ( '' !== get_post_meta( $post_id, $this->post_meta_prefix . 'message_type', true ) ) ? get_post_meta( $post_id, $this->post_meta_prefix . 'message_type', true ) : '';
+		}
+		// message region
+		if ( 'region' === $column ) {
+			echo ( '' !== get_post_meta( $post_id, $this->post_meta_prefix . 'region', true ) ) ? get_post_meta( $post_id, $this->post_meta_prefix . 'region', true ) : '';
+		}
+	}
+
+	/**
+	* Add and reorder columns on the post table for messages
+	*
+	* @param array $columns
+	* @return array $columns
+	*/
+	public function message_sortable_columns( $columns ) {
+		$columns['type']   = 'type';
+		$columns['region'] = 'region';
+		return $columns;
+	}
+
+	/**
+	* Order column data on the post table for messages
+	*
+	* @param object $query
+	*/
+	public function posts_orderby( $query ) {
+		if ( ! is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
+
+		// sort by type
+		if ( 'type' === $query->get( 'orderby') ) {
+			$query->set('meta_query',
+				array(
+					'relation'  => 'OR',
+					array(
+						'key'       => $this->post_meta_prefix . 'message_type',
+						'compare'   => 'EXISTS'
+					),
+					array(
+						'key'       => $this->post_meta_prefix . 'message_type',
+						'compare'   => 'NOT EXISTS',
+						'value'     => 'bug #23268' // arbitrary value
+					)
+				)
+			);
+			$query->set('orderby',   'meta_value');
+		}
+
+		// sort by region
+		if ( 'region' === $query->get( 'orderby') ) {
+			$query->set('meta_query',
+				array(
+					'relation'  => 'OR',
+					array(
+						'key'       => $this->post_meta_prefix . 'region',
+						'compare'   => 'EXISTS'
+					),
+					array(
+						'key'       => $this->post_meta_prefix . 'region',
+						'compare'   => 'NOT EXISTS',
+						'value'     => 'bug #23268' // arbitrary value
+					)
+				)
+			);
+			$query->set('orderby',   'meta_value');
+		}
 	}
 
 	/**
