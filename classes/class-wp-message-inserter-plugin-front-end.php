@@ -31,6 +31,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 		$this->cache_group      = 'wp_message_inserter_plugin';
 		$this->cache_expiration = MINUTE_IN_SECONDS * 30;
 
+		// allow cache settings to be filtered
+		$this->cache            = apply_filters( $this->option_prefix . 'cache', $this->cache );
+		$this->cache_group      = apply_filters( $this->option_prefix . 'cache_group', $this->cache_group );
+		$this->cache_expiration = apply_filters( $this->option_prefix . 'cache_expiration', $this->cache_expiration );
+
 		$this->add_actions();
 
 	}
