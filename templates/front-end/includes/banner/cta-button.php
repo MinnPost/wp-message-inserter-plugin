@@ -28,7 +28,7 @@
 	?>
 	<a class="a-button"<?php echo $button_style . $button_href; ?><?php ( 'true' === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
 		<?php if ( isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ) : ?>
-			<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>"></i>
+			<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>" aria-hidden="true"></i>
 		<?php endif; ?>
 		<?php if ( isset( $screen_size[ $prefix . 'banner_buttondetails' ]['text'] ) ) : ?>
 			<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
