@@ -687,6 +687,26 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		// Button Text Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => esc_html__( 'Button Text Color', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'banner_btn_textcolor',
+				'type'       => 'colorpicker',
+				'default'    => '#ffffff',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'options'    => array(
+					'alpha' => false,
+				),
+				'attributes' => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'button',
+				),
+			)
+		);
+
 		// Button Info
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
