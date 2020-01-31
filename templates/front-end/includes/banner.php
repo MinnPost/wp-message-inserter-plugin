@@ -13,7 +13,7 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 ?>
 
 <?php if ( 0 < count( $screen_sizes ) ) : ?>
-	<div class="o-site-message-container wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
+	<aside class="o-site-message-container wp-message-inserter-message <?php echo $wp_classes; ?> wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 		<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
 
 			<?php
@@ -81,5 +81,5 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 				<?php endif; ?>
 			</article>
 		<?php endforeach; ?>
-	</div>
+	</aside>
 <?php endif; ?>
