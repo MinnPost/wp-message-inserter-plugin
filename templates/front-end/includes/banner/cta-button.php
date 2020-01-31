@@ -21,7 +21,8 @@
 		}
 		$button_style .= '"';
 	}
-	$button_url = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['url'] ) ? $screen_size[ $prefix . 'banner_buttondetails' ]['url'] : '';
+	$button_href = '';
+	$button_url  = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['url'] ) ? $screen_size[ $prefix . 'banner_buttondetails' ]['url'] : '';
 	if ( '' !== $button_url ) {
 		$button_href = ' href="' . $button_url . '"';
 	}
