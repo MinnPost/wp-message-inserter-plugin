@@ -207,7 +207,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name' => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
 				'id'   => $prefix . 'check_session',
 				'type' => 'checkbox',
-				'desc' => esc_html__( 'Check this if you would like to check session count.', 'wp-message-inserter-plugin' ),
+				'desc' => esc_html__( 'This determines whether or not to check how many sessions a user has when determing what to show them.', 'wp-message-inserter-plugin' ),
 			)
 		);
 
@@ -216,7 +216,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Number of Sessions', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'number_of_sessions',
 				'type'       => 'text',
-				'desc'       => esc_html__( 'What value from the session cookie do you want to check against?', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'How many sessions a user should have for banner display to apply.', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'type'                   => 'number',
 					'pattern'                => '\d*',
@@ -231,7 +231,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Session Check Operator', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'operator_session',
 				'type'       => 'radio',
-				'desc'       => esc_html__( 'Which operator would you like to use?', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Which operator the banner uses to compare the session count.', 'wp-message-inserter-plugin' ),
 				'options'    => array(
 					'gt' => __( 'Greater Than or Equal to', 'cmb2' ),
 					'lt' => __( 'Less Than or Equal to', 'cmb2' ),
@@ -439,27 +439,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		// New Boxes for Custom Banners / Popups
 
-		// LAYOUT
-		$screen_size_box->add_group_field(
-			$prefix . 'screen_size',
-			array(
-				'name'       => sprintf(
-					esc_html( 'Banner Layout %1$s', 'wp-message-inserter-plugin' ),
-					'<span class="required">*</span>'
-				),
-				'id'         => $prefix . 'banner_layout',
-				'type'       => 'select',
-				'options'    => array(
-					'dualcol' => esc_html__( 'Dual Column', 'wp-message-inserter-plugin' ),
-					'stacked' => esc_html__( 'Stacked', 'wp-message-inserter-plugin' ),
-				),
-				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
-				'attributes' => array(
-					'required' => true,
-				),
-			)
-		);
-
 		// pick a preselected width
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
@@ -470,7 +449,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 				'id'         => $prefix . 'banner_max_width',
 				'type'       => 'select',
-				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window. A full container width banner will take up the default site width, which is smaller than the browser window and centered within it.', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window. A full container width banner will take up the default site width, which is smaller than the browser window and horizontally centered within it.', 'wp-message-inserter-plugin' ),
 				'options'    => array(
 					'100%'   => esc_html__( 'Full Container Width (100%)', 'wp-message-inserter-plugin' ),
 					'page'   => esc_html__( 'Site Page Width (not full window)', 'wp-message-inserter-plugin' ),
@@ -495,11 +474,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Custom Maximum Banner Width', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_max_width_text',
 				'type'       => 'text',
+				'desc'       => esc_html__( 'Enter a number for the width you want.', 'wp-message-inserter-plugin' ),
 				'classes'    => 'cmb2-custom-maximum-banner-width cmb2-custom-maximum-banner-width-value',
 				'attributes' => array(
-					'required'               => false,
+					'required'               => true,
 					'data-conditional-id'    => $prefix . 'banner_max_width',
 					'data-conditional-value' => 'custom',
+					'type'                   => 'number',
+					'pattern'                => '\d*',
 				),
 			)
 		);
@@ -511,7 +493,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Custom Maximum Banner Width Unit', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_max_width_unit',
 				'type'       => 'select',
+				'desc'       => esc_html__( 'By default, this will use percentage, which refers to the percentage of the container. For example, entering 42% will make a banner that takes up 42% of whatever contains it.', 'wp-message-inserter-plugin' ),
 				'classes'    => 'cmb2-custom-maximum-banner-width cmb2-custom-maximum-banner-width-unit',
+				'default'    => '%',
 				'options'    => array(
 					'%'   => esc_html__( 'percent', 'wp-message-inserter-plugin' ),
 					'px'  => esc_html__( 'pixels', 'wp-message-inserter-plugin' ),
@@ -519,9 +503,31 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'rem' => esc_html__( 'rem', 'wp-message-inserter-plugin' ),
 				),
 				'attributes' => array(
-					'required'               => false,
+					'required'               => true,
 					'data-conditional-id'    => $prefix . 'banner_max_width',
 					'data-conditional-value' => 'custom',
+				),
+			)
+		);
+
+		// LAYOUT
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => sprintf(
+					esc_html( 'Banner Layout %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
+				'id'         => $prefix . 'banner_layout',
+				'type'       => 'select',
+				'desc'       => esc_html__( 'Dual column banners will position their text, heading, and/or form elements next to any CTA button. Stacked elements will position them vertically instead.', 'wp-message-inserter-plugin' ),
+				'options'    => array(
+					'dualcol' => esc_html__( 'Dual Column', 'wp-message-inserter-plugin' ),
+					'stacked' => esc_html__( 'Stacked', 'wp-message-inserter-plugin' ),
+				),
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required' => true,
 				),
 			)
 		);
@@ -533,7 +539,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'    => esc_html__( 'Flip Columns', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'banner_flip_columns',
 				'type'    => 'checkbox',
-				'desc'    => esc_html__( 'Flip order of dual column', 'wp-message-inserter-plugin' ),
+				'desc'    => esc_html__( 'Checking this box makes the CTA button appear before the text, heading, and/or form elements.', 'wp-message-inserter-plugin' ),
 				'classes' => 'cmb2-message-type cmb2-message-type-banner',
 			)
 		);
@@ -559,7 +565,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Banner Background Image', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_bgimage',
-				'desc'       => esc_html__( 'Image is optional. The Background Color will overlay this image', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Image is optional. The Background Color will overlay this image if both are present.', 'wp-message-inserter-plugin' ),
 				'type'       => 'file',
 				'text'       => array(
 					'add_upload_file_text' => esc_html__( 'Add Image', 'wp-message-inserter-plugin' ),
@@ -747,7 +753,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Form Shortcode', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_form_shortcode',
-				'desc'       => esc_html__( 'Place shortcode for Mailchimp Signup form', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Place shortcode for Mailchimp Signup form.', 'wp-message-inserter-plugin' ),
 				'type'       => 'textarea_small',
 				'attributes' => array(
 					'required'               => false,
@@ -764,7 +770,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Disclaimer ', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_disclaimer',
-				'desc'       => esc_html__( 'Appears below the form or button. Small text', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'This value appears below the form or button as small text.', 'wp-message-inserter-plugin' ),
 				'type'       => 'wysiwyg',
 				'options'    => array(
 					'media_buttons' => false, // show insert/upload button(s)
