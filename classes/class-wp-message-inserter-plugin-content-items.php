@@ -470,10 +470,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 				'id'         => $prefix . 'banner_max_width',
 				'type'       => 'select',
-				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window.', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window. A full container width banner will take up the default site width, which is smaller than the browser window and centered within it.', 'wp-message-inserter-plugin' ),
 				'options'    => array(
 					'100%'   => esc_html__( 'Full Container Width (100%)', 'wp-message-inserter-plugin' ),
-					'page'   => esc_html__( 'Full Page Width (depends on the site design)', 'wp-message-inserter-plugin' ),
+					'page'   => esc_html__( 'Site Page Width (not full window)', 'wp-message-inserter-plugin' ),
 					'95%'    => esc_html__( '95%', 'wp-message-inserter-plugin' ),
 					'90%'    => esc_html__( '90%', 'wp-message-inserter-plugin' ),
 					'80%'    => esc_html__( '80%', 'wp-message-inserter-plugin' ),

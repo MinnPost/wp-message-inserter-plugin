@@ -26,13 +26,17 @@
 	if ( '' !== $button_url ) {
 		$button_href = ' href="' . $button_url . '"';
 	}
+	$button_icon = isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ? $screen_size[ $prefix . 'banner_buttonicon' ] : '';
+	$button_text = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['text'] ) ? $screen_size[ $prefix . 'banner_buttondetails' ]['text'] : '';
 	?>
-	<a class="a-button"<?php echo $button_style . $button_href; ?><?php ( 'true' === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
-		<?php if ( isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ) : ?>
-			<i class="<?php echo $screen_size[ $prefix . 'banner_buttonicon' ]; ?>" aria-hidden="true"></i>
-		<?php endif; ?>
-		<?php if ( isset( $screen_size[ $prefix . 'banner_buttondetails' ]['text'] ) ) : ?>
-			<?php echo $screen_size[ $prefix . 'banner_buttondetails' ]['text']; ?>
-		<?php endif; ?>
-	</a>
+	<?php if ( '' !== $button_icon || '' !== $button_text ) : ?>
+		<a class="a-button"<?php echo $button_style . $button_href; ?><?php ( 'true' === $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ? 'target="_blank"' : '' ); ?>>
+			<?php if ( '' !== $button_icon ) : ?>
+				<i class="<?php echo $button_icon; ?>" aria-hidden="true"></i>
+			<?php endif; ?>
+			<?php if ( '' !== $button_text ) : ?>
+				<?php echo $button_text; ?>
+			<?php endif; ?>
+		</a>
+	<?php endif; ?>
 <?php endif; ?>

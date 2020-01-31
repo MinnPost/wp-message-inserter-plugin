@@ -30,16 +30,17 @@ function setCurrentCount() {
 	// Timestamp stored on the cookie
 	let currentCount = getCookie( 'count' );
 	const timestamp = Math.floor( new Date().getTime() / 1000 );
+	const cookieExpiration = 30; // expire the cooke in 30 days
 	if ( ! getCookie( 'count' ) ) {
 		// First Visit - set count to 1
-		setCookie( 'count', 1, 365 );
+		setCookie( 'count', 1, cookieExpiration );
 		// Set a timecheck cookie for an hour from now
-		setCookie( 'timecheck', timestamp + 3600, 365 );
+		setCookie( 'timecheck', timestamp + 3600, cookieExpiration );
 	} else if ( timestamp > getCookie( 'timecheck' ) ) {
 		// Update Timecheck to new value
-		setCookie( 'timecheck', timestamp + 3600, 365 );
+		setCookie( 'timecheck', timestamp + 3600, cookieExpiration );
 		// Count exists already and it has been an hour. Update count
-		setCookie( 'count', ++currentCount, 365 );
+		setCookie( 'count', ++currentCount, cookieExpiration );
 	}
 	const urlParams = new URLSearchParams( window.location.search );
 	if ( urlParams.get( 'count' ) !== null ) {
@@ -58,7 +59,11 @@ function setCurrentCount() {
  */
 function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass ) {
 	setCookie( popupShownCookieName, 'true', cookieDayTotal );
-	$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
+	if ( 0 < $( '.validated' ).length ) {
+		$( '.' + popupSelector + '.validated' ).addClass( popupVisibleClass );
+	} else {
+		$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
+	}
 }
 
 /**
@@ -85,7 +90,7 @@ function hidePopup( popupSelector, popupVisibleClass, lastFocus ) {
 function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass, checkSessionClass ) {
 	const lastFocus = document.activeElement;
 	// put in a close button at the end
-	$( '.' + popupSelector + ' aside' ).append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times"></i></a>' );
+	$( '.' + popupSelector + ' article' ).append( '<a href="#" class="sm-close-btn" aria-label="Close"><i class="fas fa-times" aria-hidden="true"></i></a>' );
 	// Check if we should be showing the popup
 	if (
 		'true' !== getCookie( popupShownCookieName ) &&
@@ -145,22 +150,24 @@ $( document ).ready( function() {
 
 	const currentCount = setCurrentCount();
 
-	$( '.' + checkSessionClass ).each( function() {
-		const bannerSessionCount = parseInt( $( this ).data( 'session-count-to-check' ) );
-		const bannerSessionOperator = $( this ).data( 'session-count-operator' );
-		if (
-			operators[ bannerSessionOperator ](
-				currentCount,
-				bannerSessionCount
-			)
-		) {
-			if ( ! $( this ).hasClass( popupSelector ) ) {
-				$( this ).addClass( 'validated' );
-			} else if ( ! getCookie( popupShownCookieName ) ) {
-				$( this ).addClass( 'validated' );
+	if ( 0 < $( '.' + checkSessionClass ).length ) {
+		$( '.' + checkSessionClass ).each( function() {
+			const bannerSessionCount = parseInt( $( this ).data( 'session-count-to-check' ) );
+			const bannerSessionOperator = $( this ).data( 'session-count-operator' );
+			if (
+				operators[ bannerSessionOperator ](
+					currentCount,
+					bannerSessionCount
+				)
+			) {
+				if ( ! $( this ).hasClass( popupSelector ) ) {
+					$( this ).addClass( 'validated' );
+				} else if ( ! getCookie( popupShownCookieName ) ) {
+					$( this ).addClass( 'validated' );
+				}
 			}
-		}
-	} );
+		} );
+	}
 
 	if ( 0 < $( '.' + popupSelector ).length ) {
 		popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass );
