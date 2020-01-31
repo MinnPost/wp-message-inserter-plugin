@@ -301,41 +301,45 @@ class WP_Message_Inserter_Plugin_Admin {
 		}
 
 		// sort by type
-		if ( 'type' === $query->get( 'orderby') ) {
-			$query->set('meta_query',
+		if ( 'type' === $query->get( 'orderby' ) ) {
+			$query->set(
+				'meta_query',
 				array(
-					'relation'  => 'OR',
+					'relation' => 'OR',
 					array(
-						'key'       => $this->post_meta_prefix . 'message_type',
-						'compare'   => 'EXISTS'
+						'key'     => $this->post_meta_prefix . 'message_type',
+						'compare' => 'EXISTS',
 					),
 					array(
-						'key'       => $this->post_meta_prefix . 'message_type',
-						'compare'   => 'NOT EXISTS',
-						'value'     => 'bug #23268' // arbitrary value
-					)
+						'key'     => $this->post_meta_prefix . 'message_type',
+						'compare' => 'NOT EXISTS',
+						'value'   => 'bug #23268', // arbitrary value
+					),
 				)
 			);
-			$query->set('orderby',   'meta_value');
+			$query->set( 'orderby', 'meta_value' );
 		}
 
 		// sort by region
-		if ( 'region' === $query->get( 'orderby') ) {
-			$query->set('meta_query',
+		if ( 'region' === $query->get( 'orderby' ) ) {
+			$query->set(
+				'meta_query',
 				array(
-					'relation'  => 'OR',
+					'relation' => 'OR',
 					array(
-						'key'       => $this->post_meta_prefix . 'region',
-						'compare'   => 'EXISTS'
+						'key'     => $this->post_meta_prefix . 'region',
+						'compare' => 'EXISTS',
 					),
 					array(
-						'key'       => $this->post_meta_prefix . 'region',
-						'compare'   => 'NOT EXISTS',
-						'value'     => 'bug #23268' // arbitrary value
-					)
+						'key'     => $this->post_meta_prefix . 'region',
+						'compare' => 'NOT EXISTS',
+						'value'   => 'bug #23268', // arbitrary value
+					),
 				)
 			);
-			$query->set('orderby',   'meta_value');
+			$query->set( 'orderby', 'meta_value' );
+		}
+	}
 		}
 	}
 
