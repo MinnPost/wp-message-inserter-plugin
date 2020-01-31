@@ -13,165 +13,174 @@ $large-title-font-size: 1.75em;
 // spacing
 $cta-spacing: 8px; // similar to membership plugin
 
-// add a default assumption of horizontally centering
-// both the image and editor containers
-.m-wp-insert-message-images,
-.m-wp-insert-message-editor {
-	margin-left: auto;
-	margin-right: auto;
-	max-width: $max-width-page;
-}
+// main wrapper
+// this can contain multiple items that are eligible to be displayed
+.o-site-message-container {
 
-// banner wrapper
-.m-wp-insert-message-item-banner {
-	position: relative;
-	width: 100%;
-	padding: 1.2em 1.5em;
-	margin: 1.5em auto;
+	~ .o-site-message-container {
+		display: none;
+	}
 
-	&.banner-width-page {
+	// add a default assumption of horizontally centering
+	// both the image and editor containers
+	.m-wp-insert-message-images,
+	.m-wp-insert-message-editor {
+		margin-left: auto;
+		margin-right: auto;
 		max-width: $max-width-page;
 	}
 
-	h3 {
-		font-family: sans-serif;
-		font-size: $large-title-font-size;
-		margin-bottom: 0.5em;
-		line-height: 1;
-	}
+	// banner wrapper
+	.m-wp-insert-message-item-banner {
+		position: relative;
+		width: 100%;
+		padding: 1.2em 1.5em;
+		margin: 1.5em auto;
 
-	p {
-		font-family: sans-serif;
-		font-size: $content-font-size;
-		line-height: 1.4;
-	}
+		&.banner-width-page {
+			max-width: $max-width-page;
+		}
 
-	.disclaimer {
-		margin-top: 0.5em;
+		h3 {
+			font-family: sans-serif;
+			font-size: $large-title-font-size;
+			margin-bottom: 0.5em;
+			line-height: 1;
+		}
 
 		p {
-			font-size: $base-font-size;
-		}
-	}
-
-	a.a-button {
-		padding: $cta-spacing 1em;
-		border-radius: $cta-spacing;
-		display: inline-block;
-		font-size: $large-title-font-size;
-
-		@media screen and (min-width: $max-width-medium) {
-			white-space: nowrap;
-		}
-	}
-
-	// Stacked Layout
-	.stack-wrap {
-		margin: 0 auto;
-		text-align: center;
-		max-width: $max-width-medium;
-	}
-
-	// Dual Col Layout
-	.dual-wrap {
-
-		@media screen and (min-width: $max-width-medium) {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			align-content: center;
-			max-width: $max-width-page;
-			margin: 0 auto;
+			font-family: sans-serif;
+			font-size: $content-font-size;
+			line-height: 1.4;
 		}
 
-		&.flip {
-			flex-direction: row-reverse;
-		}
+		.disclaimer {
+			margin-top: 0.5em;
 
-		.col {
-			margin-bottom: 15px;
-
-			&:last-child {
-				margin-bottom: 0;
+			p {
+				font-size: $base-font-size;
 			}
+		}
+
+		a.a-button {
+			padding: $cta-spacing 1em;
+			border-radius: $cta-spacing;
+			display: inline-block;
+			font-size: $large-title-font-size;
 
 			@media screen and (min-width: $max-width-medium) {
-				margin-bottom: 0;
-				padding: 1.2em;
+				white-space: nowrap;
+			}
+		}
+
+		// Stacked Layout
+		.stack-wrap {
+			margin: 0 auto;
+			text-align: center;
+			max-width: $max-width-medium;
+		}
+
+		// Dual Col Layout
+		.dual-wrap {
+
+			@media screen and (min-width: $max-width-medium) {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				align-content: center;
+				max-width: $max-width-page;
+				margin: 0 auto;
 			}
 
-			&.banner-icon {
-				// Hide for mobile sizing
-				display: none;
+			&.flip {
+				flex-direction: row-reverse;
+			}
+
+			.col {
+				margin-bottom: 15px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
 
 				@media screen and (min-width: $max-width-medium) {
-					display: block;
-					min-width: 75px;
-					padding: 0.2em 1em 0.2em 0.2em;
+					margin-bottom: 0;
+					padding: 1.2em;
+				}
+
+				&.banner-icon {
+					// Hide for mobile sizing
+					display: none;
+
+					@media screen and (min-width: $max-width-medium) {
+						display: block;
+						min-width: 75px;
+						padding: 0.2em 1em 0.2em 0.2em;
+					}
 				}
 			}
 		}
-	}
 
-	.m-form-container {
-		padding: 0;
-
-		fieldset {
+		.m-form-container {
 			padding: 0;
-			border: 0;
 
-			.a-input-with-button {
+			fieldset {
+				padding: 0;
+				border: 0;
 
-				input {
-					width: 75%;
+				.a-input-with-button {
+
+					input {
+						width: 75%;
+					}
 				}
 			}
 		}
 	}
-}
 
-// session counting
-.check-session-message {
-	display: none;
+	// session counting
+	&.check-session-message {
+		display: none;
 
-	&.validated {
-		display: block;
-	}
-}
-
-// Popup specifics
-.wp-message-inserter-message-popup {
-	display: none;
-	max-width: 100%;
-	position: fixed;
-	bottom: 0;
-	margin: 0 auto;
-
-	// default styles for the editor type
-	&.wp-message-inserter-message-editor {
-		width: 100%;
-		background: #000;
-		color: #fff;
-
-		.m-wp-insert-message-item {
-			width: 100%;
-			padding: $cta-spacing 0;
-			font-size: 1em;
-			font-family: sans-serif;
-			max-width: $max-width-page;
-			margin: 0 auto;
+		&.validated {
+			display: block;
 		}
 	}
 
-	&.wp-message-inserter-message-popup-visible {
-		display: block;
-	}
+	// Popup specifics
+	&.wp-message-inserter-message-popup {
+		//display: none;
+		max-width: 100%;
+		position: fixed;
+		bottom: 0;
+		margin: 0 auto;
 
-	.sm-close-btn {
-		position: absolute;
-		top: $cta-spacing;
-		right: $cta-spacing * 2.5;
-		color: #fff;
-		font-size: $content-font-size;
+		// default styles for the editor type
+		&.wp-message-inserter-message-editor {
+			width: 100%;
+			background: #000;
+			color: #fff;
+
+			.m-wp-insert-message-item {
+				width: 100%;
+				padding: $cta-spacing 0;
+				font-size: 1em;
+				font-family: sans-serif;
+				max-width: $max-width-page;
+				margin: 0 auto;
+			}
+		}
+
+		&.wp-message-inserter-message-popup-visible {
+			display: block;
+		}
+
+		.sm-close-btn {
+			position: absolute;
+			top: $cta-spacing;
+			right: $cta-spacing * 2.5;
+			color: #fff;
+			font-size: $content-font-size;
+		}
 	}
 }
