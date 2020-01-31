@@ -64,6 +64,9 @@ function setupMessage() {
 			showHideMaximumBanner( $( this ).val() );
 		} );
 	}
+	$( 'input:checkbox:hidden' ).prop( 'checked', false );
+	$( 'option:selected:hidden' ).removeAttr( 'selected' );
+	$( 'input[type="text"]:hidden' ).val();
 }
 
 /**
