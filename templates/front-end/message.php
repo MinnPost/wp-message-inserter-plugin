@@ -6,13 +6,14 @@
  * @package WP Message Inserter Plugin
  */
 
-$message      = $attributes['message'];
-$prefix       = $attributes['meta_prefix'];
-$region       = $message['meta'][ $prefix . 'region' ][0];
-$id           = $message['ID'];
-$slug         = $message['post_name'];
-$type         = $message['meta'][ $prefix . 'message_type' ][0];
-$screen_sizes = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
+$message         = $attributes['message'];
+$prefix          = $attributes['meta_prefix'];
+$message_counter = $attributes['message_counter'];
+$region          = $message['meta'][ $prefix . 'region' ][0];
+$id              = $message['ID'];
+$slug            = $message['post_name'];
+$type            = $message['meta'][ $prefix . 'message_type' ][0];
+$screen_sizes    = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
 
 // setup for checking sessions
 $check_session          = isset( $message['meta'][ $prefix . 'check_session' ] ) ? $message['meta'][ $prefix . 'check_session' ][0] : '';
@@ -81,14 +82,9 @@ usort(
 
 <?php if ( 'image' === $type || 'editor' === $type ) : ?>
 
-	<?php if ( 'homepage_middle' === $region ) : ?>
-		<aside class="o-content-message o-content-message-homepage">
-			<article class="o-content-message-body o-content-message-homepage-body">
-	<?php endif; ?>
-
-	<div class="wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
+	<div class="o-site-message-container wp-message-inserter-message wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 		<?php if ( 'image' === $type ) : ?>
-			<aside class="m-wp-insert-message-images">
+			<article class="m-wp-insert-message-images">
 				<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
 					<a href="<?php echo $message['meta'][ $prefix . 'link_url' ][0]; ?>">
 					<?php endif; ?>
@@ -119,24 +115,19 @@ usort(
 					<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
 					</a>
 				<?php endif; ?>
-			</aside>
+			</article>
 		<?php endif; ?>
 
 		<?php if ( 'editor' === $type ) : ?>
 			<?php if ( 0 < count( $screen_sizes ) ) : ?>
 				<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
-					<aside class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
+					<article class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
 						<?php echo apply_filters( 'the_content', $screen_size[ $prefix . 'message_editor' ], 20 ); ?>
-					</aside>
+					</article>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
-
-	<?php if ( 'homepage_middle' === $region ) : ?>
-			</article>
-		</aside>
-	<?php endif; ?>
 <?php endif; ?>
 
 <?php
