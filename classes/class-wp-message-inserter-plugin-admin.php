@@ -14,6 +14,7 @@ class WP_Message_Inserter_Plugin_Admin {
 	public $content_items;
 
 	private $pages;
+	private $cache_group;
 
 	public function __construct() {
 
@@ -25,12 +26,15 @@ class WP_Message_Inserter_Plugin_Admin {
 
 		$this->pages = $this->get_admin_pages();
 
+		$this->cache_group = 'wp_message_inserter_plugin';
+
 		$this->add_actions();
 
 	}
 
 	/**
 	* Create the action hooks to create the admin page(s)
+	* This also handles modifying the post list table, and clearing the object cache when a message is saved.
 	*
 	*/
 	private function add_actions() {
@@ -44,6 +48,7 @@ class WP_Message_Inserter_Plugin_Admin {
 			add_action( 'manage_message_posts_custom_column', array( $this, 'message_column' ), 10, 2 );
 			add_filter( 'manage_edit-message_sortable_columns', array( $this, 'message_sortable_columns' ) );
 			add_action( 'pre_get_posts', array( $this, 'posts_orderby' ) );
+			add_action( 'save_post_message', array( $this, 'clear_message_cache' ) );
 		}
 	}
 
@@ -340,6 +345,18 @@ class WP_Message_Inserter_Plugin_Admin {
 			$query->set( 'orderby', 'meta_value' );
 		}
 	}
+
+	/**
+	* When a message is saved, if it already has a region, clear the cache for that region
+	*
+	* @param int $post_id
+	*/
+	public function clear_message_cache( $post_id ) {
+		$this->cache_group = apply_filters( $this->option_prefix . 'cache_group', $this->cache_group );
+		$region            = get_post_meta( $post_id, $this->post_meta_prefix . 'region', true );
+		if ( '' !== $region ) {
+			$cache_key = md5( $region );
+			wp_cache_delete( $cache_key, $this->cache_group );
 		}
 	}
 
