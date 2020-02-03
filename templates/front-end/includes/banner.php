@@ -45,7 +45,7 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 
 			?>
 
-			<article class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
+			<div class="m-wp-insert-message-item m-wp-insert-message-item-<?php echo $key; ?> m-wp-insert-message-item-<?php echo $type; ?><?php echo ( 'page' === $banner_max_width ) ? ' banner-width-page' : ''; ?>" style="<?php echo $banner_style; ?>">
 
 				<?php if ( 'dualcol' === $screen_size[ $prefix . 'banner_layout' ] ) : ?>
 					<!-- Dual Col -->
@@ -79,7 +79,7 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
-			</article>
+			</div>
 		<?php endforeach; ?>
 	</aside>
 <?php endif; ?>

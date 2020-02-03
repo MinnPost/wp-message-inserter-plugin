@@ -89,7 +89,7 @@ usort(
 
 	<aside class="o-site-message-container wp-message-inserter-message <?php echo $wp_classes; ?> wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 		<?php if ( 'image' === $type ) : ?>
-			<article class="m-wp-insert-message-images">
+			<div class="m-wp-insert-message-item m-wp-insert-message-images">
 				<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
 					<a href="<?php echo $message['meta'][ $prefix . 'link_url' ][0]; ?>">
 					<?php endif; ?>
@@ -120,15 +120,15 @@ usort(
 					<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
 					</a>
 				<?php endif; ?>
-			</article>
+			</div>
 		<?php endif; ?>
 
 		<?php if ( 'editor' === $type ) : ?>
 			<?php if ( 0 < count( $screen_sizes ) ) : ?>
 				<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
-					<article class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
+					<div class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
 						<?php echo apply_filters( 'the_content', $screen_size[ $prefix . 'message_editor' ], 20 ); ?>
-					</article>
+					</div>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		<?php endif; ?>
