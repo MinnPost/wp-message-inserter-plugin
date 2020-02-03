@@ -22,6 +22,27 @@ function getCookie( name ) {
 }
 
 /**
+ * Creating Analytics events
+ *
+ * @param {string} type
+ * @param {string} category
+ * @param {string} action
+ * @param {string} label
+ * @param {Array} value
+ */
+function analyticsTrackingEvent( type, category, action, label, value ) {
+	if ( 'undefined' !== typeof ga ) {
+		if ( 'undefined' === typeof value ) {
+			ga( 'send', type, category, action, label );
+		} else {
+			ga( 'send', type, category, action, label, value );
+		}
+	} else {
+
+	}
+}
+
+/**
  * Faux "Session" checking/setting
  *
  * @return {number} currentCount
@@ -50,6 +71,24 @@ function setCurrentCount() {
 }
 
 /**
+ * Get the WordPress post ID for a given popup.
+ *
+ * @param {string} popupSelector
+ * @return {number} postId
+ */
+function getPostId( popupSelector ) {
+	let postId = 0;
+	const classList = $( '.' + popupSelector ).attr( 'class' ).split( /\s+/ );
+	$.each( classList, function( index, item ) {
+		if ( 0 < item.indexOf( 'message-id' ) ) {
+			postId = item.substring( item.lastIndexOf( '-' ) + 1 );
+			return false; // break each and postId will be returned
+		}
+	} );
+	return postId;
+}
+
+/**
  * Show a specific popup. Sets a cookie and adds a visibility class.
  *
  * @param {string} popupSelector
@@ -58,11 +97,17 @@ function setCurrentCount() {
  * @param {string} popupVisibleClass
  */
 function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass ) {
+	let popupId = 0;
 	setCookie( popupShownCookieName, 'true', cookieDayTotal );
 	if ( 0 < $( '.validated' ).length ) {
 		$( '.' + popupSelector + '.validated' ).addClass( popupVisibleClass );
+		popupId = getPostId( '.' + popupSelector + '.validated' );
 	} else {
 		$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
+		popupId = getPostId( '.' + popupSelector + ':first' );
+	}
+	if ( 0 !== popupId ) {
+		analyticsTrackingEvent( 'event', 'Popup', 'Show', popupId, { nonInteraction: 1 } );
 	}
 }
 
@@ -72,10 +117,15 @@ function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVi
  * @param {string} popupSelector
  * @param {string} popupVisibleClass
  * @param {Object} lastFocus
+ * @param {string} closeTrigger
  */
-function hidePopup( popupSelector, popupVisibleClass, lastFocus ) {
+function hidePopup( popupSelector, popupVisibleClass, lastFocus, closeTrigger ) {
 	lastFocus.focus();
 	$( '.' + popupSelector ).removeClass( popupVisibleClass );
+	const popupId = getPostId( popupSelector );
+	if ( 0 !== popupId ) {
+		analyticsTrackingEvent( 'event', 'Popup', closeTrigger, popupId, { nonInteraction: 1 } );
+	}
 }
 
 /**
@@ -99,26 +149,38 @@ function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popu
 		showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass );
 	}
 
+	// click on login link inside popup
+	$( '.' + popupSelector ).on( 'click', '.message-login', function() {
+		const url = $( this ).attr( 'href' );
+		analyticsTrackingEvent( 'event', 'Popup', 'Login Link', url );
+	} );
+
 	document.addEventListener( 'click', function( event ) {
 		if (
 			! $( event.target ).closest( '.' + popupSelector ).is( '.' + popupSelector ) &&
 			$( '.' + popupSelector ).hasClass( popupVisibleClass )
 		) {
-			hidePopup( popupSelector, popupVisibleClass, lastFocus );
+			hidePopup( popupSelector, popupVisibleClass, lastFocus, 'Click Elsewhere' );
 		}
 	}, true );
 
 	// popup close button
 	$( '.' + popupSelector ).on( 'click', '.sm-close-btn', function( e ) {
 		e.preventDefault();
-		hidePopup( popupSelector, popupVisibleClass, lastFocus );
+		hidePopup( popupSelector, popupVisibleClass, lastFocus, 'Close Button' );
 	} );
 
-	// escape key
+	// escape key press
 	$( document ).keyup( function( e ) {
 		if ( 27 === e.keyCode ) {
-			hidePopup( popupSelector, popupVisibleClass, lastFocus );
+			hidePopup( popupSelector, popupVisibleClass, lastFocus, 'Escape Key' );
 		}
+	} );
+
+	// click on a non-login or close link inside popup
+	$( '.' + popupSelector ).on( 'click', 'a:not( .sm-close-btn, .message-login )', function() {
+		const popupId = getPostId( popupSelector );
+		analyticsTrackingEvent( 'event', 'Popup', 'Click', popupId );
 	} );
 }
 

@@ -21,6 +21,14 @@ $cta-spacing: 8px; // similar to membership plugin
 		display: none;
 	}
 
+	&.check-session-message {
+		display: none;
+
+		&.validated {
+			display: block;
+		}
+	}
+
 	// add a default assumption of horizontally centering
 	// both the image and editor containers
 	.m-wp-insert-message-images,
@@ -169,6 +177,11 @@ $cta-spacing: 8px; // similar to membership plugin
 				max-width: $max-width-page;
 				margin: 0 auto;
 			}
+		}
+
+		// a popup can be validated but still not be visible
+		&.validated {
+			display: none;
 		}
 
 		&.wp-message-inserter-message-popup-visible {
