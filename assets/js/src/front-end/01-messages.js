@@ -28,7 +28,7 @@ function getCookie( name ) {
  * @param {string} category
  * @param {string} action
  * @param {string} label
- * @param {mixed} value
+ * @param {Array} value
  */
 function analyticsTrackingEvent( type, category, action, label, value ) {
 	if ( 'undefined' !== typeof ga ) {
@@ -38,7 +38,7 @@ function analyticsTrackingEvent( type, category, action, label, value ) {
 			ga( 'send', type, category, action, label, value );
 		}
 	} else {
-		return;
+
 	}
 }
 
@@ -77,15 +77,15 @@ function setCurrentCount() {
  * @return {number} postId
  */
 function getPostId( popupSelector ) {
-    var postId = '';
-    var classList = $( '.' + popupSelector ).attr( 'class' ).split( /\s+/ );
-    $.each( classList, function( index, item ) {
-        if ( 0 < item.indexOf( 'message-id' ) ) {
-            postId = item.substring( item.lastIndexOf( '-' ) + 1 );
-            return false; // break each and postId will be returned
-        }
-    } );
-    return postId;
+	let postId = 0;
+	const classList = $( '.' + popupSelector ).attr( 'class' ).split( /\s+/ );
+	$.each( classList, function( index, item ) {
+		if ( 0 < item.indexOf( 'message-id' ) ) {
+			postId = item.substring( item.lastIndexOf( '-' ) + 1 );
+			return false; // break each and postId will be returned
+		}
+	} );
+	return postId;
 }
 
 /**
@@ -97,14 +97,18 @@ function getPostId( popupSelector ) {
  * @param {string} popupVisibleClass
  */
 function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass ) {
+	let popupId = 0;
 	setCookie( popupShownCookieName, 'true', cookieDayTotal );
 	if ( 0 < $( '.validated' ).length ) {
 		$( '.' + popupSelector + '.validated' ).addClass( popupVisibleClass );
+		popupId = getPostId( '.' + popupSelector + '.validated' );
 	} else {
 		$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
+		popupId = getPostId( '.' + popupSelector + ':first' );
 	}
-	const popupId = getPostId( popupSelector );
-	analyticsTrackingEvent( 'event', 'Popup', 'Show', popupId, { 'nonInteraction': 1 } );
+	if ( 0 !== popupId ) {
+		analyticsTrackingEvent( 'event', 'Popup', 'Show', popupId, { nonInteraction: 1 } );
+	}
 }
 
 /**
@@ -119,7 +123,9 @@ function hidePopup( popupSelector, popupVisibleClass, lastFocus, closeTrigger ) 
 	lastFocus.focus();
 	$( '.' + popupSelector ).removeClass( popupVisibleClass );
 	const popupId = getPostId( popupSelector );
-	analyticsTrackingEvent( 'event', 'Popup', closeTrigger, popupId, { 'nonInteraction': 1 } );
+	if ( 0 !== popupId ) {
+		analyticsTrackingEvent( 'event', 'Popup', closeTrigger, popupId, { nonInteraction: 1 } );
+	}
 }
 
 /**
@@ -145,7 +151,7 @@ function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popu
 
 	// click on login link inside popup
 	$( '.' + popupSelector ).on( 'click', '.message-login', function() {
-		var url = $( this ).attr( 'href' );
+		const url = $( this ).attr( 'href' );
 		analyticsTrackingEvent( 'event', 'Popup', 'Login Link', url );
 	} );
 
