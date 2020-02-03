@@ -17,7 +17,7 @@ $screen_sizes    = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' 
 $body_classes    = get_body_class();
 $wp_classes      = '';
 foreach ( $body_classes as $class ) {
-	$wp_classes .= 'wp-message-inserter-message-' . $class. ' ';
+	$wp_classes .= 'wp-message-inserter-message-' . $class . ' ';
 }
 
 // setup for checking sessions
@@ -87,7 +87,7 @@ usort(
 
 <?php if ( 'image' === $type || 'editor' === $type ) : ?>
 
-	<aside class="o-site-message-container wp-message-inserter-message <?php echo $wp_classes; ?> wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo isset( $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo isset( $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
+	<aside class="o-site-message-container wp-message-inserter-message <?php echo $wp_classes; ?> wp-message-inserter-message-<?php echo $slug; ?> wp-message-inserter-message-<?php echo $region; ?> wp-message-inserter-message-id-<?php echo $id; ?> wp-message-inserter-message-<?php echo $type; ?> wp-message-inserter-message-<?php echo $message_counter; ?><?php echo ( 'on' === $check_session ) ? ' check-session-message' : ''; ?>"<?php echo ( 0 !== $close_time_days ) ? ' data-close-time-days="' . $close_time_days . '"' : ''; ?><?php echo ( 0 !== $close_time_hours ) ? ' data-close-time-hours="' . $close_time_hours . '"' : ''; ?><?php echo $session_data_attributes; ?>>
 		<?php if ( 'image' === $type ) : ?>
 			<div class="m-wp-insert-message-item m-wp-insert-message-images">
 				<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
