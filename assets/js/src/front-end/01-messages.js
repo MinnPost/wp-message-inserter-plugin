@@ -31,6 +31,7 @@ function getCookie( name ) {
  * @param {Array} value
  */
 function analyticsTrackingEvent( type, category, action, label, value ) {
+	category = 'Site Message: ' + category.charAt( 0 ).toUpperCase() + category.slice( 1 );
 	if ( 'undefined' !== typeof ga ) {
 		if ( 'undefined' === typeof value ) {
 			ga( 'send', type, category, action, label );
@@ -89,6 +90,24 @@ function getPostId( popupSelector ) {
 }
 
 /**
+ * Get the region for a given message.
+ *
+ * @param {object} message
+ * @return {string} region
+ */
+function getMessageRegion( message ) {
+	let region = '';
+	const classList = $( message ).attr( 'class' ).split( /\s+/ );
+	$.each( classList, function( index, item ) {
+		if ( 0 < item.indexOf( 'message-region' ) ) {
+			region = item.substring( item.lastIndexOf( '-' ) + 1 );
+			return false; // break each and region will be returned
+		}
+	} );
+	return region;
+}
+
+/**
  * Show a specific popup. Sets a cookie and adds a visibility class.
  *
  * @param {string} popupSelector
@@ -101,10 +120,10 @@ function showPopup( popupSelector, cookieDayTotal, popupShownCookieName, popupVi
 	setCookie( popupShownCookieName, 'true', cookieDayTotal );
 	if ( 0 < $( '.validated' ).length ) {
 		$( '.' + popupSelector + '.validated' ).addClass( popupVisibleClass );
-		popupId = getPostId( '.' + popupSelector + '.validated' );
+		popupId = getPostId( popupSelector + '.validated' );
 	} else {
 		$( '.' + popupSelector + ':first' ).addClass( popupVisibleClass );
-		popupId = getPostId( '.' + popupSelector + ':first' );
+		popupId = getPostId( popupSelector + ':first' );
 	}
 	if ( 0 !== popupId ) {
 		analyticsTrackingEvent( 'event', 'Popup', 'Show', popupId, { nonInteraction: 1 } );
@@ -184,15 +203,34 @@ function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popu
 	} );
 }
 
+function messageAnalytics( message ) {
+	const messageRegion = getMessageRegion( '.' + message );
+	const messageId = getPostId( message );
+	if ( $( '.' + message ).is( ':visible' ) ) {
+		analyticsTrackingEvent( 'event', messageRegion, 'Show', messageId, { nonInteraction: 1 } );
+	}
+	// click on login link inside a message
+	$( '.' + message ).on( 'click', '.message-login', function() {
+		const url = $( this ).attr( 'href' );
+		analyticsTrackingEvent( 'event', messageRegion, 'Login Link', url );
+	} );
+
+	// click on a non-login or close link inside a message
+	$( '.' + message ).on( 'click', 'a:not( .sm-close-btn, .message-login )', function() {
+		analyticsTrackingEvent( 'event', messageRegion, 'Click', messageId );
+	} );
+}
+
 /**
  * When jQuery is loaded, set up session tracking and popup display
  *
  */
 $( document ).ready( function() {
-	const popupSelector = 'wp-message-inserter-message-popup';
+	const popupSelector = 'wp-message-inserter-message-region-popup';
 	const popupShownCookieName = 'sm-shown';
 	const popupVisibleClass = 'wp-message-inserter-message-popup-visible';
 	const checkSessionClass = 'check-session-message';
+	const messageSelector = 'wp-message-inserter-message';
 
 	// Get our value for days and hours to set cookie
 	const closeTimeDays = parseInt( $( '.' + popupSelector ).data( 'close-time-days' ) ) || 0;
@@ -234,4 +272,9 @@ $( document ).ready( function() {
 	if ( 0 < $( '.' + popupSelector ).length ) {
 		popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popupVisibleClass );
 	}
+
+	if ( 0 < $( '.' + messageSelector + ':not( .' + popupSelector + ' )' ).length ) {
+		messageAnalytics( messageSelector + ':not( .' + popupSelector + ' )' );
+	}
+
 } );
