@@ -211,33 +211,34 @@ class WP_Message_Inserter_Plugin_Front_End {
 						}
 
 						if ( is_array( $params ) ) {
-							if ( true === $exploded ) {
-								$called_method = call_user_func_array( $method_to_call, $params );
-							} else {
-								$called_method = $method_to_call( $params );
-							}
+							$called_method = call_user_func_array( $method_to_call, $params );
 						} else {
 							$called_method = $method_to_call( $params );
 						}
 
 						$called_method = filter_var( $called_method, FILTER_VALIDATE_BOOLEAN );
-						// Handle our OR operator
+						// Handle our OR operator. This means ANY of the condtionals on this message are true.
 						if ( 'or' === $operator ) {
 							if ( $conditional_result === $called_method ) {
 								$show_message = true;
+								break; // break out if any of them are true
+							} else {
+								$show_message = false;
 								continue;
 							}
 						}
 
-						// Handle our AND operator
+						// Handle our AND operator. This means ALL of the conditionals on this message are true.
 						if ( 'and' === $operator ) {
 							if ( $conditional_result === $called_method ) {
 								$show_message = true;
+								continue;
 							} else {
 								$show_message = false;
+								break; // break out if any of them are false
 							}
 						}
-					}
+					} // end foreach
 
 					$show_message = apply_filters( $this->option_prefix . 'show_message', $show_message, $region );
 
