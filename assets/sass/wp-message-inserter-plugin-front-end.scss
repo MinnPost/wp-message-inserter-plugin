@@ -11,7 +11,7 @@ $content-font-size: 1.23em; // 16px
 $large-title-font-size: 1.75em;
 
 // spacing
-$cta-spacing: 8px; // similar to membership plugin
+$cta-spacing: 0.5em; // similar to membership plugin
 
 // main wrapper
 // this can contain multiple items that are eligible to be displayed
@@ -42,7 +42,7 @@ $cta-spacing: 8px; // similar to membership plugin
 	.m-wp-insert-message-item-banner {
 		position: relative;
 		width: 100%;
-		padding: 1.2em 1.5em;
+		padding: 1.2em (1.5em + $cta-spacing * 2.5) 1.2em 1.5em;
 		margin: 1.5em auto;
 
 		&.banner-width-page {
@@ -158,10 +158,12 @@ $cta-spacing: 8px; // similar to membership plugin
 		// default styles for the banner type
 		.m-wp-insert-message-item-banner {
 			width: 100%;
-			padding: 0;
 			font-size: 1em;
 			font-family: sans-serif;
 			margin: 0 auto;
+			@media screen and (min-width: $max-width-medium) {
+				padding: 0;
+			}
 		}
 
 		// default styles for the editor type
