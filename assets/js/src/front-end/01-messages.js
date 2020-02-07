@@ -179,7 +179,7 @@ function popupDisplay( popupSelector, cookieDayTotal, popupShownCookieName, popu
 			! $( event.target ).closest( '.' + popupSelector ).is( '.' + popupSelector ) &&
 			$( '.' + popupSelector ).hasClass( popupVisibleClass )
 		) {
-			hidePopup( popupSelector, popupVisibleClass, lastFocus, 'Click Elsewhere' );
+			hidePopup( popupSelector, popupVisibleClass, lastFocus, 'Click Outside to Close' );
 		}
 	}, true );
 
