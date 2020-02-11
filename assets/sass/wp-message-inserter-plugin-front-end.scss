@@ -163,6 +163,10 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			margin: 0 auto;
 			@media screen and (min-width: $max-width-medium) {
 				padding: 0;
+				// Stacked Layout
+				.stack-wrap {
+					padding: 1.2em 0;
+				}
 			}
 		}
 
