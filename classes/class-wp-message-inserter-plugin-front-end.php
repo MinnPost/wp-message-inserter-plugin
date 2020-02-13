@@ -41,7 +41,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*/
 	public function add_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_and_styles' ) );
-		add_action( 'wp_message_inserter', array( $this, 'insert_message' ) );
+		add_action( 'wp_message_inserter', array( $this, 'insert_messages' ) );
 	}
 
 	/**
@@ -57,12 +57,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 	}
 
 	/**
-	* Insert the message via the template, if the message data is not empty
+	* Insert the messages via the template, if there are eligible messages
 	* @param string $region
 	*
 	*/
-	public function insert_message( $region ) {
-		$messages = array_reverse( $this->get_eligible_message( $region ) );
+	public function insert_messages( $region ) {
+		$messages = $this->get_eligible_messages( $region );
 		foreach ( $messages as $key => $message ) {
 			if ( 0 !== sizeof( $message ) ) {
 				$params['meta_prefix']     = $this->post_meta_prefix;
@@ -74,12 +74,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 	}
 
 	/**
-	* Load the message based on the conditional(s) and region
+	* Load the messages based on the conditional(s) and region
 	* @param string $region
 	* @return array $groupedposts
 	*
 	*/
-	private function get_eligible_message( $region ) {
+	private function get_eligible_messages( $region ) {
 		// todo: figure out if any of this can be cached
 		$current_id       = get_the_ID();
 		$post             = array();
