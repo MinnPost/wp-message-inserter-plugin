@@ -13,9 +13,9 @@
   },
   "homepage": "https://github.com/MinnPost/wp-message-inserter-plugin#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@wordpress/eslint-plugin": "^3.3.0",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@wordpress/eslint-plugin": "^4.0.0",
     "autoprefixer": "^9.7.4",
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^7.0.0",
@@ -38,7 +38,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.3.6",
     "npm-check-updates": "^4.0.1",
-    "stylelint": "^13.0.0",
+    "stylelint": "^13.1.0",
     "stylelint-config-wordpress": "^16.0.0"
   },
   "browserslist": [

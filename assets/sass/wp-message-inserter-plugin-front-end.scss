@@ -161,11 +161,15 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			font-size: 1em;
 			font-family: sans-serif;
 			margin: 0 auto;
+			text-align: center;
+
 			@media screen and (min-width: $max-width-medium) {
 				padding: 0;
+				text-align: left;
 				// Stacked Layout
 				.stack-wrap {
 					padding: 1.2em 0;
+					text-align: center;
 				}
 			}
 		}
