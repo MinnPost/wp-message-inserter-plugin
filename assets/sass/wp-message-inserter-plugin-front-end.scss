@@ -49,32 +49,14 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			max-width: $max-width-page;
 		}
 
-		h3 {
-			font-family: sans-serif;
-			font-size: $large-title-font-size;
-			margin-bottom: 0.5em;
-			line-height: 1;
-		}
-
-		p {
-			font-family: sans-serif;
-			font-size: $content-font-size;
-			line-height: 1.4;
-		}
-
 		.disclaimer {
 			margin-top: 0.5em;
-
-			p {
-				font-size: $base-font-size;
-			}
 		}
 
 		a.a-button {
 			padding: $cta-spacing 1em;
 			border-radius: $cta-spacing;
 			display: inline-block;
-			font-size: $large-title-font-size;
 
 			@media screen and (min-width: $max-width-medium) {
 				white-space: nowrap;
