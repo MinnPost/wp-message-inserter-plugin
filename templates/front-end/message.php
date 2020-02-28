@@ -13,7 +13,7 @@ $region          = $message['meta'][ $prefix . 'region' ][0];
 $id              = $message['ID'];
 $slug            = $message['post_name'];
 $type            = $message['meta'][ $prefix . 'message_type' ][0];
-$screen_sizes    = maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] );
+$screen_sizes    = isset( $message['meta'][ $prefix . 'screen_size' ][0] ) && '' !== $message['meta'][ $prefix . 'screen_size' ][0] ? maybe_unserialize( $message['meta'][ $prefix . 'screen_size' ][0] ) : array();
 $body_classes    = get_body_class();
 $wp_classes      = '';
 foreach ( $body_classes as $class ) {
