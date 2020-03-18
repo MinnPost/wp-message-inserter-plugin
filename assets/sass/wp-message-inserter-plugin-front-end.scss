@@ -184,10 +184,16 @@ $cta-spacing: 0.5em; // similar to membership plugin
 
 		.sm-close-btn {
 			position: absolute;
-			top: $cta-spacing;
-			right: $cta-spacing * 2.5;
+			top: $cta-spacing / 2;
+			right: $cta-spacing / 2;
 			color: #fff;
-			font-size: $content-font-size;
+			font-size: 2em;
+			height: 1em;
+			width: 1em;
+
+			svg {
+				pointer-events: none;
+			}
 		}
 	}
 }
