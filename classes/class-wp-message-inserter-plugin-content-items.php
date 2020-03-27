@@ -789,11 +789,12 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	/**
 	* Display regions as <select> options
 	*
+	* @param array $omit
 	* @return array $regions
 	*
 	*/
-	private function get_region_options( $select_type = 'select' ) {
-		$regions = $this->regions->get_regions( $select_type );
+	private function get_region_options( $omit = array() ) {
+		$regions = $this->regions->get_regions( $omit );
 		return $regions;
 	}
 
