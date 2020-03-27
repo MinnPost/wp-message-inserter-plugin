@@ -34,12 +34,18 @@ class WP_Message_Inserter_Plugin_Regions {
 	/**
 	* Get the full list of regions where messages can go
 	*
+	* @param array $regions
 	* @return array $regions
 	*
 	*/
-	public function get_regions() {
+	public function get_regions( $omit = array() ) {
 		$regions = array();
 		$regions = apply_filters( $this->option_prefix . 'regions', $regions );
+		if ( is_array( $omit ) && ! empty( $omit ) ) {
+			foreach ( $omit as $omit_key ) {
+				unset( $regions[ $omit_key ] );
+			}
+		}
 		do_action( $this->option_prefix . 'regions', $regions, null );
 		return $regions;
 	}

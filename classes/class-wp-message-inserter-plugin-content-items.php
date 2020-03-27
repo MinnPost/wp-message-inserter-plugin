@@ -162,7 +162,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'show_option_none' => true,
 				//'desc'             => esc_html__( 'Where on the site this message will appear. If popup is selected it will load the banner but need to be triggered with Google Optimize.', 'wp-message-inserter-plugin' ),
 				'desc'             => esc_html__( 'Where on the site this message will appear.', 'wp-message-inserter-plugin' ),
-				'options'          => $this->get_region_options( $select_type ),
+				'options'          => $this->get_region_options(),
 				'default'          => 'none',
 				'attributes'       => array(
 					'required' => true,
