@@ -277,7 +277,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			$conditional_group_id,
 			array(
 				'name'       => esc_html__( 'Conditional Value', 'wp-message-inserter-plugin' ),
-				'desc'       => esc_html__( 'Enter the value expected for this conditional.', 'wp-message-inserter-plugin' ),
+				'desc'       => esc_html__( 'Enter the value(s) expected for this conditional.', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'conditional_value',
 				'type'       => 'text',
 				'classes'    => 'cmb2-message-conditional-value',
