@@ -154,6 +154,28 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$screen_size_box->add_field(
 			array(
 				'name'             => sprintf(
+					esc_html( 'Delivery Method %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
+				'id'               => $prefix . 'delivery_method',
+				'type'             => 'radio_inline',
+				'show_option_none' => false,
+				'desc'             => esc_html__( 'How the content containing this message will be delivered.', 'wp-message-inserter-plugin' ),
+				'options'    => array(
+					'front-end' => esc_html__( 'Website', 'wp-message-inserter-plugin' ),
+					'email'     => esc_html__( 'Email', 'wp-message-inserter-plugin' ),
+				),
+				'default'          => 'front-end',
+				'classes'          => 'cmb2-message-delivery-selector',
+				'attributes'       => array(
+					'required' => true,
+				),
+			)
+		);
+
+		$screen_size_box->add_field(
+			array(
+				'name'             => sprintf(
 					esc_html( 'Region %1$s', 'wp-message-inserter-plugin' ),
 					'<span class="required">*</span>'
 				),
@@ -204,10 +226,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		$screen_size_box->add_field(
 			array(
-				'name' => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
-				'id'   => $prefix . 'check_session',
-				'type' => 'checkbox',
-				'desc' => esc_html__( 'This determines whether or not to check how many sessions a user has when determing what to show them.', 'wp-message-inserter-plugin' ),
+				'name'       => esc_html__( 'Check Sessions?', 'wp-message-inserter-plugin' ),
+				'id'         => $prefix . 'check_session',
+				'type'       => 'checkbox',
+				'desc'       => esc_html__( 'This determines whether or not to check how many sessions a user has when determing what to show them.', 'wp-message-inserter-plugin' ),
+				'attributes' => array(
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'website',
+				),
 			)
 		);
 
@@ -579,6 +605,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 						'image/png',
 					),
 				),
+				'attributes' => array( // no backgrounds in emails
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'website',
+				),
 			)
 		);
 
@@ -602,6 +632,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 						'image/jpeg',
 						'image/png',
 					),
+				),
+				'attributes' => array( // icons do not work in emails
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'website',
 				),
 			)
 		);
@@ -651,7 +685,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
-		// BUTTONS OR FORM
+		// BUTTONS OR FORM: not emails
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
 			array(
@@ -670,7 +704,34 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'default'    => 'button',
 				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
 				'attributes' => array(
-					'required' => true,
+					'required'               => true,
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'website',
+				),
+			)
+		);
+
+		// BUTTON ONLY on emails
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'       => sprintf(
+					esc_html( 'CTA Type %1$s', 'wp-message-inserter-plugin' ),
+					'<span class="required">*</span>'
+				),
+				'id'         => $prefix . 'cta_type_email',
+				'type'       => 'radio_inline',
+				'desc'       => '',
+				'options'    => array(
+					'button' => esc_html__( 'Button', 'wp-message-inserter-plugin' ),
+					'none'   => esc_html__( 'None', 'wp-message-inserter-plugin' ),
+				),
+				'default'    => 'button',
+				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'attributes' => array(
+					'required'               => true,
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'email',
 				),
 			)
 		);
@@ -875,6 +936,16 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'current_post',
 				),
 			),
+			array(
+				'name'       => 'post_has_meta_value',
+				'method'     => 'post_has_meta_value',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'key',
+					'value',
+				),
+			),
 			/*array(
 				'name'       => 'is_sticky',
 				'has_params' => false,
@@ -918,6 +989,16 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => 'is_singular',
 				'has_params' => false,
+			),
+			array(
+				'name'       => 'page_has_meta_value',
+				'method'     => 'post_has_meta_value',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'key',
+					'value',
+				),
 			),
 			/*array(
 				'name'       => 'is_page_template',
@@ -1073,6 +1154,16 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => 'is_user_logged_in',
 				'has_params' => false,
+			),
+			array(
+				'name'       => 'user_has_meta_value',
+				'method'     => 'user_has_meta_value',
+				'has_params' => true,
+				'params'     => array(
+					'current_user',
+					'key',
+					'value',
+				),
 			),
 			/*array(
 				'name'       => 'email_exists',

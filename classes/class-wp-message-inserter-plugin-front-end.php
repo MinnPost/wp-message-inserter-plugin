@@ -61,14 +61,14 @@ class WP_Message_Inserter_Plugin_Front_End {
 	* @param string $region
 	*
 	*/
-	public function insert_messages( $region ) {
+	public function insert_messages( $region, $delivery_method = 'front-end' ) {
 		$messages = $this->get_eligible_messages( $region );
 		foreach ( $messages as $key => $message ) {
 			if ( 0 !== sizeof( $message ) ) {
 				$params['meta_prefix']     = $this->post_meta_prefix;
 				$params['message_counter'] = $key;
 				$params['message']         = array_merge( $message, $message['meta'] );
-				echo $this->get_template_html( 'message', $region, 'front-end', $params );
+				echo $this->get_template_html( 'message', $region, $delivery_method, $params );
 			}
 		}
 	}
