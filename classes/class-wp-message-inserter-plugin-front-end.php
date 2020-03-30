@@ -162,9 +162,13 @@ class WP_Message_Inserter_Plugin_Front_End {
 						$params               = $conditional_value;
 
 						// this means this conditional has a callback
-						if ( isset( $conditional_to_check['method'] ) && function_exists( $conditional_to_check['method'] ) ) {
-							$method_to_call = $conditional_to_check['method'];
-							$params         = $conditional_value;
+						if ( isset( $conditional_to_check['method'] ) ) {
+							if ( function_exists( $conditional_to_check['method'] ) ) {
+								$method_to_call = $conditional_to_check['method'];
+							} elseif ( method_exists( $this, $conditional_to_check['method'] ) ) {
+								$method_to_call = $conditional_to_check['method'];
+							}
+							$params = $conditional_value;
 						} else {
 							$method_to_call = $conditional_method;
 						}
@@ -199,7 +203,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 						}
 
 						$exploded = false;
-						if ( isset( $conditional_to_check['method'] ) && function_exists( $conditional_to_check['method'] ) ) {
+						if ( isset( $conditional_to_check['method'] ) && ( function_exists( $conditional_to_check['method'] ) || method_exists( $this, $conditional_to_check['method'] ) ) ) {
 							if ( ! is_array( $params ) ) {
 								$exploded = true;
 								$params   = array_map( 'trim', explode( ',', $params ) );
@@ -208,14 +212,22 @@ class WP_Message_Inserter_Plugin_Front_End {
 						}
 
 						// the method does not exist
-						if ( '' === $method_to_call || ! function_exists( $method_to_call ) ) {
+						if ( '' === $method_to_call || ( ! function_exists( $method_to_call ) && ! method_exists( $this, $method_to_call ) ) ) {
 							continue;
 						}
 
 						if ( is_array( $params ) ) {
-							$called_method = call_user_func_array( $method_to_call, $params );
+							if ( function_exists( $method_to_call ) ) {
+								$called_method = call_user_func_array( $method_to_call, $params );
+							} elseif ( method_exists( $this, $method_to_call ) ) {
+								$called_method = call_user_func_array( array( $this, $method_to_call ), $params );
+							}
 						} else {
-							$called_method = $method_to_call( $params );
+							if ( function_exists( $method_to_call ) ) {
+								$called_method = $method_to_call( $params );
+							} elseif ( method_exists( $this, $method_to_call ) ) {
+								$called_method = $this->$method_to_call( $params );
+							}
 						}
 
 						$called_method = filter_var( $called_method, FILTER_VALIDATE_BOOLEAN );
@@ -309,5 +321,53 @@ class WP_Message_Inserter_Plugin_Front_End {
 		ob_end_clean();
 
 		return $html;
+	}
+
+	/**
+	* Check to see if the current post has the specified meta key and value
+	*
+	* @param int $current_post
+	* @param array $params
+	* @return bool $has_meta_value
+	*/
+	public function post_has_meta_value( $current_post, $params ) {
+		$has_meta_value = false;
+		$has_meta_value = $this->has_meta_value( 'get_post_meta', $current_post, $params );
+		return $has_meta_value;
+	}
+
+	/**
+	* Check to see if the current user has the specified meta key and value
+	*
+	* @param int $current_user
+	* @param array $params
+	* @return bool $has_meta_value
+	*/
+	public function user_has_meta_value( $current_user, $params ) {
+		$has_meta_value = false;
+		$has_meta_value = $this->has_meta_value( 'get_user_meta', $current_user, $params );
+		return $has_meta_value;
+	}
+
+	/**
+	* Check to see if the current object has the specified meta key and value
+	*
+	* @param string $method
+	* @param int $current_id
+	* @param array $params
+	* @return bool $has_meta_value
+	*/
+	private function has_meta_value( $method, $current_id, $params ) {
+		$has_meta_value = false;
+		if ( ! is_array( $params ) ) {
+			$params = array_map( 'trim', explode( ',', $params ) );
+		}
+		$meta_key          = $params[0];
+		$meta_value        = $params[1];
+		$actual_meta_value = $method( $current_id, $meta_key, true );
+		if ( $meta_value === $actual_meta_value ) {
+			$has_meta_value = true;
+		}
+		return $has_meta_value;
 	}
 }
