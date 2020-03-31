@@ -633,6 +633,10 @@ class WP_Message_Inserter_Plugin_Content_Items {
 						'image/png',
 					),
 				),
+				'attributes' => array( // this image should not be on emails
+					'data-conditional-id'    => $prefix . 'delivery_method',
+					'data-conditional-value' => 'front-end',
+				),
 			)
 		);
 
