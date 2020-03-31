@@ -41,7 +41,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*/
 	public function add_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_and_styles' ) );
-		add_action( 'wp_message_inserter', array( $this, 'insert_messages' ) );
+		add_action( 'wp_message_inserter', array( $this, 'insert_messages' ), 10, 2 );
 	}
 
 	/**

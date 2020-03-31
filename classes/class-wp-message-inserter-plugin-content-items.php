@@ -161,7 +161,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type'             => 'radio_inline',
 				'show_option_none' => false,
 				'desc'             => esc_html__( 'How the content containing this message will be delivered.', 'wp-message-inserter-plugin' ),
-				'options'    => array(
+				'options'          => array(
 					'front-end' => esc_html__( 'Website', 'wp-message-inserter-plugin' ),
 					'email'     => esc_html__( 'Email', 'wp-message-inserter-plugin' ),
 				),
@@ -232,7 +232,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'desc'       => esc_html__( 'This determines whether or not to check how many sessions a user has when determing what to show them.', 'wp-message-inserter-plugin' ),
 				'attributes' => array(
 					'data-conditional-id'    => $prefix . 'delivery_method',
-					'data-conditional-value' => 'website',
+					'data-conditional-value' => 'front-end',
 				),
 			)
 		);
@@ -607,7 +607,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 				'attributes' => array( // no backgrounds in emails
 					'data-conditional-id'    => $prefix . 'delivery_method',
-					'data-conditional-value' => 'website',
+					'data-conditional-value' => 'front-end',
 				),
 			)
 		);
@@ -619,7 +619,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Banner Icon', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_icon',
-				'desc'       => 'Image is optional.',
+				'desc'       => esc_html__( 'Image is optional.', 'wp-message-inserter-plugin' ),
 				'type'       => 'file',
 				'text'       => array(
 					'add_upload_file_text' => __( 'Add Image', 'wp-message-inserter-plugin' ),
@@ -632,10 +632,6 @@ class WP_Message_Inserter_Plugin_Content_Items {
 						'image/jpeg',
 						'image/png',
 					),
-				),
-				'attributes' => array( // icons do not work in emails
-					'data-conditional-id'    => $prefix . 'delivery_method',
-					'data-conditional-value' => 'website',
 				),
 			)
 		);
@@ -706,7 +702,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'attributes' => array(
 					'required'               => true,
 					'data-conditional-id'    => $prefix . 'delivery_method',
-					'data-conditional-value' => 'website',
+					'data-conditional-value' => 'front-end',
 				),
 			)
 		);
@@ -805,6 +801,29 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'data-conditional-value' => 'button',
 				),
 				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
+				'desc'       => esc_html__( 'Buttons can have an icon if they are not used in an email.', 'wp-message-inserter-plugin' ),
+			)
+		);
+
+		// Button Emoji
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'             => esc_html__( 'Button Emoji', 'wp-message-inserter-plugin' ),
+				'id'               => $prefix . 'banner_buttonemoji',
+				'type'             => 'select',
+				'show_option_none' => true,
+				'options'          => array(
+					'❤' => '❤',
+				),
+				'attributes'       => array(
+					'required'               => false,
+					'data-conditional-id'    => $prefix . 'cta_type',
+					'data-conditional-value' => 'button',
+				),
+				'classes'          => 'cmb2-message-type cmb2-message-type-banner cmb2-emoji',
+				'desc'             => esc_html__( 'Buttons can have an emoji on the website, if there is not an icon, or in an email.', 'wp-message-inserter-plugin' ),
+				'default'          => 'none',
 			)
 		);
 
