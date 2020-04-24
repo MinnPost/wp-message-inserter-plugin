@@ -969,6 +969,26 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'value',
 				),
 			),
+			array(
+				'name'       => 'post_posted_before_datetime',
+				'method'     => 'posted_before_datetime',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'datetime',
+					'format',
+				),
+			),
+			array(
+				'name'       => 'post_posted_after_datetime',
+				'method'     => 'posted_after_datetime',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'datetime',
+					'format',
+				),
+			),
 			/*array(
 				'name'       => 'is_sticky',
 				'has_params' => false,
@@ -1021,6 +1041,24 @@ class WP_Message_Inserter_Plugin_Content_Items {
 					'current_post',
 					'key',
 					'value',
+				),
+			),
+			array(
+				'name'       => 'page_posted_before_datetime',
+				'method'     => 'posted_before_datetime',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'datetime',
+				),
+			),
+			array(
+				'name'       => 'page_posted_after_datetime',
+				'method'     => 'posted_after_datetime',
+				'has_params' => true,
+				'params'     => array(
+					'current_post',
+					'datetime',
 				),
 			),
 			/*array(
