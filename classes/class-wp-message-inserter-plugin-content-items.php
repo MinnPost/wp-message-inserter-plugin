@@ -1044,8 +1044,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
-				'name'       => 'page_posted_before_date',
-				'method'     => 'posted_before_date',
+				'name'       => 'page_posted_before_datetime',
+				'method'     => 'posted_before_datetime',
 				'has_params' => true,
 				'params'     => array(
 					'current_post',
@@ -1053,8 +1053,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				),
 			),
 			array(
-				'name'       => 'page_posted_after_date',
-				'method'     => 'posted_after_date',
+				'name'       => 'page_posted_after_datetime',
+				'method'     => 'posted_after_datetime',
 				'has_params' => true,
 				'params'     => array(
 					'current_post',
