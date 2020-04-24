@@ -370,4 +370,77 @@ class WP_Message_Inserter_Plugin_Front_End {
 		}
 		return $has_meta_value;
 	}
+
+	/**
+	* Check to see if the current post was posted before the specified datetime
+	*
+	* @param int $current_post
+	* @param array $params
+	* @return bool $comparison
+	*/
+	public function posted_before_date( $current_post, $params ) {
+		$comparison = $this->compare_post_datetimes( $current_post, $params, '<' );
+		return $comparison;
+	}
+
+	/**
+	* Check to see if the current post was posted after the specified datetime
+	*
+	* @param int $current_post
+	* @param array $params
+	* @return bool $comparison
+	*/
+	public function posted_after_date( $current_post, $params ) {
+		error_log( 'current post is ' . $current_post );
+		$comparison = $this->compare_post_datetimes( $current_post, $params, '>' );
+		return $comparison;
+	}
+
+	/**
+	* Make the comparison between the post date and the specified date
+	*
+	* @param int $post_id
+	* @param array $params
+	* @param string $operator
+	* @return bool $comparison
+	*/
+	private function compare_post_datetimes( $post_id, $params, $operator ) {
+		if ( ! is_array( $params ) ) {
+			$params = array_map( 'trim', explode( ',', $params ) );
+		}
+
+		$datetime_to_check = new DateTime( $params[0], wp_timezone() );
+		$post_datetime     = get_post_datetime( $post_id );
+
+		switch ( $operator ) {
+			case '<': // Less than
+				return $post_datetime < $datetime_to_check;
+			case '<=': // Less than or equal to
+				return $post_datetime <= $datetime_to_check;
+			case '>': // Greater than
+				return $post_datetime > $datetime_to_check;
+			case '>=': // Greater than or equal to
+				return $post_datetime >= $datetime_to_check;
+			case '==': // Equal
+				return $post_datetime == $datetime_to_check;
+			case '===': // Identical
+				return $post_datetime === $datetime_to_check;
+			case '!==': // Not Identical
+				return $post_datetime !== $datetime_to_check;
+			case '!=': // Not equal
+			case '<>': // Not equal
+				return $post_datetime != $datetime_to_check;
+			case '||': // Or
+			case 'or': // Or
+				return $post_datetime || $datetime_to_check;
+			case '&&': // And
+			case 'and': // And
+				return $post_datetime && $datetime_to_check;
+			case 'xor': // Or
+				return $post_datetime xor $datetime_to_check;
+			default:
+				return false;
+		}
+	}
+
 }
