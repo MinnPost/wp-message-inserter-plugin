@@ -1,6 +1,6 @@
 {
   "name": "wp-message-inserter-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Inserts site messaging into WordPress layouts",
   "repository": {
     "type": "git",
@@ -13,10 +13,10 @@
   },
   "homepage": "https://github.com/MinnPost/wp-message-inserter-plugin#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "@wordpress/eslint-plugin": "^4.0.0",
-    "autoprefixer": "^9.7.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@wordpress/eslint-plugin": "^5.0.1",
+    "autoprefixer": "^9.7.6",
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
@@ -30,15 +30,15 @@
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-sass-glob": "^1.1.0",
     "gulp-sort": "~2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-wp-pot": "^2.3.6",
-    "npm-check-updates": "^4.0.4",
-    "stylelint": "^13.2.1",
+    "gulp-wp-pot": "^2.4.2",
+    "npm-check-updates": "^4.1.2",
+    "stylelint": "^13.3.3",
     "stylelint-config-wordpress": "^16.0.0"
   },
   "browserslist": [
