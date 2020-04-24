@@ -378,7 +378,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	* @param array $params
 	* @return bool $comparison
 	*/
-	public function posted_before_date( $current_post, $params ) {
+	public function posted_before_datetime( $current_post, $params ) {
 		$comparison = $this->compare_post_datetimes( $current_post, $params, '<' );
 		return $comparison;
 	}
@@ -390,8 +390,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	* @param array $params
 	* @return bool $comparison
 	*/
-	public function posted_after_date( $current_post, $params ) {
-		error_log( 'current post is ' . $current_post );
+	public function posted_after_datetime( $current_post, $params ) {
 		$comparison = $this->compare_post_datetimes( $current_post, $params, '>' );
 		return $comparison;
 	}
