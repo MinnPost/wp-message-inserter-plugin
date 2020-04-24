@@ -81,7 +81,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*/
 	private function get_eligible_messages( $region ) {
 		// todo: figure out if any of this can be cached
-		$current_id       = get_the_ID();
+		$current_id       = ( is_singular() ) ? get_the_ID() : 0;
 		$post             = array();
 		$all_conditionals = $this->content_items->get_conditionals();
 		$groupedposts     = array();
