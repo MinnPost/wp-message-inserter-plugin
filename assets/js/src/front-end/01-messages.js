@@ -184,10 +184,6 @@ function popupDisplay(
 	checkSessionClass
 ) {
 	const lastFocus = document.activeElement;
-	// put in a close button at the end
-	$( '.' + popupSelector + ' .m-wp-insert-message-item' ).append(
-		'<a href="#" class="sm-close-btn" aria-label="Close"><i class="far fa-times-circle" aria-hidden="true"></i></i></a>'
-	);
 	// Check if we should be showing the popup
 	if (
 		'true' !== getCookie( popupShownCookieName ) &&
