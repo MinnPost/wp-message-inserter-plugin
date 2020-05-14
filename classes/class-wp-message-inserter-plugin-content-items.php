@@ -612,6 +612,28 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		// Close btn Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'    => esc_html__( 'Close Button Color', 'wp-message-inserter-plugin' ),
+				'id'      => $prefix . 'close_button_color',
+				'desc'    => sprintf(
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
+					esc_html__( 'Use a close button color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/">',
+					esc_html__( 'Contrast Checker' ),
+					'</a>'
+				),
+				'type'    => 'colorpicker',
+				'default' => '#ffffff',
+				'classes' => 'cmb2-message-type cmb2-message-type-banner',
+				'options' => array(
+					'alpha' => true,
+				),
+			)
+		);
+
 		// CONTENT
 		// Banner Icon
 		$screen_size_box->add_group_field(
@@ -646,6 +668,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'    => esc_html__( 'Banner Text Color', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'banner_textcolor',
+				'desc'    => sprintf(
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
+					esc_html__( 'Use a text color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/">',
+					esc_html__( 'Contrast Checker' ),
+					'</a>'
+				),
 				'type'    => 'colorpicker',
 				'default' => '#ffffff',
 				'classes' => 'cmb2-message-type cmb2-message-type-banner',
@@ -760,6 +789,13 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Button Text Color', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_btn_textcolor',
+				'desc'       => sprintf(
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
+					esc_html__( 'Use a button text color that is accessible on top of the button background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/">',
+					esc_html__( 'Contrast Checker' ),
+					'</a>'
+				),
 				'type'       => 'colorpicker',
 				'default'    => '#ffffff',
 				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
