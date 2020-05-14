@@ -403,82 +403,105 @@ msgstr ""
 msgid "Image is optional. The Background Color will overlay this image if both are present."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:597, classes/class-wp-message-inserter-plugin-content-items.php:625
+#: classes/class-wp-message-inserter-plugin-content-items.php:597, classes/class-wp-message-inserter-plugin-content-items.php:647
 msgid "Add Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:620
+#: classes/class-wp-message-inserter-plugin-content-items.php:619
+msgid "Close Button Color"
+msgstr ""
+
+#. translators: 1) contrast checker url, 2) label for link, 3) close link tag
+#: classes/class-wp-message-inserter-plugin-content-items.php:623
+msgid "Use a close button color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:642
 msgid "Banner Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:622
+#: classes/class-wp-message-inserter-plugin-content-items.php:644
 msgid "Image is optional."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:647
+#: classes/class-wp-message-inserter-plugin-content-items.php:669
 msgid "Banner Text Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:662
+#. translators: 1) contrast checker url, 2) label for link, 3) close link tag
+#: classes/class-wp-message-inserter-plugin-content-items.php:673
+msgid "Use a text color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:691
 msgid "Banner Heading"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:676
+#: classes/class-wp-message-inserter-plugin-content-items.php:705
 msgid "Banner Short Copy"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:700, classes/class-wp-message-inserter-plugin-content-items.php:726
+#: classes/class-wp-message-inserter-plugin-content-items.php:729, classes/class-wp-message-inserter-plugin-content-items.php:755
 msgid "Button"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:701
+#: classes/class-wp-message-inserter-plugin-content-items.php:730
 msgid "Form"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:702, classes/class-wp-message-inserter-plugin-content-items.php:727
+#: classes/class-wp-message-inserter-plugin-content-items.php:731, classes/class-wp-message-inserter-plugin-content-items.php:756
 msgid "None"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:744
+#: classes/class-wp-message-inserter-plugin-content-items.php:773
 msgid "Button Background Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:761
+#: classes/class-wp-message-inserter-plugin-content-items.php:790
 msgid "Button Text Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:781
+#. translators: 1) contrast checker url, 2) label for link, 3) close link tag
+#: classes/class-wp-message-inserter-plugin-content-items.php:794
+msgid "Use a button text color that is accessible on top of the button background color. To check contrast values, use the %1$s%2$s%3$s."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:817
 msgid "Button Details"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:797
+#: classes/class-wp-message-inserter-plugin-content-items.php:833
 msgid "Button Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:808
+#: classes/class-wp-message-inserter-plugin-content-items.php:844
 msgid "Buttons can have an icon if they are not used in an email."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:816
+#: classes/class-wp-message-inserter-plugin-content-items.php:852
 msgid "Button Emoji"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:829
+#: classes/class-wp-message-inserter-plugin-content-items.php:865
 msgid "Buttons can have an emoji on the website, if there is not an icon, or in an email."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:838
+#: classes/class-wp-message-inserter-plugin-content-items.php:874
 msgid "Form Shortcode"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:840
+#: classes/class-wp-message-inserter-plugin-content-items.php:876
 msgid "Place shortcode for Mailchimp Signup form."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:855
+#: classes/class-wp-message-inserter-plugin-content-items.php:891
 msgid "Disclaimer "
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:857
+#: classes/class-wp-message-inserter-plugin-content-items.php:893
 msgid "This value appears below the form or button as small text."
+msgstr ""
+
+#: templates/front-end/includes/popup-close-button.php:16
+msgid "Close"
 msgstr ""
