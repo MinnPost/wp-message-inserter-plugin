@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Message Inserter Plugin
 Description: Inserts site messaging into WordPress layouts
-Version: 0.1.1
+Version: 0.1.2
 Author: Jonathan Stegall
 Author URI: https://code.minnpost.com
 Text Domain: wp-message-inserter-plugin
@@ -33,7 +33,7 @@ define( 'WP_MESSAGE_INSERTER_PLUGIN_FILE', __FILE__ );
  * @since 0.0.6
  * @var string
  */
-define( 'WP_MESSAGE_INSERTER_PLUGIN_VERSION', '0.1.1' );
+define( 'WP_MESSAGE_INSERTER_PLUGIN_VERSION', '0.1.2' );
 
 // Load the autoloader.
 require_once( 'lib/autoloader.php' );
