@@ -122,6 +122,9 @@ usort(
 					<?php if ( isset( $message['meta'][ $prefix . 'link_url' ] ) ) : ?>
 					</a>
 				<?php endif; ?>
+				<?php if ( 'popup' === $region ) : ?>
+					<?php require( 'includes/popup-close-button.php' ); ?>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 
@@ -130,6 +133,9 @@ usort(
 				<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
 					<div class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
 						<?php echo apply_filters( 'the_content', $screen_size[ $prefix . 'message_editor' ], 20 ); ?>
+						<?php if ( 'popup' === $region ) : ?>
+							<?php require( 'includes/popup-close-button.php' ); ?>
+						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
 			<?php endif; ?>

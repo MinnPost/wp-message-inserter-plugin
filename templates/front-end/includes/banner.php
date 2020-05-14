@@ -79,6 +79,9 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
+				<?php if ( 'popup' === $region ) : ?>
+					<?php require( 'popup-close-button.php' ); ?>
+				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
 	</aside>
