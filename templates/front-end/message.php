@@ -132,7 +132,7 @@ usort(
 			<?php if ( 0 < count( $screen_sizes ) ) : ?>
 				<?php foreach ( $screen_sizes as $key => $screen_size ) : ?>
 					<div class="m-wp-insert-message-item m-wp-insert-message-editor m-wp-insert-message-item-<?php echo $key; ?>">
-						<?php echo apply_filters( 'the_content', $screen_size[ $prefix . 'message_editor' ], 20 ); ?>
+						<?php echo $screen_size[ $prefix . 'message_editor' ]; ?>
 						<?php if ( 'popup' === $region ) : ?>
 							<?php require( 'includes/popup-close-button.php' ); ?>
 						<?php endif; ?>

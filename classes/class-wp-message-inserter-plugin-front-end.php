@@ -318,6 +318,7 @@ class WP_Message_Inserter_Plugin_Front_End {
 		do_action( $this->option_prefix . 'plugin_after_' . $template_name );
 
 		$html = ob_get_contents();
+		$html = apply_filters( 'the_content', $html );
 		ob_end_clean();
 
 		return $html;
