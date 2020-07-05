@@ -84,7 +84,7 @@ function getPostId( popupSelector ) {
 	const classList = $( '.' + popupSelector )
 		.attr( 'class' )
 		.split( /\s+/ );
-	$.each( classList, function( index, item ) {
+	$.each( classList, function ( index, item ) {
 		if ( 0 < item.indexOf( 'message-id' ) ) {
 			postId = item.substring( item.lastIndexOf( '-' ) + 1 );
 			return false; // break each and postId will be returned
@@ -101,10 +101,8 @@ function getPostId( popupSelector ) {
  */
 function getMessageRegion( message ) {
 	let region = '';
-	const classList = $( message )
-		.attr( 'class' )
-		.split( /\s+/ );
-	$.each( classList, function( index, item ) {
+	const classList = $( message ).attr( 'class' ).split( /\s+/ );
+	$.each( classList, function ( index, item ) {
 		if ( 0 < item.indexOf( 'message-region' ) ) {
 			region = item.substring( item.lastIndexOf( '-' ) + 1 );
 			return false; // break each and region will be returned
@@ -198,14 +196,14 @@ function popupDisplay(
 	}
 
 	// click on login link inside popup
-	$( '.' + popupSelector ).on( 'click', '.message-login', function() {
+	$( '.' + popupSelector ).on( 'click', '.message-login', function () {
 		const url = $( this ).attr( 'href' );
 		analyticsTrackingEvent( 'event', 'Popup', 'Login Link', url );
 	} );
 
 	document.addEventListener(
 		'click',
-		function( event ) {
+		function ( event ) {
 			if (
 				! $( event.target )
 					.closest( '.' + popupSelector )
@@ -224,7 +222,7 @@ function popupDisplay(
 	);
 
 	// popup close button
-	$( '.' + popupSelector ).on( 'click', '.sm-close-btn', function( e ) {
+	$( '.' + popupSelector ).on( 'click', '.sm-close-btn', function ( e ) {
 		e.preventDefault();
 		hidePopup(
 			popupSelector,
@@ -235,7 +233,7 @@ function popupDisplay(
 	} );
 
 	// escape key press
-	$( document ).keyup( function( e ) {
+	$( document ).keyup( function ( e ) {
 		if ( 27 === e.keyCode ) {
 			hidePopup(
 				popupSelector,
@@ -250,7 +248,7 @@ function popupDisplay(
 	$( '.' + popupSelector ).on(
 		'click',
 		'a:not( .sm-close-btn, .message-login )',
-		function() {
+		function () {
 			const popupId = getPostId( popupSelector );
 			analyticsTrackingEvent( 'event', 'Popup', 'Click', popupId );
 		}
@@ -266,7 +264,7 @@ function messageAnalytics( message ) {
 		} );
 	}
 	// click on login link inside a message
-	$( '.' + message ).on( 'click', '.message-login', function() {
+	$( '.' + message ).on( 'click', '.message-login', function () {
 		const url = $( this ).attr( 'href' );
 		analyticsTrackingEvent( 'event', messageRegion, 'Login Link', url );
 	} );
@@ -275,7 +273,7 @@ function messageAnalytics( message ) {
 	$( '.' + message ).on(
 		'click',
 		'a:not( .sm-close-btn, .message-login )',
-		function() {
+		function () {
 			analyticsTrackingEvent(
 				'event',
 				messageRegion,
@@ -290,7 +288,7 @@ function messageAnalytics( message ) {
  * When jQuery is loaded, set up session tracking and popup display
  *
  */
-$( document ).ready( function() {
+$( document ).ready( function () {
 	const popupSelector = 'wp-message-inserter-message-region-popup';
 	const popupShownCookieName = 'sm-shown';
 	const popupVisibleClass = 'wp-message-inserter-message-popup-visible';
@@ -319,7 +317,7 @@ $( document ).ready( function() {
 	const currentCount = setCurrentCount();
 
 	if ( 0 < $( '.' + checkSessionClass ).length ) {
-		$( '.' + checkSessionClass ).each( function() {
+		$( '.' + checkSessionClass ).each( function () {
 			const bannerSessionCount = parseInt(
 				$( this ).data( 'session-count-to-check' )
 			);

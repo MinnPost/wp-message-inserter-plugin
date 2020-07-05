@@ -54,7 +54,7 @@ function setupMessage() {
 	const maxBannerWidthSelector = '.cmb2-maximum-banner-width select';
 	if ( typeSelector.length > 0 ) {
 		showTypeField( typeSelector );
-		$( 'input[type="radio"]', typeSelector ).on( 'change', function() {
+		$( 'input[type="radio"]', typeSelector ).on( 'change', function () {
 			showTypeField( typeSelector );
 		} );
 	}
@@ -62,14 +62,14 @@ function setupMessage() {
 		showHideMaximumScreen( noMaxScreenSelector );
 		$( 'input[type="checkbox"]', noMaxScreenSelector ).on(
 			'change',
-			function( el ) {
+			function ( el ) {
 				showHideMaximumScreen( noMaxScreenSelector, el );
 			}
 		);
 	}
 	if ( $( maxBannerWidthSelector ).length > 0 ) {
 		showHideMaximumBanner( $( maxBannerWidthSelector ).val() );
-		$( document ).on( 'change', maxBannerWidthSelector, function() {
+		$( document ).on( 'change', maxBannerWidthSelector, function () {
 			showHideMaximumBanner( $( this ).val() );
 		} );
 	}
@@ -81,18 +81,15 @@ function setupMessage() {
 /**
  * When "add another screen size" runs, it adds a CMB2 row to the form. Set up the message form.
  */
-$( document ).on( 'cmb2_add_row', function() {
+$( document ).on( 'cmb2_add_row', function () {
 	setupMessage();
 } );
 
 /**
  * When jQuery loads, remove some default WP fields and set up the message form
  */
-$( document ).ready( function() {
-	$( '#pageparentdiv label[for=parent_id]' )
-		.parents( 'p' )
-		.eq( 0 )
-		.remove();
+$( document ).ready( function () {
+	$( '#pageparentdiv label[for=parent_id]' ).parents( 'p' ).eq( 0 ).remove();
 	$( '#pageparentdiv select#parent_id' ).remove();
 	setupMessage();
 } );
@@ -104,7 +101,7 @@ if ( jQuery.fn.select2 ) {
 	$( '.cmb2-insertable-message select' ).select2();
 
 	// Before a new group row is added, destroy Select2. We'll reinitialise after the row is added
-	$( '.cmb-repeatable-group' ).on( 'cmb2_add_group_row_start', function(
+	$( '.cmb-repeatable-group' ).on( 'cmb2_add_group_row_start', function (
 		event,
 		instance
 	) {
@@ -113,16 +110,19 @@ if ( jQuery.fn.select2 ) {
 		);
 		const $oldRow = $table.find( '.cmb-repeatable-grouping' ).last();
 
-		$oldRow.find( '.cmb2_select' ).each( function() {
+		$oldRow.find( '.cmb2_select' ).each( function () {
 			$( this ).select2( 'destroy' );
 		} );
 	} );
 
 	// When a new group row is added, clear selection and initialise Select2
-	$( '.cmb-repeatable-group' ).on( 'cmb2_add_row', function( event, newRow ) {
+	$( '.cmb-repeatable-group' ).on( 'cmb2_add_row', function (
+		event,
+		newRow
+	) {
 		$( newRow )
 			.find( '.cmb2_select' )
-			.each( function() {
+			.each( function () {
 				$( 'option:selected', this ).removeAttr( 'selected' );
 				$( this ).select2();
 			} );
@@ -130,10 +130,8 @@ if ( jQuery.fn.select2 ) {
 		// if it's a custom multiselect cmb2 field, make sure to clear the value because that appears to work differently
 		$( newRow )
 			.find( '.cmb2_multi_select' )
-			.each( function() {
-				$( this )
-					.val( [] )
-					.change();
+			.each( function () {
+				$( this ).val( [] ).change();
 				$( this ).select2( 'val', '' );
 			} );
 
@@ -141,7 +139,7 @@ if ( jQuery.fn.select2 ) {
 		$( newRow )
 			.prev()
 			.find( '.cmb2_select' )
-			.each( function() {
+			.each( function () {
 				$( this ).select2();
 			} );
 	} );
