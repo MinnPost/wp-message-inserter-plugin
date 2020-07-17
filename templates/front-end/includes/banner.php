@@ -51,13 +51,13 @@ $session_count_operator = isset( $message['meta'][ $prefix . 'operator_session' 
 					<!-- Dual Col -->
 					<div class="dual-wrap <?php echo ( isset( $screen_size[ $prefix . 'banner_flip_columns' ] ) && 'on' === $screen_size[ $prefix . 'banner_flip_columns' ] ) ? 'flip' : ''; ?>">
 						<?php require( 'banner/icon.php' ); ?>
-						<div class="col">
+						<div class="col col-text">
 							<?php require( 'banner/text.php' ); ?>
 							<?php if ( 'form' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
 								<?php require( 'banner/cta-form.php' ); ?>
 							<?php endif; ?>
 						</div>
-						<div class="col">
+						<div class="col col-button">
 							<?php if ( 'button' === $screen_size[ $prefix . 'cta_type' ] ) : ?>
 								<?php require( 'banner/cta-button.php' ); ?>
 							<?php endif; ?>

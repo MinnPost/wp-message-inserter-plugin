@@ -3,18 +3,51 @@
 
 // media query sizes
 $max-width-medium: 680px;
-$max-width-page: 975px;
-
-// type
-$base-font-size: 13px; // 13px
-$content-font-size: 1.23em; // 16px
-$large-title-font-size: 1.75em;
+$max-width-page: 80em;
 
 // spacing
 $cta-spacing: 0.5em; // similar to membership plugin
 
+// add a default assumption of horizontally centering
+// both the image and editor containers
+.m-wp-insert-message-images,
+.m-wp-insert-message-editor,
+.m-wp-insert-message-item-banner {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: $max-width-page;
+}
+
+// popup defaults
+.wp-message-inserter-message-region-popup {
+	margin: 0 auto;
+
+	// default styles for the editor type in a popup
+	&.wp-message-inserter-message-editor {
+		width: 100%;
+		background: #000;
+		color: #fff;
+	}
+
+	.sm-close-btn {
+		position: absolute;
+		top: $cta-spacing / 2;
+		right: $cta-spacing / 2;
+		color: #fff;
+		font-size: 2em;
+		height: 1em;
+		width: 1em;
+		display: block;
+
+		svg {
+			pointer-events: none;
+		}
+	}
+}
+
 // main wrapper
 // this can contain multiple items that are eligible to be displayed
+// also: keeping values out of this nesting makes it easier for the theme to override them
 .o-site-message-container {
 
 	~ .o-site-message-container {
@@ -29,34 +62,30 @@ $cta-spacing: 0.5em; // similar to membership plugin
 		}
 	}
 
-	// add a default assumption of horizontally centering
-	// both the image and editor containers
-	.m-wp-insert-message-images,
-	.m-wp-insert-message-editor {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: $max-width-page;
-	}
-
 	// banner wrapper
 	.m-wp-insert-message-item-banner {
 		position: relative;
 		width: 100%;
-		padding: 1.2em (1.5em + $cta-spacing * 2.5) 1.2em 1.5em;
-		margin: 1.5em auto;
+		padding: 1em (1.5em + $cta-spacing * 2.5) 1em 1em;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;
 
 		&.banner-width-page {
 			max-width: $max-width-page;
 		}
 
 		.disclaimer {
-			margin-top: 0.5em;
+			margin-top: $cta-spacing;
 		}
 
 		a.a-button {
 			padding: $cta-spacing 1em;
 			border-radius: $cta-spacing;
 			display: inline-block;
+
+			svg {
+				margin-right: $cta-spacing / 2;
+			}
 
 			@media screen and (min-width: $max-width-medium) {
 				white-space: nowrap;
@@ -87,7 +116,7 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			}
 
 			.col {
-				margin-bottom: 15px;
+				margin-bottom: 1.5em;
 
 				&:last-child {
 					margin-bottom: 0;
@@ -95,7 +124,7 @@ $cta-spacing: 0.5em; // similar to membership plugin
 
 				@media screen and (min-width: $max-width-medium) {
 					margin-bottom: 0;
-					padding: 1.2em;
+					padding: 1em;
 				}
 
 				&.banner-icon {
@@ -135,23 +164,21 @@ $cta-spacing: 0.5em; // similar to membership plugin
 		position: fixed;
 		z-index: 1999999999;
 		bottom: 0;
-		margin: 0 auto;
 		display: none;
 
 		// default styles for the banner type
 		.m-wp-insert-message-item-banner {
 			width: 100%;
-			font-size: 1em;
-			font-family: sans-serif;
-			margin: 0 auto;
 			text-align: center;
+			margin-top: 0;
+			margin-bottom: 0;
 
 			@media screen and (min-width: $max-width-medium) {
 				padding: 0;
 				text-align: left;
 				// Stacked Layout
 				.stack-wrap {
-					padding: 1.2em 0;
+					padding: 1em 0;
 					text-align: center;
 				}
 			}
@@ -166,8 +193,6 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			.m-wp-insert-message-item {
 				width: 100%;
 				padding: $cta-spacing 0;
-				font-size: 1em;
-				font-family: sans-serif;
 				max-width: $max-width-page;
 				margin: 0 auto;
 			}
@@ -180,20 +205,6 @@ $cta-spacing: 0.5em; // similar to membership plugin
 
 		&.wp-message-inserter-message-popup-visible {
 			display: block;
-		}
-
-		.sm-close-btn {
-			position: absolute;
-			top: $cta-spacing / 2;
-			right: $cta-spacing / 2;
-			color: #fff;
-			font-size: 2em;
-			height: 1em;
-			width: 1em;
-
-			svg {
-				pointer-events: none;
-			}
 		}
 	}
 }
