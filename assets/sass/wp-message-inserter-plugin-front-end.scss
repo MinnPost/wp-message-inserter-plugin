@@ -47,7 +47,7 @@ $cta-spacing: 0.5em; // similar to membership plugin
 
 // main wrapper
 // this can contain multiple items that are eligible to be displayed
-// also: keeping values out of this nesting makes it easier for the theme to override them
+// values not here are easier for the theme to override
 .o-site-message-container {
 
 	~ .o-site-message-container {
