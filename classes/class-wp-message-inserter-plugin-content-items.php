@@ -74,7 +74,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			'description'         => 'A site message.',
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'revisions', 'page-attributes' ),
-			'hierarchical'        => true,
+			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
