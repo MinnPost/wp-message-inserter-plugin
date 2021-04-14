@@ -288,6 +288,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 			$attributes = array();
 		}
 
+		// allow developers to change the template location, in case there are variant folder locations.
+		$location = apply_filters( $this->option_prefix . 'change_template_location', $location );
+
 		if ( '' !== $location ) {
 			$location = $location . '/';
 		}
