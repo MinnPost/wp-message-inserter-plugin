@@ -101,46 +101,46 @@ if ( jQuery.fn.select2 ) {
 	$( '.cmb2-insertable-message select' ).select2();
 
 	// Before a new group row is added, destroy Select2. We'll reinitialise after the row is added
-	$( '.cmb-repeatable-group' ).on( 'cmb2_add_group_row_start', function (
-		event,
-		instance
-	) {
-		const $table = $(
-			document.getElementById( $( instance ).data( 'selector' ) )
-		);
-		const $oldRow = $table.find( '.cmb-repeatable-grouping' ).last();
+	$( '.cmb-repeatable-group' ).on(
+		'cmb2_add_group_row_start',
+		function ( event, instance ) {
+			const $table = $(
+				document.getElementById( $( instance ).data( 'selector' ) )
+			);
+			const $oldRow = $table.find( '.cmb-repeatable-grouping' ).last();
 
-		$oldRow.find( '.cmb2_select' ).each( function () {
-			$( this ).select2( 'destroy' );
-		} );
-	} );
+			$oldRow.find( '.cmb2_select' ).each( function () {
+				$( this ).select2( 'destroy' );
+			} );
+		}
+	);
 
 	// When a new group row is added, clear selection and initialise Select2
-	$( '.cmb-repeatable-group' ).on( 'cmb2_add_row', function (
-		event,
-		newRow
-	) {
-		$( newRow )
-			.find( '.cmb2_select' )
-			.each( function () {
-				$( 'option:selected', this ).removeAttr( 'selected' );
-				$( this ).select2();
-			} );
+	$( '.cmb-repeatable-group' ).on(
+		'cmb2_add_row',
+		function ( event, newRow ) {
+			$( newRow )
+				.find( '.cmb2_select' )
+				.each( function () {
+					$( 'option:selected', this ).removeAttr( 'selected' );
+					$( this ).select2();
+				} );
 
-		// if it's a custom multiselect cmb2 field, make sure to clear the value because that appears to work differently
-		$( newRow )
-			.find( '.cmb2_multi_select' )
-			.each( function () {
-				$( this ).val( [] ).change();
-				$( this ).select2( 'val', '' );
-			} );
+			// if it's a custom multiselect cmb2 field, make sure to clear the value because that appears to work differently
+			$( newRow )
+				.find( '.cmb2_multi_select' )
+				.each( function () {
+					$( this ).val( [] ).change();
+					$( this ).select2( 'val', '' );
+				} );
 
-		// Reinitialise the field we previously destroyed
-		$( newRow )
-			.prev()
-			.find( '.cmb2_select' )
-			.each( function () {
-				$( this ).select2();
-			} );
-	} );
+			// Reinitialise the field we previously destroyed
+			$( newRow )
+				.prev()
+				.find( '.cmb2_select' )
+				.each( function () {
+					$( this ).select2();
+				} );
+		}
+	);
 }
