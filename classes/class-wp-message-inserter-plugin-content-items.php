@@ -684,6 +684,29 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			)
 		);
 
+		// Banner Link Text Color
+		$screen_size_box->add_group_field(
+			$prefix . 'screen_size',
+			array(
+				'name'             => esc_html__( 'Banner Link Text Color', 'wp-message-inserter-plugin' ),
+				'id'               => $prefix . 'banner_link_textcolor',
+				'desc'             => sprintf(
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
+					esc_html__( 'To optionally override the default link color for text links that are used inside the banner, add a value here. Use a link color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/">',
+					esc_html__( 'Contrast Checker' ),
+					'</a>'
+				),
+				'type'             => 'colorpicker',
+				'default'          => 'none',
+				'show_option_none' => true,
+				'classes'          => 'cmb2-message-type cmb2-message-type-banner',
+				'options'          => array(
+					'alpha' => false,
+				),
+			)
+		);
+
 		// Banner Main Heading
 		$screen_size_box->add_group_field(
 			$prefix . 'screen_size',
