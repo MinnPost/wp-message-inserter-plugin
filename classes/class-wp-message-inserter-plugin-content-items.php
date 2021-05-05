@@ -576,12 +576,28 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'    => esc_html__( 'Banner Background Color', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'banner_bgcolor',
+				'desc'    => sprintf(
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
+					esc_html__( 'Use a banner background color that is accessible with the text color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/" target="_blank">',
+					esc_html__( 'Contrast Checker' ),
+					'</a>',
+					'<a href="https://minnpost-color-matrix.herokuapp.com/?n=red%3Adark&n=red%3Amedium&n=red%3Ahighlight&n=green%3Adark&n=green%3Amedium&n=green%3Ahighlight&n=green%3Abackground&n=blue%3Adark&n=blue%3Amedium&n=blue%3Ahighlight&n=blue%3Abackground&n=purple%3Adark&n=purple%3Amedium&n=purple%3Ahighlight&n=purple%3Abackground&n=yellow%3Abackground&n=neutral%3Ablack&n=neutral%3Adark&n=neutral%3Amedium&n=neutral%3Aborder&n=neutral%3Ahighlight&n=neutral%3Alight&n=neutral%3Awhite&v=4C1016&v=7F121C&v=D7757E&v=24613B&v=1C8745&v=609F78&v=DDF8E7&v=135B7E&v=0C7BB0&v=5E99B5&v=DCF0FA&v=635077&v=8C64B4&v=A880D0&v=EBE7EF&v=FBD341&v=1A1818&v=5E6E76&v=869298&v=D6D6DA&v=EBEBFB&v=EFEFF0&v=FFFFFF" target="_blank">',
+					esc_html__( 'MinnPost color palette' ),
+					'</a>',
+				),
 				'type'    => 'colorpicker',
 				'default' => '#0080a3',
 				'classes' => 'cmb2-message-type cmb2-message-type-banner',
 				'options' => array(
 					'alpha' => true,
 				),
+				/*'attributes' => array(
+					'data-colorpicker' => json_encode( array(
+						// Iris Options set here as values in the 'data-colorpicker' array
+						'palettes' => array( '#7f121c', '#1c8745', '#135b7e', '#635077', '#fbd341', '#b94f03' ),
+					) ),
+				),*/
 			)
 		);
 
@@ -619,11 +635,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'    => esc_html__( 'Close Button Color', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'close_button_color',
 				'desc'    => sprintf(
-					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
-					esc_html__( 'Use a close button color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
-					'<a href="https://webaim.org/resources/contrastchecker/">',
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
+					esc_html__( 'Use a close button color that is accessible with the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/" target="_blank">',
 					esc_html__( 'Contrast Checker' ),
-					'</a>'
+					'</a>',
+					'<a href="https://minnpost-color-matrix.herokuapp.com/?n=red%3Adark&n=red%3Amedium&n=red%3Ahighlight&n=green%3Adark&n=green%3Amedium&n=green%3Ahighlight&n=green%3Abackground&n=blue%3Adark&n=blue%3Amedium&n=blue%3Ahighlight&n=blue%3Abackground&n=purple%3Adark&n=purple%3Amedium&n=purple%3Ahighlight&n=purple%3Abackground&n=yellow%3Abackground&n=neutral%3Ablack&n=neutral%3Adark&n=neutral%3Amedium&n=neutral%3Aborder&n=neutral%3Ahighlight&n=neutral%3Alight&n=neutral%3Awhite&v=4C1016&v=7F121C&v=D7757E&v=24613B&v=1C8745&v=609F78&v=DDF8E7&v=135B7E&v=0C7BB0&v=5E99B5&v=DCF0FA&v=635077&v=8C64B4&v=A880D0&v=EBE7EF&v=FBD341&v=1A1818&v=5E6E76&v=869298&v=D6D6DA&v=EBEBFB&v=EFEFF0&v=FFFFFF" target="_blank">',
+					esc_html__( 'MinnPost color palette' ),
+					'</a>',
 				),
 				'type'    => 'colorpicker',
 				'default' => '#ffffff',
@@ -669,11 +688,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'    => esc_html__( 'Banner Text Color', 'wp-message-inserter-plugin' ),
 				'id'      => $prefix . 'banner_textcolor',
 				'desc'    => sprintf(
-					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
-					esc_html__( 'Use a text color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
-					'<a href="https://webaim.org/resources/contrastchecker/">',
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
+					esc_html__( 'Use a text color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/" target="_blank">',
 					esc_html__( 'Contrast Checker' ),
-					'</a>'
+					'</a>',
+					'<a href="https://minnpost-color-matrix.herokuapp.com/?n=red%3Adark&n=red%3Amedium&n=red%3Ahighlight&n=green%3Adark&n=green%3Amedium&n=green%3Ahighlight&n=green%3Abackground&n=blue%3Adark&n=blue%3Amedium&n=blue%3Ahighlight&n=blue%3Abackground&n=purple%3Adark&n=purple%3Amedium&n=purple%3Ahighlight&n=purple%3Abackground&n=yellow%3Abackground&n=neutral%3Ablack&n=neutral%3Adark&n=neutral%3Amedium&n=neutral%3Aborder&n=neutral%3Ahighlight&n=neutral%3Alight&n=neutral%3Awhite&v=4C1016&v=7F121C&v=D7757E&v=24613B&v=1C8745&v=609F78&v=DDF8E7&v=135B7E&v=0C7BB0&v=5E99B5&v=DCF0FA&v=635077&v=8C64B4&v=A880D0&v=EBE7EF&v=FBD341&v=1A1818&v=5E6E76&v=869298&v=D6D6DA&v=EBEBFB&v=EFEFF0&v=FFFFFF" target="_blank">',
+					esc_html__( 'MinnPost color palette' ),
+					'</a>',
 				),
 				'type'    => 'colorpicker',
 				'default' => '#ffffff',
@@ -691,11 +713,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'             => esc_html__( 'Banner Link Text Color', 'wp-message-inserter-plugin' ),
 				'id'               => $prefix . 'banner_link_textcolor',
 				'desc'             => sprintf(
-					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
-					esc_html__( 'To optionally override the default link color for text links that are used inside the banner, add a value here. Use a link color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
-					'<a href="https://webaim.org/resources/contrastchecker/">',
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
+					esc_html__( 'To optionally override the default link color for text links that are used inside the banner, add a value here. Use a link color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/" target="_blank">',
 					esc_html__( 'Contrast Checker' ),
-					'</a>'
+					'</a>',
+					'<a href="https://minnpost-color-matrix.herokuapp.com/?n=red%3Adark&n=red%3Amedium&n=red%3Ahighlight&n=green%3Adark&n=green%3Amedium&n=green%3Ahighlight&n=green%3Abackground&n=blue%3Adark&n=blue%3Amedium&n=blue%3Ahighlight&n=blue%3Abackground&n=purple%3Adark&n=purple%3Amedium&n=purple%3Ahighlight&n=purple%3Abackground&n=yellow%3Abackground&n=neutral%3Ablack&n=neutral%3Adark&n=neutral%3Amedium&n=neutral%3Aborder&n=neutral%3Ahighlight&n=neutral%3Alight&n=neutral%3Awhite&v=4C1016&v=7F121C&v=D7757E&v=24613B&v=1C8745&v=609F78&v=DDF8E7&v=135B7E&v=0C7BB0&v=5E99B5&v=DCF0FA&v=635077&v=8C64B4&v=A880D0&v=EBE7EF&v=FBD341&v=1A1818&v=5E6E76&v=869298&v=D6D6DA&v=EBEBFB&v=EFEFF0&v=FFFFFF" target="_blank">',
+					esc_html__( 'MinnPost color palette' ),
+					'</a>',
 				),
 				'type'             => 'colorpicker',
 				'default'          => 'none',
@@ -813,11 +838,14 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'name'       => esc_html__( 'Button Text Color', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_btn_textcolor',
 				'desc'       => sprintf(
-					// translators: 1) contrast checker url, 2) label for link, 3) close link tag
-					esc_html__( 'Use a button text color that is accessible on top of the button background color. To check contrast values, use the %1$s%2$s%3$s.', 'wp-message-inserter-plugin' ),
-					'<a href="https://webaim.org/resources/contrastchecker/">',
+					// translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
+					esc_html__( 'Use a button text color that is accessible on top of the button background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there.', 'wp-message-inserter-plugin' ),
+					'<a href="https://webaim.org/resources/contrastchecker/" target="_blank">',
 					esc_html__( 'Contrast Checker' ),
-					'</a>'
+					'</a>',
+					'<a href="https://minnpost-color-matrix.herokuapp.com/?n=red%3Adark&n=red%3Amedium&n=red%3Ahighlight&n=green%3Adark&n=green%3Amedium&n=green%3Ahighlight&n=green%3Abackground&n=blue%3Adark&n=blue%3Amedium&n=blue%3Ahighlight&n=blue%3Abackground&n=purple%3Adark&n=purple%3Amedium&n=purple%3Ahighlight&n=purple%3Abackground&n=yellow%3Abackground&n=neutral%3Ablack&n=neutral%3Adark&n=neutral%3Amedium&n=neutral%3Aborder&n=neutral%3Ahighlight&n=neutral%3Alight&n=neutral%3Awhite&v=4C1016&v=7F121C&v=D7757E&v=24613B&v=1C8745&v=609F78&v=DDF8E7&v=135B7E&v=0C7BB0&v=5E99B5&v=DCF0FA&v=635077&v=8C64B4&v=A880D0&v=EBE7EF&v=FBD341&v=1A1818&v=5E6E76&v=869298&v=D6D6DA&v=EBEBFB&v=EFEFF0&v=FFFFFF" target="_blank">',
+					esc_html__( 'MinnPost color palette' ),
+					'</a>',
 				),
 				'type'       => 'colorpicker',
 				'default'    => '#ffffff',
