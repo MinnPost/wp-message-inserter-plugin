@@ -13,6 +13,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	public $slug;
 	public $regions;
 
+	private $default_type;
+
 	public function __construct() {
 
 		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
@@ -20,6 +22,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$this->version          = wp_message_inserter_plugin()->version;
 		$this->slug             = wp_message_inserter_plugin()->slug;
 		$this->regions          = wp_message_inserter_plugin()->regions;
+
+		$this->default_type = 'image';
 
 		$this->add_actions();
 
@@ -32,6 +36,81 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	public function add_actions() {
 		add_action( 'init', array( $this, 'create_message' ), 0 );
 		add_action( 'cmb2_init', array( $this, 'create_message_fields' ) );
+
+		add_action( 'restrict_manage_posts', array( $this, 'filter_restrict_manage_posts' ) );
+		add_filter( 'parse_query', array( $this, 'posts_filter' ) );
+	}
+
+	/**
+	* Dropdown for filtering messages by type and region.
+	*
+	*/
+	function filter_restrict_manage_posts() {
+		$type = 'post';
+		if ( isset( $_GET['post_type'] ) ) {
+			$type = esc_attr( $_GET['post_type'] );
+		}
+		//add filter to the post type you want
+		if ( 'message' === $type ) { //Replace NAME_OF_YOUR_POST with the name of custom post
+			$type_values = $this->get_type_options( array( 'description' ) );
+			$region_values = $this->get_region_options();
+			?>
+			<select name="admin_filter_by_type">
+				<option value=""><?php echo esc_html__( 'All site message types', 'wp-message-inserter-plugin' ); ?></option>
+				<?php
+				$current_type = isset( $_GET['admin_filter_by_type'] ) ? esc_attr( $_GET['admin_filter_by_type'] ) : '';
+				foreach ( $type_values as $key => $value ) {
+					printf(
+						'<option value="%1$s"%2$s>%3$s</option>',
+						esc_attr( $key ),
+						$key === $current_type ? ' selected="selected"' : '',
+						esc_html( $value )
+					);
+				}
+				?>
+			</select>
+			<select name="admin_filter_by_region">
+				<option value=""><?php echo esc_html__( 'All site message regions', 'wp-message-inserter-plugin' ); ?></option>
+				<?php
+				$current_region = isset( $_GET['admin_filter_by_region'] ) ? esc_attr( $_GET['admin_filter_by_region'] ) : '';
+				foreach ( $region_values as $key => $value ) {
+					printf(
+						'<option value="%1$s"%2$s>%3$s</option>',
+						esc_attr( $key ),
+						$key === $current_region ? ' selected="selected"' : '',
+						esc_html( $value )
+					);
+				}
+				?>
+			</select>
+			<?php
+		}
+	}
+
+	/**
+	* Filter the admin query for messages by what type or region they are, if one is present.
+	* @param object $query
+	* @return object $query
+	*
+	*/
+	function posts_filter( $query ) {
+		global $pagenow;
+		$type = 'post';
+		if ( isset( $_GET['post_type'] ) ) {
+			$type = esc_attr( $_GET['post_type'] );
+		}
+		if ( 'message' === $type && is_admin() && 'edit.php' === $pagenow ) {
+			// filter by type
+			if ( isset( $_GET['admin_filter_by_type'] ) && '' !== $_GET['admin_filter_by_type'] ) {
+				$query->query_vars['meta_key']   = $this->post_meta_prefix . 'message_type';
+				$query->query_vars['meta_value'] = esc_attr( $_GET['admin_filter_by_type'] );
+			}
+			// filter by region
+			if ( isset( $_GET['admin_filter_by_region'] ) && '' !== $_GET['admin_filter_by_region'] ) {
+				$query->query_vars['meta_key']   = $this->post_meta_prefix . 'region';
+				$query->query_vars['meta_value'] = esc_attr( $_GET['admin_filter_by_region'] );
+			}
+		}
 	}
 
 	/**
@@ -124,12 +203,8 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'id'         => $prefix . 'message_type',
 				'type'       => 'radio_inline',
 				'desc'       => '',
-				'options'    => array(
-					'image'  => esc_html__( 'Image (a single image)', 'wp-message-inserter-plugin' ),
-					'editor' => esc_html__( 'Editor (add your own text or HTML)', 'wp-message-inserter-plugin' ),
-					'banner' => esc_html__( 'Banner (configure your settings)', 'wp-message-inserter-plugin' ),
-				),
-				'default'    => 'image',
+				'options'    => $this->get_type_options(),
+				'default'    => $this->default_type,
 				'classes'    => 'cmb2-message-type-selector',
 				'attributes' => array(
 					'required' => true,
@@ -958,7 +1033,48 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	}
 
 	/**
-	* Display regions as <select> options
+	* Return possible types
+	*
+	* @param array $omit
+	* @return array $types
+	*
+	*/
+	private function get_type_options( $omit = array() ) {
+
+		$types = array(
+			'image' => array(
+				'name'        => 'Image',
+				'description' => '(a single image)',
+			),
+			'editor' => array(
+				'editor'        => 'Editor',
+				'description' => '(add your own text or HTML)',
+			),
+			'banner' => array(
+				'banner'        => 'Banner',
+				'description' => '(configure your settings)',
+			),
+		);
+
+		$combined_types = array();
+		if ( ! empty( $omit ) ) {
+			foreach ( $omit as $omit_key ) {
+				foreach ( $types as $key => $type ) {
+					unset( $types[ $key ][ $omit_key ] );
+				}
+			}
+		}
+
+		foreach ( $types as $key => $type ) {
+			$combined_types[ $key ] = implode( ' ', $type );
+		}
+		$types = $combined_types;
+
+		return $types;
+	}
+
+	/**
+	* Return regions for <select> options
 	*
 	* @param array $omit
 	* @return array $regions
