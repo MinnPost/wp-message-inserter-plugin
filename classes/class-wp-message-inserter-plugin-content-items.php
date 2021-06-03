@@ -52,7 +52,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		}
 		//add filter to the post type you want
 		if ( 'message' === $type ) { //Replace NAME_OF_YOUR_POST with the name of custom post
-			$type_values = $this->get_type_options( array( 'description' ) );
+			$type_values   = $this->get_type_options( array( 'description' ) );
 			$region_values = $this->get_region_options();
 			?>
 			<select name="admin_filter_by_type">
@@ -104,6 +104,11 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			if ( isset( $_GET['admin_filter_by_type'] ) && '' !== $_GET['admin_filter_by_type'] ) {
 				$query->query_vars['meta_key']   = $this->post_meta_prefix . 'message_type';
 				$query->query_vars['meta_value'] = esc_attr( $_GET['admin_filter_by_type'] );
+			}
+			// filter by delivery method
+			if ( isset( $_GET['admin_filter_by_delivery_method'] ) && '' !== $_GET['admin_filter_by_delivery_method'] ) {
+				$query->query_vars['meta_key']   = $this->post_meta_prefix . 'delivery_method';
+				$query->query_vars['meta_value'] = esc_attr( $_GET['admin_filter_by_delivery_method'] );
 			}
 			// filter by region
 			if ( isset( $_GET['admin_filter_by_region'] ) && '' !== $_GET['admin_filter_by_region'] ) {
@@ -236,10 +241,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'type'             => 'radio_inline',
 				'show_option_none' => false,
 				'desc'             => esc_html__( 'How the content containing this message will be delivered.', 'wp-message-inserter-plugin' ),
-				'options'          => array(
-					'front-end' => esc_html__( 'Website', 'wp-message-inserter-plugin' ),
-					'email'     => esc_html__( 'Email', 'wp-message-inserter-plugin' ),
-				),
+				'options'          => $this->get_delivery_method_options(),
 				'default'          => 'front-end',
 				'classes'          => 'cmb2-message-delivery-selector',
 				'attributes'       => array(
@@ -1071,6 +1073,47 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$types = $combined_types;
 
 		return $types;
+	}
+
+	/**
+	* Return delivery methods for <select> options
+	*
+	* @param string $key
+	* @param array $omit
+	* @return array $delivery_methods
+	*
+	*/
+	public function get_delivery_method_options( $method = '', $omit = array() ) {
+		$delivery_methods = array(
+			'front-end' => array(
+				'name'        => 'Website',
+				'description' => '',
+			),
+			'email'     => array(
+				'name'        => 'Email',
+				'description' => '',
+			),
+		);
+
+		if ( '' !== $method ) {
+			$delivery_methods = array( $delivery_methods[ $method ] );
+		}
+
+		$combined_delivery_method = array();
+		if ( ! empty( $omit ) ) {
+			foreach ( $omit as $omit_key ) {
+				foreach ( $delivery_methods as $key => $delivery_method ) {
+					unset( $delivery_methods[ $key ][ $omit_key ] );
+				}
+			}
+		}
+
+		foreach ( $delivery_methods as $key => $delivery_method ) {
+			$combined_delivery_methods[ $key ] = implode( ' ', $delivery_method );
+		}
+		$delivery_methods = $combined_delivery_methods;
+
+		return $delivery_methods;
 	}
 
 	/**

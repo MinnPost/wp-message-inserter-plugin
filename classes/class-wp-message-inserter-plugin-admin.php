@@ -256,10 +256,11 @@ class WP_Message_Inserter_Plugin_Admin {
 	* @return array $columns
 	*/
 	public function filter_posts_columns( $columns ) {
-		$columns['type']   = __( 'Type', 'wp-message-inserter-plugin' );
-		$columns['region'] = __( 'Region', 'wp-message-inserter-plugin' );
+		$columns['type']            = __( 'Type', 'wp-message-inserter-plugin' );
+		$columns['delivery_method'] = __( 'Delivery Method', 'wp-message-inserter-plugin' );
+		$columns['region']          = __( 'Region', 'wp-message-inserter-plugin' );
 
-		$column_order = array( 'cb', 'title', 'type', 'region', 'date' );
+		$column_order = array( 'cb', 'title', 'type', 'delivery_method', 'region', 'date' );
 		foreach ( $column_order as $column_name ) {
 			$new_columns[ $column_name ] = $columns[ $column_name ];
 		}
@@ -277,6 +278,14 @@ class WP_Message_Inserter_Plugin_Admin {
 		if ( 'type' === $column ) {
 			echo ( '' !== get_post_meta( $post_id, $this->post_meta_prefix . 'message_type', true ) ) ? get_post_meta( $post_id, $this->post_meta_prefix . 'message_type', true ) : '';
 		}
+		// message delivery method
+		if ( 'delivery_method' === $column ) {
+			$value = get_post_meta( $post_id, $this->post_meta_prefix . 'delivery_method', true );
+			if ( ! empty( $value ) ) {
+				$name = $this->get_delivery_method_name( $value );
+				echo $name;
+			}
+		}
 		// message region
 		if ( 'region' === $column ) {
 			echo ( '' !== get_post_meta( $post_id, $this->post_meta_prefix . 'region', true ) ) ? get_post_meta( $post_id, $this->post_meta_prefix . 'region', true ) : '';
@@ -290,8 +299,9 @@ class WP_Message_Inserter_Plugin_Admin {
 	* @return array $columns
 	*/
 	public function message_sortable_columns( $columns ) {
-		$columns['type']   = 'type';
-		$columns['region'] = 'region';
+		$columns['type']            = 'type';
+		$columns['delivery_method'] = 'delivery_method';
+		$columns['region']          = 'region';
 		return $columns;
 	}
 
@@ -317,6 +327,26 @@ class WP_Message_Inserter_Plugin_Admin {
 					),
 					array(
 						'key'     => $this->post_meta_prefix . 'message_type',
+						'compare' => 'NOT EXISTS',
+						'value'   => 'bug #23268', // arbitrary value
+					),
+				)
+			);
+			$query->set( 'orderby', 'meta_value' );
+		}
+
+		// sort by delivery method
+		if ( 'delivery_method' === $query->get( 'orderby' ) ) {
+			$query->set(
+				'meta_query',
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => $this->post_meta_prefix . 'delivery_method',
+						'compare' => 'EXISTS',
+					),
+					array(
+						'key'     => $this->post_meta_prefix . 'delivery_method',
 						'compare' => 'NOT EXISTS',
 						'value'   => 'bug #23268', // arbitrary value
 					),
@@ -762,6 +792,21 @@ class WP_Message_Inserter_Plugin_Admin {
 				esc_html( $desc )
 			);
 		}
+	}
+
+	/**
+	* Get the human-friendly name of the delivery method
+	*
+	* @param string $value
+	* @param string $name
+	*/
+	private function get_delivery_method_name( $value ) {
+		$name   = '';
+		$method = $this->content_items->get_delivery_method_options( $value );
+		if ( is_array( $method ) ) {
+			$name = $method[0];
+		}
+		return $name;
 	}
 
 }
