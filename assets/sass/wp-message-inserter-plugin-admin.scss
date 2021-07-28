@@ -121,7 +121,7 @@ $select-border-color: #7e8993;
   */
 .admin-color {
 	$wp_admin_colors: (
-		blue: #096484,
+		"blue": #096484,
 		coffee: #c7a589,
 		ectoplasm: #a3b745,
 		midnight: #e14d43,
@@ -185,6 +185,21 @@ $select-border-color: #7e8993;
 
 			.select2-selection__choice {
 				line-height: 22px;
+			}
+		}
+	}
+
+	// link field
+	.cmb2-custom-link-field-holder {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		.cmb2-custom-link-field {
+			max-width: 35%;
+
+			&.cmb2-custom-link-field-target {
+				max-width: 20%;
 			}
 		}
 	}

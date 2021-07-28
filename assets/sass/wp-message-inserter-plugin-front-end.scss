@@ -1,3 +1,6 @@
+// modules
+@use "sass:math";
+
 // variables. some of these match variables in minnpost-largo.
 // override for theme-specific design requirements in minnpost-largo styles.
 
@@ -31,8 +34,8 @@ $cta-spacing: 0.5em; // similar to membership plugin
 
 	.sm-close-btn {
 		position: absolute;
-		top: $cta-spacing / 2;
-		right: $cta-spacing / 2;
+		top: math.div($cta-spacing, 2);
+		right: math.div($cta-spacing, 2);
 		color: #fff;
 		font-size: 2em;
 		height: 1em;
@@ -84,7 +87,7 @@ $cta-spacing: 0.5em; // similar to membership plugin
 			display: inline-block;
 
 			svg {
-				margin-right: $cta-spacing / 2;
+				margin-right: math.div($cta-spacing, 2);
 			}
 
 			@media screen and (min-width: $max-width-medium) {

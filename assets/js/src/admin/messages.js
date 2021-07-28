@@ -13,7 +13,7 @@ function showTypeField( selector ) {
  * Whether we need the maximum screen width text field or not
  *
  * @param {string} selector the div that holds the checkboxes
- * @param {string} current the currently checked item
+ * @param {string} current  the currently checked item
  */
 function showHideMaximumScreen( selector, current ) {
 	if ( 'undefined' === typeof current ) {
