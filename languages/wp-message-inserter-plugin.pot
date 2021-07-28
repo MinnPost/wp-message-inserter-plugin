@@ -41,471 +41,483 @@ msgstr ""
 msgid "Select one"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:59
+#: classes/class-wp-message-inserter-plugin-content-items.php:62
 msgid "All site message types"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:73
+#: classes/class-wp-message-inserter-plugin-content-items.php:76
 msgid "All site message regions"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:128
+#: classes/class-wp-message-inserter-plugin-content-items.php:131
 msgctxt "Post Type General Name"
 msgid "Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:129
+#: classes/class-wp-message-inserter-plugin-content-items.php:132
 msgctxt "Post Type Singular Name"
 msgid "Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:130
+#: classes/class-wp-message-inserter-plugin-content-items.php:133
 msgid "Site Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:131, classes/class-wp-message-inserter-plugin-content-items.php:194
+#: classes/class-wp-message-inserter-plugin-content-items.php:134, classes/class-wp-message-inserter-plugin-content-items.php:197
 msgid "Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:132
+#: classes/class-wp-message-inserter-plugin-content-items.php:135
 msgid "Message Archives"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:133
+#: classes/class-wp-message-inserter-plugin-content-items.php:136
 msgid "Message Attributes"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:134
+#: classes/class-wp-message-inserter-plugin-content-items.php:137
 msgid "Parent Message:"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:135
+#: classes/class-wp-message-inserter-plugin-content-items.php:138
 msgid "All Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:136
+#: classes/class-wp-message-inserter-plugin-content-items.php:139
 msgid "Add New Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:137
+#: classes/class-wp-message-inserter-plugin-content-items.php:140
 msgid "Add New"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:138
+#: classes/class-wp-message-inserter-plugin-content-items.php:141
 msgid "New Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:139
+#: classes/class-wp-message-inserter-plugin-content-items.php:142
 msgid "Edit Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:140
+#: classes/class-wp-message-inserter-plugin-content-items.php:143
 msgid "Update Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:141
+#: classes/class-wp-message-inserter-plugin-content-items.php:144
 msgid "View Message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:142
+#: classes/class-wp-message-inserter-plugin-content-items.php:145
 msgid "View Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:143
+#: classes/class-wp-message-inserter-plugin-content-items.php:146
 msgid "Search Messages"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:144
+#: classes/class-wp-message-inserter-plugin-content-items.php:147
 msgid "Not found"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:145
+#: classes/class-wp-message-inserter-plugin-content-items.php:148
 msgid "Not found in Trash"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:146
+#: classes/class-wp-message-inserter-plugin-content-items.php:149
 msgid "Featured Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:147
+#: classes/class-wp-message-inserter-plugin-content-items.php:150
 msgid "Set featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:148
+#: classes/class-wp-message-inserter-plugin-content-items.php:151
 msgid "Remove featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:149
+#: classes/class-wp-message-inserter-plugin-content-items.php:152
 msgid "Use as featured image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:150
+#: classes/class-wp-message-inserter-plugin-content-items.php:153
 msgid "Insert into message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:151
+#: classes/class-wp-message-inserter-plugin-content-items.php:154
 msgid "Uploaded to this message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:152
+#: classes/class-wp-message-inserter-plugin-content-items.php:155
 msgid "Messages list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:153
+#: classes/class-wp-message-inserter-plugin-content-items.php:156
 msgid "Messages list navigation"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:154
+#: classes/class-wp-message-inserter-plugin-content-items.php:157
 msgid "Filter message list"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:222
+#: classes/class-wp-message-inserter-plugin-content-items.php:225
 msgid "Link URL"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:225
+#: classes/class-wp-message-inserter-plugin-content-items.php:228
 msgid "If you enter a URL here, your entire image will link to the URL."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:243
+#: classes/class-wp-message-inserter-plugin-content-items.php:246
 msgid "How the content containing this message will be delivered."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:263
+#: classes/class-wp-message-inserter-plugin-content-items.php:266
 msgid "Where on the site this message will appear."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:274
+#: classes/class-wp-message-inserter-plugin-content-items.php:277
 msgid "Popup Close Time - Days"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:278
+#: classes/class-wp-message-inserter-plugin-content-items.php:281
 msgid "How many days should this be hidden on close? The hours field will add on to this value."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:290
+#: classes/class-wp-message-inserter-plugin-content-items.php:293
 msgid "Popup Close Time - Hours"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:293
+#: classes/class-wp-message-inserter-plugin-content-items.php:296
 msgid "How many hours should this be hidden on close? This will add on to the days amount."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:306
+#: classes/class-wp-message-inserter-plugin-content-items.php:309
 msgid "Check Sessions?"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:309
+#: classes/class-wp-message-inserter-plugin-content-items.php:312
 msgid "This determines whether or not to check how many sessions a user has when determing what to show them."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:319
+#: classes/class-wp-message-inserter-plugin-content-items.php:322
 msgid "Number of Sessions"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:322
+#: classes/class-wp-message-inserter-plugin-content-items.php:325
 msgid "How many sessions a user should have for banner display to apply."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:334
+#: classes/class-wp-message-inserter-plugin-content-items.php:337
 msgid "Session Check Operator"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:337
+#: classes/class-wp-message-inserter-plugin-content-items.php:340
 msgid "Which operator the banner uses to compare the session count."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:355
+#: classes/class-wp-message-inserter-plugin-content-items.php:358
 msgid "Conditional {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:356
+#: classes/class-wp-message-inserter-plugin-content-items.php:359
 msgid "Add Another Conditional"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:366
+#: classes/class-wp-message-inserter-plugin-content-items.php:369
 msgid "Conditional"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:367
+#: classes/class-wp-message-inserter-plugin-content-items.php:370
 msgid "Pick a conditional."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:382
+#: classes/class-wp-message-inserter-plugin-content-items.php:385
 msgid "Conditional Value"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:383
+#: classes/class-wp-message-inserter-plugin-content-items.php:386
 msgid "Enter the value(s) expected for this conditional."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:414
+#: classes/class-wp-message-inserter-plugin-content-items.php:417
 msgid "True"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:415
+#: classes/class-wp-message-inserter-plugin-content-items.php:418
 msgid "False"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:427
+#: classes/class-wp-message-inserter-plugin-content-items.php:430
 msgid "Conditional Operator"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:432
+#: classes/class-wp-message-inserter-plugin-content-items.php:435
 msgid "AND"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:433
+#: classes/class-wp-message-inserter-plugin-content-items.php:436
 msgid "OR"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:448
+#: classes/class-wp-message-inserter-plugin-content-items.php:451
 msgid "Screen Size {#}"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:449
+#: classes/class-wp-message-inserter-plugin-content-items.php:452
 msgid "Add Another Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:450
+#: classes/class-wp-message-inserter-plugin-content-items.php:453
 msgid "Remove Screen Size"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:464, classes/class-wp-message-inserter-plugin-content-items.php:477
+#: classes/class-wp-message-inserter-plugin-content-items.php:467, classes/class-wp-message-inserter-plugin-content-items.php:480
 msgid "in pixels"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:474
+#: classes/class-wp-message-inserter-plugin-content-items.php:477
 msgid "Maximum Screen Width"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:488
+#: classes/class-wp-message-inserter-plugin-content-items.php:491
 msgid "No Maximum Screen Width"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:502
+#: classes/class-wp-message-inserter-plugin-content-items.php:505
 msgid "Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:503
+#: classes/class-wp-message-inserter-plugin-content-items.php:506
 msgid "Upload an image or enter an URL."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:527
+#: classes/class-wp-message-inserter-plugin-content-items.php:530
 msgid "Editor"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:528
+#: classes/class-wp-message-inserter-plugin-content-items.php:531
 msgid "Add content for this message"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:555
+#: classes/class-wp-message-inserter-plugin-content-items.php:558
 msgid "A banner will take up this amount of its container. For example, a 100% banner inside a full width container will be the whole width of the browser window. A full container width banner will take up the default site width, which is smaller than the browser window and horizontally centered within it."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:557
+#: classes/class-wp-message-inserter-plugin-content-items.php:560
 msgid "Full Container Width (100%)"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:558
+#: classes/class-wp-message-inserter-plugin-content-items.php:561
 msgid "Site Page Width (not full window)"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:559
+#: classes/class-wp-message-inserter-plugin-content-items.php:562
 msgid "95%"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:560
+#: classes/class-wp-message-inserter-plugin-content-items.php:563
 msgid "90%"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:561
+#: classes/class-wp-message-inserter-plugin-content-items.php:564
 msgid "80%"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:562
+#: classes/class-wp-message-inserter-plugin-content-items.php:565
 msgid "50%"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:563
+#: classes/class-wp-message-inserter-plugin-content-items.php:566
 msgid "Custom Width"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:577
+#: classes/class-wp-message-inserter-plugin-content-items.php:580
 msgid "Custom Maximum Banner Width"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:580
+#: classes/class-wp-message-inserter-plugin-content-items.php:583
 msgid "Enter a number for the width you want."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:596
+#: classes/class-wp-message-inserter-plugin-content-items.php:599
 msgid "Custom Maximum Banner Width Unit"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:599
+#: classes/class-wp-message-inserter-plugin-content-items.php:602
 msgid "By default, this will use percentage, which refers to the percentage of the container. For example, entering 42% will make a banner that takes up 42% of whatever contains it."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:603
+#: classes/class-wp-message-inserter-plugin-content-items.php:606
 msgid "percent"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:604
+#: classes/class-wp-message-inserter-plugin-content-items.php:607
 msgid "pixels"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:605
+#: classes/class-wp-message-inserter-plugin-content-items.php:608
 msgid "em"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:606
+#: classes/class-wp-message-inserter-plugin-content-items.php:609
 msgid "rem"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:626
+#: classes/class-wp-message-inserter-plugin-content-items.php:629
 msgid "Dual column banners will position their text, heading, and/or form elements next to any CTA button. Stacked elements will position them vertically instead."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:628
+#: classes/class-wp-message-inserter-plugin-content-items.php:631
 msgid "Dual Column"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:629
+#: classes/class-wp-message-inserter-plugin-content-items.php:632
 msgid "Stacked"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:642
+#: classes/class-wp-message-inserter-plugin-content-items.php:645
 msgid "Flip Columns"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:645
+#: classes/class-wp-message-inserter-plugin-content-items.php:648
 msgid "Checking this box makes the CTA button appear before the text, heading, and/or form elements."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:654
+#: classes/class-wp-message-inserter-plugin-content-items.php:657
 msgid "Banner Background Color"
 msgstr ""
 
 #. translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
-#: classes/class-wp-message-inserter-plugin-content-items.php:658
+#: classes/class-wp-message-inserter-plugin-content-items.php:661
 msgid "Use a banner background color that is accessible with the text color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:685
+#: classes/class-wp-message-inserter-plugin-content-items.php:688
 msgid "Banner Background Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:687
+#: classes/class-wp-message-inserter-plugin-content-items.php:690
 msgid "Image is optional. The Background Color will overlay this image if both are present."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:690, classes/class-wp-message-inserter-plugin-content-items.php:743
+#: classes/class-wp-message-inserter-plugin-content-items.php:693, classes/class-wp-message-inserter-plugin-content-items.php:746
 msgid "Add Image"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:712
+#: classes/class-wp-message-inserter-plugin-content-items.php:715
 msgid "Close Button Color"
 msgstr ""
 
 #. translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
-#: classes/class-wp-message-inserter-plugin-content-items.php:716
+#: classes/class-wp-message-inserter-plugin-content-items.php:719
 msgid "Use a close button color that is accessible with the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:738
+#: classes/class-wp-message-inserter-plugin-content-items.php:741
 msgid "Banner Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:740
+#: classes/class-wp-message-inserter-plugin-content-items.php:743
 msgid "Image is optional."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:765
+#: classes/class-wp-message-inserter-plugin-content-items.php:768
 msgid "Banner Text Color"
 msgstr ""
 
 #. translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
-#: classes/class-wp-message-inserter-plugin-content-items.php:769
+#: classes/class-wp-message-inserter-plugin-content-items.php:772
 msgid "Use a text color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:790
+#: classes/class-wp-message-inserter-plugin-content-items.php:793
 msgid "Banner Link Text Color"
 msgstr ""
 
 #. translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
-#: classes/class-wp-message-inserter-plugin-content-items.php:794
+#: classes/class-wp-message-inserter-plugin-content-items.php:797
 msgid "To optionally override the default link color for text links that are used inside the banner, add a value here. Use a link color that is accessible on top of the background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:816
+#: classes/class-wp-message-inserter-plugin-content-items.php:819
 msgid "Banner Heading"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:830
+#: classes/class-wp-message-inserter-plugin-content-items.php:833
 msgid "Banner Short Copy"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:854, classes/class-wp-message-inserter-plugin-content-items.php:880
+#: classes/class-wp-message-inserter-plugin-content-items.php:857, classes/class-wp-message-inserter-plugin-content-items.php:883
 msgid "Button"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:855
+#: classes/class-wp-message-inserter-plugin-content-items.php:858
 msgid "Form"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:856, classes/class-wp-message-inserter-plugin-content-items.php:881
+#: classes/class-wp-message-inserter-plugin-content-items.php:859, classes/class-wp-message-inserter-plugin-content-items.php:884
 msgid "None"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:898
+#: classes/class-wp-message-inserter-plugin-content-items.php:901
 msgid "Button Background Color"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:915
+#: classes/class-wp-message-inserter-plugin-content-items.php:918
 msgid "Button Text Color"
 msgstr ""
 
 #. translators: 1) contrast checker url, 2) label for link, 3) close link tag, 4) MinnPost color palette url, 5, label for palette link, 6) close link
-#: classes/class-wp-message-inserter-plugin-content-items.php:919
+#: classes/class-wp-message-inserter-plugin-content-items.php:922
 msgid "Use a button text color that is accessible on top of the button background color. To check contrast values, use the %1$s%2$s%3$s. You can also see the %4$s%5$s%6$s and test new colors there."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:945
+#: classes/class-wp-message-inserter-plugin-content-items.php:948
 msgid "Button Details"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:961
+#: classes/class-wp-message-inserter-plugin-content-items.php:964
 msgid "Button Icon"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:972
+#: classes/class-wp-message-inserter-plugin-content-items.php:975
 msgid "Buttons can have an icon if they are not used in an email."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:980
+#: classes/class-wp-message-inserter-plugin-content-items.php:983
 msgid "Button Emoji"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:993
+#: classes/class-wp-message-inserter-plugin-content-items.php:996
 msgid "Buttons can have an emoji on the website, if there is not an icon, or in an email."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:1002
+#: classes/class-wp-message-inserter-plugin-content-items.php:1005
 msgid "Form Shortcode"
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:1004
+#: classes/class-wp-message-inserter-plugin-content-items.php:1007
 msgid "Place shortcode for Mailchimp Signup form."
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:1019
+#: classes/class-wp-message-inserter-plugin-content-items.php:1022
 msgid "Disclaimer "
 msgstr ""
 
-#: classes/class-wp-message-inserter-plugin-content-items.php:1021
+#: classes/class-wp-message-inserter-plugin-content-items.php:1024
 msgid "This value appears below the form or button as small text."
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:1138
+msgid "Text"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:1151
+msgid "URL"
+msgstr ""
+
+#: classes/class-wp-message-inserter-plugin-content-items.php:1164
+msgid "Open in New Window?"
 msgstr ""
 
 #: templates/front-end/includes/popup-close-button.php:16

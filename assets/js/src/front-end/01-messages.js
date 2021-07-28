@@ -28,7 +28,7 @@ function getCookie( name ) {
  * @param {string} category
  * @param {string} action
  * @param {string} label
- * @param {Array} value
+ * @param {Array}  value
  */
 function analyticsTrackingEvent( type, category, action, label, value ) {
 	category =
