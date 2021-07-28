@@ -39,6 +39,9 @@ class WP_Message_Inserter_Plugin_Content_Items {
 
 		add_action( 'restrict_manage_posts', array( $this, 'filter_restrict_manage_posts' ) );
 		add_filter( 'parse_query', array( $this, 'posts_filter' ) );
+
+		// custom field types
+		add_filter( 'cmb2_render_link', array( $this, 'cmb2_link_field' ), 10, 5 );
 	}
 
 	/**
@@ -93,7 +96,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	* @return object $query
 	*
 	*/
-	function posts_filter( $query ) {
+	public function posts_filter( $query ) {
 		global $pagenow;
 		$type = 'post';
 		if ( isset( $_GET['post_type'] ) ) {
@@ -944,7 +947,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 			array(
 				'name'       => esc_html__( 'Button Details', 'wp-message-inserter-plugin' ),
 				'id'         => $prefix . 'banner_buttondetails',
-				'type'       => 'link_picker',
+				'type'       => 'link',
 				'classes'    => 'cmb2-message-type cmb2-message-type-banner',
 				'attributes' => array(
 					'required'               => false,
@@ -1114,6 +1117,80 @@ class WP_Message_Inserter_Plugin_Content_Items {
 		$delivery_methods = $combined_delivery_methods;
 
 		return $delivery_methods;
+	}
+
+	/**
+	 * Render Address Field
+	 */
+	public function cmb2_link_field( $field, $value, $object_id, $object_type, $field_type ) {
+		// make sure we specify each part of the value we need.
+		$value = wp_parse_args(
+			$value,
+			array(
+				'text'  => '',
+				'url'   => '',
+				'blank' => '',
+			)
+		);
+		?>
+		<div class="cmb2-custom-link-field-holder">
+			<div class="cmb2-custom-link-field cmb2-custom-link-field-text">
+				<p><label for="<?php echo $field_type->_id( '_text' ); ?>"><?php echo __( 'Text', 'wp-message-inserter-plugin' ); ?></label></p>
+				<?php
+				echo $field_type->input(
+					array(
+						'name'  => $field_type->_name( '[text]' ),
+						'id'    => $field_type->_id( '_text' ),
+						'value' => $value['text'],
+						'desc'  => '',
+					)
+				);
+				?>
+			</div>
+			<div class="cmb2-custom-link-field cmb2-custom-link-field-url">
+				<p><label for="<?php echo $field_type->_id( '_url' ); ?>"><?php echo __( 'URL', 'wp-message-inserter-plugin' ); ?></label></p>
+				<?php
+				echo $field_type->input(
+					array(
+						'name'  => $field_type->_name( '[url]' ),
+						'id'    => $field_type->_id( '_url' ),
+						'value' => $value['url'],
+						'desc'  => '',
+					)
+				);
+				?>
+			</div>
+			<div class="cmb2-custom-link-field cmb2-custom-link-field-target">
+				<p><label for="<?php echo $field_type->_id( '_blank' ); ?>"><?php echo __( 'Open in New Window?', 'wp-message-inserter-plugin' ); ?></label></p>
+				<?php
+				if ( 'true' === $value['blank'] ) {
+					echo $field_type->input(
+						array(
+							'name'    => $field_type->_name( '[blank]' ),
+							'id'      => $field_type->_id( '_blank' ),
+							'value'   => $value['blank'],
+							'desc'    => '',
+							'type'    => 'checkbox',
+							'checked' => 'checked',
+						)
+					);
+				} else {
+					echo $field_type->input(
+						array(
+							'name'  => $field_type->_name( '[blank]' ),
+							'id'    => $field_type->_id( '_blank' ),
+							'value' => $value['blank'],
+							'desc'  => '',
+							'type'  => 'checkbox',
+						)
+					);
+				}
+				?>
+			</div>
+		</div>
+		<br class="clear">
+		<?php
+		echo $field_type->_desc( true );
 	}
 
 	/**
