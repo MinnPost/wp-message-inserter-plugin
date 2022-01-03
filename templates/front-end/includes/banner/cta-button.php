@@ -28,8 +28,8 @@
 	}
 	$button_icon  = isset( $screen_size[ $prefix . 'banner_buttonicon' ] ) ? $screen_size[ $prefix . 'banner_buttonicon' ] : '';
 	$button_text  = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['text'] ) ? $screen_size[ $prefix . 'banner_buttondetails' ]['text'] : '';
-	$button_blank = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ) ? $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] : '';
-	if ( '' !== $button_blank ) {
+	$button_blank = isset( $screen_size[ $prefix . 'banner_buttondetails' ]['blank'] ) ? filter_var( $screen_size[ $prefix . 'banner_buttondetails' ]['blank'], FILTER_VALIDATE_BOOLEAN ) : false;
+	if ( true === $button_blank ) {
 		$button_blank = ' target="blank"';
 	}
 	?>
