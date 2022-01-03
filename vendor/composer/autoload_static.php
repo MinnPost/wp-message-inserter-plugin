@@ -10,9 +10,14 @@ class ComposerStaticInitd51841178a0673777c22583fb1f150a2
         'd5bb9c1f36335c71241bd0157cf60c3b' => __DIR__ . '/..' . '/cmb2/cmb2/init.php',
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->classMap = ComposerStaticInitd51841178a0673777c22583fb1f150a2::$classMap;
 
         }, null, ClassLoader::class);
     }
