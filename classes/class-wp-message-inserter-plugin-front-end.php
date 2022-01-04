@@ -409,10 +409,12 @@ class WP_Message_Inserter_Plugin_Front_End {
 	*/
 	private function compare_post_datetimes( $post_id, $params, $operator ) {
 		if ( ! is_array( $params ) ) {
-			$params = array_map( 'trim', explode( ',', $params ) );
+			$params         = array_map( 'trim', explode( ',', $params ) );
+			$datetimestring = implode( ',', $params );
+		} else {
+			$datetimestring = $params;
 		}
-
-		$datetime_to_check = new DateTime( $params[0], wp_timezone() );
+		$datetime_to_check = new DateTime( $datetimestring, wp_timezone() );
 		$post_datetime     = get_post_datetime( $post_id );
 
 		switch ( $operator ) {
