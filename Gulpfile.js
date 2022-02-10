@@ -16,7 +16,7 @@ const rename = require("gulp-rename");
 const sass = require('gulp-sass')(require('sass'));
 const sassGlob = require("gulp-sass-glob");
 const sort = require("gulp-sort");
-const gulpStylelint = require("gulp-stylelint");
+const gulpStylelint = require("@ronilaukkarinen/gulp-stylelint");
 const sourcemaps = require("gulp-sourcemaps");
 const uglify = require("gulp-uglify");
 const wpPot = require("gulp-wp-pot");
@@ -88,7 +88,10 @@ function adminstyles() {
 function adminsasslint() {
   return gulp.src(config.styles.admin)
     .pipe(gulpStylelint({
-      fix: true
+      fix: true,
+	  reporters: [
+        {formatter: 'string', console: true}
+      ],
     }))
     .pipe(gulp.dest(config.styles.lint_dest));
 }
@@ -96,7 +99,10 @@ function adminsasslint() {
 function frontendsasslint() {
   return gulp.src(config.styles.front_end)
     .pipe(gulpStylelint({
-      fix: true
+      fix: true,
+	  reporters: [
+        {formatter: 'string', console: true}
+      ]
     }))
     .pipe(gulp.dest(config.styles.lint_dest));
 }
@@ -141,7 +147,11 @@ function adminscripts() {
 		)
 		.pipe(concat(packagejson.name + "-admin.js")) // Concatenate
 		.pipe(sourcemaps.write())
-		.pipe(eslint())
+		.pipe(eslint( {
+			parserOptions: {
+				requireConfigFile: false
+			}}
+		))
 		.pipe(iife({
 	      useStrict: false,
 	      params: ['$'],
@@ -162,7 +172,11 @@ function frontendscripts() {
 		)
 		.pipe(concat(packagejson.name + "-front-end.js")) // Concatenate
 		.pipe(sourcemaps.write())
-		.pipe(eslint())
+		.pipe(eslint( {
+			parserOptions: {
+				requireConfigFile: false
+			}}
+		))
 		.pipe(iife({
 	      useStrict: false,
 	      params: ['$'],
@@ -175,7 +189,13 @@ function frontendscripts() {
 function adminscriptlint() {
 	return gulp
 		.src(config.scripts.admin)
-		.pipe(eslint({fix:true}))
+		.pipe(eslint( {
+				fix:true,
+				parserOptions: {
+					requireConfigFile: false
+				}
+			}
+		))
 		.pipe(eslint.format())
 		.pipe(gulp.dest(config.scripts.admin_lint))
 		// Brick on failure to be super strict
@@ -185,7 +205,13 @@ function adminscriptlint() {
 function frontendscriptlint() {
 	return gulp
 		.src(config.scripts.front_end)
-		.pipe(eslint({fix:true}))
+		.pipe(eslint( {
+				fix:true,
+				parserOptions: {
+					requireConfigFile: false
+				}
+			}
+		))
 		.pipe(eslint.format())
 		.pipe(gulp.dest(config.scripts.front_end_lint))
 		// Brick on failure to be super strict

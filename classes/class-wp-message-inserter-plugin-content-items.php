@@ -35,7 +35,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 	*/
 	public function add_actions() {
 		add_action( 'init', array( $this, 'create_message' ), 0 );
-		add_action( 'cmb2_init', array( $this, 'create_message_fields' ) );
+		add_action( 'cmb2_admin_init', array( $this, 'create_message_fields' ) );
 
 		add_action( 'restrict_manage_posts', array( $this, 'filter_restrict_manage_posts' ) );
 		add_filter( 'parse_query', array( $this, 'posts_filter' ) );
