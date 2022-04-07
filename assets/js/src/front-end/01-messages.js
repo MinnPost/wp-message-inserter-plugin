@@ -30,16 +30,31 @@ function getCookie(name) {
  * @param {string} label
  * @param {Array}  value
  */
-function analyticsTrackingEvent(type, category, action, label, value) {
-	category =
-		'Site Message: ' + category.charAt(0).toUpperCase() + category.slice(1);
-	if ('undefined' !== typeof ga) {
+function analyticsTrackingEvent(type, category, action, label, value, non_interaction) {
+	category = 'Site Message: ' + category.charAt(0).toUpperCase() + category.slice(1);
+	if ( typeof gtag !== 'undefined' ) {
+		var params = {
+			'event_category': category,
+			'event_label': label
+		};
+		if ( typeof value !== 'undefined' ) {
+			params.value = value;
+		}
+		if ( typeof non_interaction !== 'undefined' ) {
+			params.non_interaction = non_interaction;
+		}
+		gtag( type, action, params );
+	} else if ( typeof ga !== 'undefined' ) {
+		if ( non_interaction == 1 ) {
+			value = { 'nonInteraction': 1 };
+		}
 		if ('undefined' === typeof value) {
 			ga('send', type, category, action, label);
 		} else {
 			ga('send', type, category, action, label, value);
 		}
 	} else {
+		return;
 	}
 }
 
@@ -133,9 +148,7 @@ function showPopup(
 		popupId = getPostId(popupSelector + ':first');
 	}
 	if (0 !== popupId) {
-		analyticsTrackingEvent('event', 'Popup', 'Show', popupId, {
-			nonInteraction: 1,
-		});
+		analyticsTrackingEvent('event', 'Popup', 'Show', popupId, undefined, 1);
 	}
 }
 
@@ -152,9 +165,7 @@ function hidePopup(popupSelector, popupVisibleClass, lastFocus, closeTrigger) {
 	$('.' + popupSelector).removeClass(popupVisibleClass);
 	const popupId = getPostId(popupSelector);
 	if (0 !== popupId) {
-		analyticsTrackingEvent('event', 'Popup', closeTrigger, popupId, {
-			nonInteraction: 1,
-		});
+		analyticsTrackingEvent('event', 'Popup', closeTrigger, popupId, undefined, 1);
 	}
 }
 
@@ -247,9 +258,7 @@ function messageAnalytics(message) {
 	const messageRegion = getMessageRegion('.' + message);
 	const messageId = getPostId(message);
 	if ($('.' + message).is(':visible')) {
-		analyticsTrackingEvent('event', messageRegion, 'Show', messageId, {
-			nonInteraction: 1,
-		});
+		analyticsTrackingEvent('event', messageRegion, 'Show', messageId, undefined, 1);
 	}
 	// click on login link inside a message
 	$('.' + message).on('click', '.message-login', function () {
