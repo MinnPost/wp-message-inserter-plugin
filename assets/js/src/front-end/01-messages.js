@@ -22,7 +22,7 @@ function getCookie(name) {
 }
 
 /**
- * Creating Analytics events
+ * Allow our theme or other plugins to create analytics tracking events
  *
  * @param {string} type
  * @param {string} category
@@ -31,30 +31,9 @@ function getCookie(name) {
  * @param {Array}  value
  */
 function analyticsTrackingEvent(type, category, action, label, value, non_interaction) {
-	category = 'Site Message: ' + category.charAt(0).toUpperCase() + category.slice(1);
-	if ( typeof gtag !== 'undefined' ) {
-		var params = {
-			'event_category': category,
-			'event_label': label
-		};
-		if ( typeof value !== 'undefined' ) {
-			params.value = value;
-		}
-		if ( typeof non_interaction !== 'undefined' ) {
-			params.non_interaction = non_interaction;
-		}
-		gtag( type, action, params );
-	} else if ( typeof ga !== 'undefined' ) {
-		if ( non_interaction == 1 ) {
-			value = { 'nonInteraction': 1 };
-		}
-		if ('undefined' === typeof value) {
-			ga('send', type, category, action, label);
-		} else {
-			ga('send', type, category, action, label, value);
-		}
-	} else {
-		return;
+	if ( typeof wp !== 'undefined' ) {
+		category = 'Site Message: ' + category.charAt(0).toUpperCase() + category.slice(1);
+		wp.hooks.doAction('wpMessageInserterAnalyticsEvent', type, category, action, label, value, non_interaction);
 	}
 }
 
