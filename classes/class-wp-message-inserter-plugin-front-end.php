@@ -7,9 +7,11 @@
  */
 class WP_Message_Inserter_Plugin_Front_End {
 
+	public $debug;
 	public $option_prefix;
 	public $post_meta_prefix;
 	public $version;
+	public $file;
 	public $slug;
 	public $regions;
 	public $content_items;
@@ -20,9 +22,11 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 	public function __construct() {
 
+		$this->debug            = wp_message_inserter_plugin()->debug;
 		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
 		$this->post_meta_prefix = wp_message_inserter_plugin()->post_meta_prefix;
 		$this->version          = wp_message_inserter_plugin()->version;
+		$this->file             = wp_message_inserter_plugin()->file;
 		$this->slug             = wp_message_inserter_plugin()->slug;
 		$this->regions          = wp_message_inserter_plugin()->regions;
 		$this->content_items    = wp_message_inserter_plugin()->content_items;
@@ -50,10 +54,19 @@ class WP_Message_Inserter_Plugin_Front_End {
 	 * @return void
 	 */
 	public function frontend_scripts_and_styles() {
-		$javascript_dependencies = array( 'jquery', 'wp-hooks' );
+		$javascript_dependencies = array( 'wp-hooks' );
 		$css_dependencies        = array();
-		wp_enqueue_script( $this->slug . '-front-end', plugins_url( 'assets/js/' . $this->slug . '-front-end.min.js', dirname( __FILE__ ) ), $javascript_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/js/' . $this->slug . '-front-end.min.js' ), true );
-		wp_enqueue_style( $this->slug . '-front-end', plugins_url( 'assets/css/' . $this->slug . '-front-end.min.css', dirname( __FILE__ ) ), $css_dependencies, filemtime( plugin_dir_path( dirname( __FILE__ ) ) . 'assets/css/' . $this->slug . '-front-end.min.css' ), 'all' );
+		$javascript_version      = $this->version;
+		$css_version             = $this->version;
+		$minified_string         = '.min';
+		if ( true === $this->debug ) {
+			$javascript_version = filemtime( plugin_dir_path( $this->file ) . 'assets/js/' . $this->slug . '-front-end.min.js' );
+			$css_version        = filemtime( plugin_dir_path( $this->file ) . 'assets/css/' . $this->slug . '-front-end.min.css' );
+			$minified_string    = '';
+		}
+		wp_enqueue_script( $this->slug . '-front-end', plugins_url( 'assets/js/' . $this->slug . '-front-end' . $minified_string . '.js', dirname( __FILE__ ) ), $javascript_dependencies, $javascript_version, true );
+		// css is always minified for this plugin.
+		wp_enqueue_style( $this->slug . '-front-end', plugins_url( 'assets/css/' . $this->slug . '-front-end.min.css', dirname( __FILE__ ) ), $css_dependencies, $css_version, 'all' );
 	}
 
 	/**
