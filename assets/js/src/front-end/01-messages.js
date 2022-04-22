@@ -17,34 +17,47 @@ function setCookie(name, value, days) {
  * @param {string} name
  */
 function getCookie(name) {
-	const v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-	return v ? v[2] : null;
+	const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	return value ? value[2] : null;
 }
 
 /**
- * Creating Analytics events
+ * Allow our theme or other plugins to create analytics tracking events
  *
- * @param {string} type
- * @param {string} category
- * @param {string} action
- * @param {string} label
- * @param {Array}  value
+ * @param {string}  type
+ * @param {string}  category
+ * @param {string}  action
+ * @param {string}  label
+ * @param {Array}   value
+ * @param {boolean} nonInteraction
  */
-function analyticsTrackingEvent(type, category, action, label, value) {
-	category =
-		'Site Message: ' + category.charAt(0).toUpperCase() + category.slice(1);
-	if ('undefined' !== typeof ga) {
-		if ('undefined' === typeof value) {
-			ga('send', type, category, action, label);
-		} else {
-			ga('send', type, category, action, label, value);
-		}
-	} else {
+function analyticsTrackingEvent(
+	type,
+	category,
+	action,
+	label,
+	value,
+	nonInteraction
+) {
+	if (typeof wp !== 'undefined') {
+		category =
+			'Site Message: ' +
+			category.charAt(0).toUpperCase() +
+			category.slice(1);
+		wp.hooks.doAction(
+			'wpMessageInserterAnalyticsEvent',
+			type,
+			category,
+			action,
+			label,
+			value,
+			nonInteraction
+		);
 	}
 }
 
 /**
- * Faux "Session" checking/setting
+ * Faux "Session" checking/setting.
  *
  * @return {number} currentCount
  */
@@ -74,18 +87,15 @@ function setCurrentCount() {
 /**
  * Get the WordPress post ID for a given popup.
  *
- * @param {string} popupSelector
+ * @param {Object} message
  * @return {number} postId
  */
-function getPostId(popupSelector) {
+function getPostId(message) {
 	let postId = 0;
-	const classList = $('.' + popupSelector)
-		.attr('class')
-		.split(/\s+/);
-	$.each(classList, function (index, item) {
-		if (0 < item.indexOf('message-id')) {
-			postId = item.substring(item.lastIndexOf('-') + 1);
-			return false; // break each and postId will be returned
+	message.classList.forEach(function (value) {
+		if (0 < value.indexOf('message-id')) {
+			postId = value.substring(value.lastIndexOf('-') + 1);
+			return postId;
 		}
 	});
 	return postId;
@@ -99,11 +109,10 @@ function getPostId(popupSelector) {
  */
 function getMessageRegion(message) {
 	let region = '';
-	const classList = $(message).attr('class').split(/\s+/);
-	$.each(classList, function (index, item) {
-		if (0 < item.indexOf('message-region')) {
-			region = item.substring(item.lastIndexOf('-') + 1);
-			return false; // break each and region will be returned
+	message.classList.forEach(function (value) {
+		if (0 < value.indexOf('message-region')) {
+			region = value.substring(value.lastIndexOf('-') + 1);
+			return region;
 		}
 	});
 	return region;
@@ -112,227 +121,278 @@ function getMessageRegion(message) {
 /**
  * Show a specific popup. Sets a cookie and adds a visibility class.
  *
- * @param {string} popupSelector
+ * @param {Object} popupMessage
  * @param {number} cookieDayTotal
  * @param {string} popupShownCookieName
  * @param {string} popupVisibleClass
+ * @param {string} validatedSessionClass
  */
 function showPopup(
-	popupSelector,
+	popupMessage,
 	cookieDayTotal,
 	popupShownCookieName,
-	popupVisibleClass
+	popupVisibleClass,
+	validatedSessionClass
 ) {
-	let popupId = 0;
 	setCookie(popupShownCookieName, 'true', cookieDayTotal);
-	if (0 < $('.validated').length) {
-		$('.' + popupSelector + '.validated').addClass(popupVisibleClass);
-		popupId = getPostId(popupSelector + '.validated');
-	} else {
-		$('.' + popupSelector + ':first').addClass(popupVisibleClass);
-		popupId = getPostId(popupSelector + ':first');
-	}
-	if (0 !== popupId) {
-		analyticsTrackingEvent('event', 'Popup', 'Show', popupId, {
-			nonInteraction: 1,
+	const validatedItems = document.querySelectorAll(
+		'.' + validatedSessionClass
+	);
+	if (0 < validatedItems.length) {
+		validatedItems.forEach(function (validatedMessage) {
+			validatedMessage.classList.add(popupVisibleClass);
 		});
+	} else {
+		popupMessage.classList.add(popupVisibleClass);
 	}
 }
 
 /**
  * Show a specific popup. Sets a cookie and adds a visibility class.
  *
- * @param {string} popupSelector
+ * @param {Object} popupMessage
  * @param {string} popupVisibleClass
  * @param {Object} lastFocus
  * @param {string} closeTrigger
  */
-function hidePopup(popupSelector, popupVisibleClass, lastFocus, closeTrigger) {
+function hidePopup(popupMessage, popupVisibleClass, lastFocus, closeTrigger) {
 	lastFocus.focus();
-	$('.' + popupSelector).removeClass(popupVisibleClass);
-	const popupId = getPostId(popupSelector);
+	popupMessage.classList.remove(popupVisibleClass);
+	const popupId = getPostId(popupMessage);
 	if (0 !== popupId) {
-		analyticsTrackingEvent('event', 'Popup', closeTrigger, popupId, {
-			nonInteraction: 1,
-		});
+		analyticsTrackingEvent(
+			'event',
+			'Popup',
+			closeTrigger,
+			popupId,
+			undefined,
+			1
+		);
 	}
 }
 
 /**
  * Display and controls for popups
  *
- * @param {string} popupSelector
+ * @param {Object} popupMessage
  * @param {number} cookieDayTotal
  * @param {string} popupShownCookieName
  * @param {string} popupVisibleClass
  * @param {string} checkSessionClass
+ * @param {string} validatedSessionClass
  */
 function popupDisplay(
-	popupSelector,
+	popupMessage,
 	cookieDayTotal,
 	popupShownCookieName,
 	popupVisibleClass,
-	checkSessionClass
+	checkSessionClass,
+	validatedSessionClass
 ) {
 	const lastFocus = document.activeElement; // eslint-disable-line
 	// Check if we should be showing the popup
 	if (
 		'true' !== getCookie(popupShownCookieName) &&
-		!$('.' + popupSelector).hasClass(checkSessionClass)
+		(!popupMessage.classList.contains(checkSessionClass) ||
+			popupMessage.classList.contains(validatedSessionClass))
 	) {
+		// actually show the popup
 		showPopup(
-			popupSelector,
+			popupMessage,
 			cookieDayTotal,
 			popupShownCookieName,
-			popupVisibleClass
+			popupVisibleClass,
+			validatedSessionClass
 		);
-	}
 
-	// click on login link inside popup
-	$('.' + popupSelector).on('click', '.message-login', function () {
-		const url = $(this).attr('href');
-		analyticsTrackingEvent('event', 'Popup', 'Login Link', url);
-	});
+		// run messageAnalytics on the popup
+		messageAnalytics(popupMessage);
 
-	document.addEventListener(
-		'click',
-		function (event) {
-			if (
-				!$(event.target)
-					.closest('.' + popupSelector)
-					.is('.' + popupSelector) &&
-				$('.' + popupSelector).hasClass(popupVisibleClass)
-			) {
-				hidePopup(
-					popupSelector,
-					popupVisibleClass,
-					lastFocus,
-					'Click Outside to Close'
-				);
-			}
-		},
-		true
-	);
+		// 1. detect clicks inside the popup that should close it.
+		popupMessage.addEventListener(
+			'click',
+			function (event) {
+				const isCloseButton =
+					event.target.classList.contains('sm-close-btn');
+				if (true === isCloseButton) {
+					event.preventDefault();
+					hidePopup(
+						popupMessage,
+						popupVisibleClass,
+						lastFocus,
+						'Close Button'
+					);
+				}
+			},
+			true
+		);
 
-	// popup close button
-	$('.' + popupSelector).on('click', '.sm-close-btn', function (e) {
-		e.preventDefault();
-		hidePopup(popupSelector, popupVisibleClass, lastFocus, 'Close Button');
-	});
-
-	// escape key press
-	$(document).keyup(function (e) {
-		if (27 === e.keyCode) {
+		// 2. detect clicks outside the popup.
+		document.addEventListener('click', (evt) => {
+			let targetElement = evt.target;
+			do {
+				if (targetElement === popupMessage) {
+					return;
+				}
+				// Go up the DOM
+				targetElement = targetElement.parentNode;
+			} while (targetElement);
+			// This is a click outside.
 			hidePopup(
-				popupSelector,
+				popupMessage,
 				popupVisibleClass,
 				lastFocus,
-				'Escape Key'
+				'Click Outside to Close'
 			);
-		}
-	});
-
-	// click on a non-login or close link inside popup
-	$('.' + popupSelector).on(
-		'click',
-		'a:not( .sm-close-btn, .message-login )',
-		function () {
-			const popupId = getPostId(popupSelector);
-			analyticsTrackingEvent('event', 'Popup', 'Click', popupId);
-		}
-	);
-}
-
-function messageAnalytics(message) {
-	const messageRegion = getMessageRegion('.' + message);
-	const messageId = getPostId(message);
-	if ($('.' + message).is(':visible')) {
-		analyticsTrackingEvent('event', messageRegion, 'Show', messageId, {
-			nonInteraction: 1,
 		});
-	}
-	// click on login link inside a message
-	$('.' + message).on('click', '.message-login', function () {
-		const url = $(this).attr('href');
-		analyticsTrackingEvent('event', messageRegion, 'Login Link', url);
-	});
 
-	// click on a non-login or close link inside a message
-	$('.' + message).on(
-		'click',
-		'a:not( .sm-close-btn, .message-login )',
-		function () {
-			analyticsTrackingEvent('event', messageRegion, 'Click', messageId);
-		}
-	);
+		// 3. detect escape key press
+		document.onkeydown = function (evt) {
+			evt = evt || window.event;
+			let isEscape = false;
+			if ('key' in evt) {
+				isEscape = evt.key === 'Escape' || evt.key === 'Esc';
+			} else {
+				isEscape = evt.keyCode === 27;
+			}
+			if (isEscape) {
+				hidePopup(
+					popupMessage,
+					popupVisibleClass,
+					lastFocus,
+					'Escape Key'
+				);
+			}
+		};
+	} // end of if statement for the conditional to show this popup.
 }
 
 /**
- * When jQuery is loaded, set up session tracking and popup display
+ * Set up google analytics events.
+ *
+ * @param {Object} message
+ */
+function messageAnalytics(message) {
+	const messageRegion = getMessageRegion(message);
+	const messageId = getPostId(message);
+	const messageDisplay = window.getComputedStyle(message, null).display;
+	// tell analytics if a message is being displayed
+	if ('none' !== messageDisplay) {
+		analyticsTrackingEvent(
+			'event',
+			messageRegion,
+			'Show',
+			messageId,
+			undefined,
+			1
+		);
+		// click tracker for analytics events
+		message.addEventListener(
+			'click',
+			function (event) {
+				// 1. is it a login link or close button?
+				// the close event will have already been tracked by the hidePopup method.
+				const isLoginClick =
+					event.target.classList.contains('message-login');
+				const isCloseButton =
+					event.target.classList.contains('sm-close-btn');
+				if (true === isLoginClick) {
+					const url = $(this).attr('href');
+					analyticsTrackingEvent(
+						'event',
+						messageRegion,
+						'Login Link',
+						url
+					);
+				} else if (false === isCloseButton) {
+					// 2. other links
+					analyticsTrackingEvent(
+						'event',
+						messageRegion,
+						'Click',
+						messageId
+					);
+				}
+			},
+			true
+		);
+	}
+}
+
+/**
+ * When the document is loaded, set up session tracking and popup display
  *
  */
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
 	const popupSelector = 'wp-message-inserter-message-region-popup';
 	const popupShownCookieName = 'sm-shown';
 	const popupVisibleClass = 'wp-message-inserter-message-popup-visible';
 	const checkSessionClass = 'check-session-message';
 	const messageSelector = 'wp-message-inserter-message';
+	const validatedSessionClass = 'validated';
+	const checkSessionItems = document.querySelectorAll(
+		'.' + checkSessionClass
+	);
+	if (0 < checkSessionItems.length) {
+		// get the current count of sessions and set the operators for comparison
+		const currentCount = setCurrentCount();
+		const operators = {
+			gt(a, b) {
+				return a >= b;
+			},
+			lt(a, b) {
+				return a <= b;
+			},
+		};
 
-	// Get our value for days and hours to set cookie
-	const closeTimeDays =
-		parseInt($('.' + popupSelector).data('close-time-days')) || 0;
-	const closeTimeHours =
-		(parseInt($('.' + popupSelector).data('close-time-hours')) || 0) / 24;
-	// Our Total for when the cookie should expire and show the banner again
-	const cookieDayTotal = closeTimeDays + closeTimeHours;
-
-	// Session Validating and showing proper banner
-	const operators = {
-		gt(a, b) {
-			return a >= b;
-		},
-		lt(a, b) {
-			return a <= b;
-		},
-	};
-
-	const currentCount = setCurrentCount();
-
-	if (0 < $('.' + checkSessionClass).length) {
-		$('.' + checkSessionClass).each(function () {
+		// handle messages that are session-dependent
+		checkSessionItems.forEach(function (currentSessionMessage) {
 			const bannerSessionCount = parseInt(
-				$(this).data('session-count-to-check')
+				currentSessionMessage.dataset.sessionCountToCheck
 			);
-			const bannerSessionOperator = $(this).data(
-				'session-count-operator'
-			);
+			const bannerSessionOperator =
+				currentSessionMessage.dataset.sessionCountOperator;
 			if (
 				operators[bannerSessionOperator](
 					currentCount,
 					bannerSessionCount
 				)
 			) {
-				if (!$(this).hasClass(popupSelector)) {
-					$(this).addClass('validated');
+				if (currentSessionMessage.classList.contains(popupSelector)) {
+					currentSessionMessage.classList.add(validatedSessionClass);
 				} else if (!getCookie(popupShownCookieName)) {
-					$(this).addClass('validated');
+					currentSessionMessage.classList.add(validatedSessionClass);
 				}
 			}
 		});
 	}
 
-	if (0 < $('.' + popupSelector).length) {
+	const popupMessage = document.querySelector('.' + popupSelector);
+	if (null !== popupMessage) {
+		// get our value for days and hours to set cookie
+		const closeTimeDays = parseInt(popupMessage.dataset.closeTimeDays) || 0;
+		const closeTimeHours =
+			(parseInt(popupMessage.dataset.closeTimeHours) || 0) / 24;
+		// Our Total for when the cookie should expire and show the banner again
+		const cookieDayTotal = closeTimeDays + closeTimeHours;
+		// determines whether to display a popup
 		popupDisplay(
-			popupSelector,
+			popupMessage,
 			cookieDayTotal,
 			popupShownCookieName,
-			popupVisibleClass
+			popupVisibleClass,
+			checkSessionClass,
+			validatedSessionClass
 		);
 	}
 
-	if (
-		0 < $('.' + messageSelector + ':not( .' + popupSelector + ' )').length
-	) {
-		messageAnalytics(messageSelector + ':not( .' + popupSelector + ' )');
+	// analytics events for any kind of message that is displayed
+	const messageItems = document.querySelectorAll(
+		'.' + messageSelector + ':not( .' + popupSelector + ' )'
+	);
+	if (0 < messageItems.length) {
+		messageItems.forEach(function (currentMessage) {
+			messageAnalytics(currentMessage);
+		});
 	}
 });

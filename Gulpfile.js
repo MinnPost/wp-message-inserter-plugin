@@ -177,11 +177,6 @@ function frontendscripts() {
 				requireConfigFile: false
 			}}
 		))
-		.pipe(iife({
-	      useStrict: false,
-	      params: ['$'],
-	      args: ['jQuery']
-	    }))
 		.pipe(gulp.dest(config.scripts.dest))
 		.pipe(browserSync.stream());
 }

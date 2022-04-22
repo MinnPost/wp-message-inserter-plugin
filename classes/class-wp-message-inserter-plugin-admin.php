@@ -7,6 +7,7 @@
  */
 class WP_Message_Inserter_Plugin_Admin {
 
+	public $debug;
 	public $option_prefix;
 	public $post_meta_prefix;
 	public $version;
@@ -18,6 +19,7 @@ class WP_Message_Inserter_Plugin_Admin {
 
 	public function __construct() {
 
+		$this->debug            = wp_message_inserter_plugin()->debug;
 		$this->option_prefix    = wp_message_inserter_plugin()->option_prefix;
 		$this->post_meta_prefix = wp_message_inserter_plugin()->post_meta_prefix;
 		$this->version          = wp_message_inserter_plugin()->version;
