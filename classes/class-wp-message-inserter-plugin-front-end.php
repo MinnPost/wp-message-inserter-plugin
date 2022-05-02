@@ -199,10 +199,10 @@ class WP_Message_Inserter_Plugin_Front_End {
 								} else {
 									$params = array();
 									foreach ( $conditional_to_check['params'] as $key => $name ) {
-										if ( 'current_post' === $name ) {
-											$params['current_post'] = $current_id;
+										if ( 'post' === $name ) {
+											$params[ $name ] = $current_id;
 										} elseif ( 'current_user' === $name ) {
-											$params['current_user'] = get_current_user_id();
+											$params[ $name ] = get_current_user_id();
 										} else {
 											if ( is_array( $conditional_value ) && isset( $conditional_value[ $key ] ) ) {
 												$params[ $name ] = $conditional_value[ $key ];
