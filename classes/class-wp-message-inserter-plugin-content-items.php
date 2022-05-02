@@ -1273,7 +1273,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'has_params' => true,
 				'params'     => array(
 					'category',
-					'current_post',
+					'post',
 				),
 			),
 			array(
@@ -1281,7 +1281,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'has_params' => true,
 				'params'     => array(
 					'tag',
-					'current_post',
+					'post',
 				),
 			),
 			array(
