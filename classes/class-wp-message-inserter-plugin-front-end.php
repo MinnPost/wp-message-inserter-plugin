@@ -231,9 +231,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						if ( is_array( $params ) ) {
 							if ( function_exists( $method_to_call ) ) {
-								$called_method = call_user_func_array( $method_to_call, $params );
+								$called_method = call_user_func_array( $method_to_call, array_values( $params ) );
 							} elseif ( method_exists( $this, $method_to_call ) ) {
-								$called_method = call_user_func_array( array( $this, $method_to_call ), $params );
+								$called_method = call_user_func_array( array( $this, $method_to_call ), array_values( $params ) );
 							}
 						} else {
 							if ( function_exists( $method_to_call ) ) {
