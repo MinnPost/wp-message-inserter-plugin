@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa0b1666939456a38e18309bb8444184",
+    "content-hash": "c2c8252042cb76bfbc08474c8cc9b7d3",
     "packages": [
         {
             "name": "cmb2/cmb2",
-            "version": "v2.10.0",
+            "version": "v2.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CMB2/CMB2.git",
-                "reference": "4ff77d6181d3b5b8313091c50b7cffdbbfff3b32"
+                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/4ff77d6181d3b5b8313091c50b7cffdbbfff3b32",
-                "reference": "4ff77d6181d3b5b8313091c50b7cffdbbfff3b32",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/4afc4bb7b92ab6d93aac2247c9a84af773e42532",
+                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "issues": "https://github.com/CMB2/CMB2/issues",
                 "source": "http://wordpress.org/support/plugin/cmb2"
             },
-            "time": "2022-02-15T17:14:24+00:00"
+            "time": "2022-02-22T14:15:16+00:00"
         },
         {
             "name": "jcchavezs/cmb2-conditionals",
@@ -125,5 +125,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
