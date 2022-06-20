@@ -1289,7 +1289,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'post_has_meta_value',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'key',
 					'value',
 				),
@@ -1299,7 +1299,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'posted_before_datetime',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'datetime',
 					'format',
 				),
@@ -1309,7 +1309,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'posted_after_datetime',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'datetime',
 					'format',
 				),
@@ -1363,7 +1363,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'post_has_meta_value',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'key',
 					'value',
 				),
@@ -1373,7 +1373,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'posted_before_datetime',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'datetime',
 				),
 			),
@@ -1382,7 +1382,7 @@ class WP_Message_Inserter_Plugin_Content_Items {
 				'method'     => 'posted_after_datetime',
 				'has_params' => true,
 				'params'     => array(
-					'current_post',
+					'post',
 					'datetime',
 				),
 			),

@@ -231,9 +231,9 @@ class WP_Message_Inserter_Plugin_Front_End {
 
 						if ( is_array( $params ) ) {
 							if ( function_exists( $method_to_call ) ) {
-								$called_method = call_user_func_array( $method_to_call, $params );
+								$called_method = call_user_func_array( $method_to_call, array_values( $params ) );
 							} elseif ( method_exists( $this, $method_to_call ) ) {
-								$called_method = call_user_func_array( array( $this, $method_to_call ), $params );
+								$called_method = call_user_func_array( array( $this, $method_to_call ), array_values( $params ) );
 							}
 						} else {
 							if ( function_exists( $method_to_call ) ) {
@@ -343,13 +343,13 @@ class WP_Message_Inserter_Plugin_Front_End {
 	/**
 	* Check to see if the current post has the specified meta key and value
 	*
-	* @param int $current_post
+	* @param int $post
 	* @param array $params
 	* @return bool $has_meta_value
 	*/
-	public function post_has_meta_value( $current_post, $params ) {
+	public function post_has_meta_value( $post, $params ) {
 		$has_meta_value = false;
-		$has_meta_value = $this->has_meta_value( 'get_post_meta', $current_post, $params );
+		$has_meta_value = $this->has_meta_value( 'get_post_meta', $post, $params );
 		return $has_meta_value;
 	}
 
@@ -391,24 +391,24 @@ class WP_Message_Inserter_Plugin_Front_End {
 	/**
 	* Check to see if the current post was posted before the specified datetime
 	*
-	* @param int $current_post
+	* @param int $post
 	* @param array $params
 	* @return bool $comparison
 	*/
-	public function posted_before_datetime( $current_post, $params ) {
-		$comparison = $this->compare_post_datetimes( $current_post, $params, '<' );
+	public function posted_before_datetime( $post, $params ) {
+		$comparison = $this->compare_post_datetimes( $post, $params, '<' );
 		return $comparison;
 	}
 
 	/**
 	* Check to see if the current post was posted after the specified datetime
 	*
-	* @param int $current_post
+	* @param int $post
 	* @param array $params
 	* @return bool $comparison
 	*/
-	public function posted_after_datetime( $current_post, $params ) {
-		$comparison = $this->compare_post_datetimes( $current_post, $params, '>' );
+	public function posted_after_datetime( $post, $params ) {
+		$comparison = $this->compare_post_datetimes( $post, $params, '>' );
 		return $comparison;
 	}
 
