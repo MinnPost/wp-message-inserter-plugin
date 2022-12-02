@@ -66,8 +66,7 @@ function dataLayerEvent(messageRegion, messageId) {
 	if (typeof wp !== 'undefined') {
 		let dataLayerContent = {
 			'messageRegion': messageRegion,
-			'messageId': messageId,
-			'formId': formId
+			'messageId': messageId
 		};
 		wp.hooks.doAction('wpMessageInserterDataLayerEvent', dataLayerContent);
 	}
