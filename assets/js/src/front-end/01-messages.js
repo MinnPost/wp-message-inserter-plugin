@@ -60,11 +60,14 @@ function analyticsTrackingEvent(
  * Allow our theme or other plugins to send data to the dataLayer object for Google Tag Manager
  *
  * @param {string} messageRegion
+ * @param {string} messageId
  */
-function dataLayerEvent(messageRegion) {
+function dataLayerEvent(messageRegion, messageId) {
 	if (typeof wp !== 'undefined') {
-		const dataLayerContent = {
-			messageRegion,
+		let dataLayerContent = {
+			'messageRegion': messageRegion,
+			'messageId': messageId,
+			'formId': formId
 		};
 		wp.hooks.doAction('wpMessageInserterDataLayerEvent', dataLayerContent);
 	}
@@ -302,7 +305,7 @@ function messageAnalytics(message) {
 			undefined,
 			1
 		);
-		dataLayerEvent(messageRegion);
+		dataLayerEvent(messageRegion, messageId);
 		// click tracker for analytics events
 		message.addEventListener(
 			'click',
@@ -321,7 +324,7 @@ function messageAnalytics(message) {
 						'Login Link',
 						url
 					);
-					dataLayerEvent(messageRegion);
+					dataLayerEvent(messageRegion, messageId);
 				} else if (false === isCloseButton) {
 					// 2. other links
 					analyticsTrackingEvent(
@@ -330,7 +333,7 @@ function messageAnalytics(message) {
 						'Click',
 						messageId
 					);
-					dataLayerEvent(messageRegion);
+					dataLayerEvent(messageRegion, messageId);
 				}
 			},
 			true
