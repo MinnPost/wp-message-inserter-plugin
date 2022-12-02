@@ -57,6 +57,20 @@ function analyticsTrackingEvent(
 }
 
 /**
+ * Allow our theme or other plugins to send data to the dataLayer object for Google Tag Manager
+ *
+ * @param {string} messageRegion
+ */
+function dataLayerEvent(messageRegion) {
+	if (typeof wp !== 'undefined') {
+		const dataLayerContent = {
+			messageRegion,
+		};
+		wp.hooks.doAction('wpMessageInserterDataLayerEvent', dataLayerContent);
+	}
+}
+
+/**
  * Faux "Session" checking/setting.
  *
  * @return {number} currentCount
@@ -159,15 +173,17 @@ function hidePopup(popupMessage, popupVisibleClass, lastFocus, closeTrigger) {
 	lastFocus.focus();
 	popupMessage.classList.remove(popupVisibleClass);
 	const popupId = getPostId(popupMessage);
+	const messageRegion = 'Popup';
 	if (0 !== popupId) {
 		analyticsTrackingEvent(
 			'event',
-			'Popup',
+			messageRegion,
 			closeTrigger,
 			popupId,
 			undefined,
 			1
 		);
+		dataLayerEvent(messageRegion);
 	}
 }
 
@@ -286,6 +302,7 @@ function messageAnalytics(message) {
 			undefined,
 			1
 		);
+		dataLayerEvent(messageRegion);
 		// click tracker for analytics events
 		message.addEventListener(
 			'click',
@@ -304,6 +321,7 @@ function messageAnalytics(message) {
 						'Login Link',
 						url
 					);
+					dataLayerEvent(messageRegion);
 				} else if (false === isCloseButton) {
 					// 2. other links
 					analyticsTrackingEvent(
@@ -312,6 +330,7 @@ function messageAnalytics(message) {
 						'Click',
 						messageId
 					);
+					dataLayerEvent(messageRegion);
 				}
 			},
 			true
