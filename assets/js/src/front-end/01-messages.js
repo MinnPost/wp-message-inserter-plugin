@@ -185,7 +185,7 @@ function hidePopup(popupMessage, popupVisibleClass, lastFocus, closeTrigger) {
 			undefined,
 			1
 		);
-		dataLayerEvent(messageRegion);
+		dataLayerEvent(messageRegion, popupId);
 	}
 }
 
