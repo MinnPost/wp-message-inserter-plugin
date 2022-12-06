@@ -304,7 +304,6 @@ function messageAnalytics(message) {
 			undefined,
 			1
 		);
-		dataLayerEvent(messageRegion, messageId);
 		// click tracker for analytics events
 		message.addEventListener(
 			'click',
