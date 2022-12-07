@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/MinnPost/wp-message-inserter-plugin#readme",
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^12.4.0",
+    "@wordpress/eslint-plugin": "^13.6.0",
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "@ronilaukkarinen/gulp-stylelint": "^14.0.9",
